@@ -21,7 +21,7 @@
         </div>
         <hr/>
         <div class="row">
-            <%= content_tag :span, resource_class.human_attribute_name(:ifra_cat_4_limit), class: 'col-sm-2 small-label', :'data-toggle' => 'tooltip', title: t('view.hints.ifra_cat_4_limit_hint') %>
+            <%= content_tag :span, resource_class.human_attribute_name(:ifra_cat_4_limit), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
                 <%= "#{resource.ifra_cat_4_limit * 100} %" rescue "unregulated"  %>
             </div>

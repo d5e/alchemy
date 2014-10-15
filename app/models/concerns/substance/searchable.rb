@@ -12,6 +12,8 @@ module Substance::Searchable
         indexes :alt_names, analyzer: 'english', index_options: 'offsets'
         indexes :sensory_tags, analyzer: 'english', index_options: 'offsets'
         indexes :notes, analyzer: 'english', index_options: 'offsets'
+        indexes :notes_alt_1, analyzer: 'english', index_options: 'offsets'
+        indexes :notes_alt_2, analyzer: 'english', index_options: 'offsets'
       end
     end
 

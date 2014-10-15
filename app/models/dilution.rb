@@ -18,6 +18,7 @@ class Dilution < ActiveRecord::Base
     :EI10 => "10 % Ethanol, 90 % Isopropyl Myristate",
     :EI02 => "2 % Ethanol, 98 % Isopropyl Myristate",
     :MPG  => "Monopropylene Glycol",
+    :DME => "Carbitol (CAS 111-90-0)",
     :E80M15I5 => "80 % Ethanol, 15 % MPG, 5 % IPM",
     :E75D20I5 =>  "75 % Ethanol, 20 % DPG, 5 % IPM"
   }

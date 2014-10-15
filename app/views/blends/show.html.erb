@@ -25,13 +25,14 @@
         <div class="row">
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <% resource.ingredients.each do |ing| %>
+                WORK IN PROGRESS
+                <% ( [] || resource.composition).each do |key, ing| %>
                     <div class="row">
                         <div class="col-sm-3">
                             <%= ing.amount %>
                         </div>
                         <div class="col-sm-6">
-                            <%= ing.substance %>
+                            <%= key.is_a?(Symbol) ? ing.dilution.solvent_human_name : ing.substance %>
                         </div>
                         <div class="col-sm-3">
                             <%= ing.amount %>
