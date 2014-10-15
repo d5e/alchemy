@@ -35,4 +35,8 @@ class Dilution < ActiveRecord::Base
     SOLVENTS[solvent.to_sym]
   end
   
+  def to_s
+    "#{concentration * 100} % in #{solvent_human_name}"
+  end
+  
 end

@@ -116,7 +116,14 @@ body {
     select.form-control.day {
       width: 5em;
     }
-
+  }
+  
+  form {
+    select.form-control.dilution.need-filtering {
+      option[disabled] {
+        display: none;
+      }
+    }
   }
   
 }

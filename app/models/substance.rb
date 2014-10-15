@@ -13,6 +13,12 @@ class Substance < ActiveRecord::Base
   
   validates :name, :cas, uniqueness: true, allow_blank: true
   validates :name, :sensory_tags, :presence => true
+  
+  
+  
+  def to_s
+    name
+  end
 
 end
 

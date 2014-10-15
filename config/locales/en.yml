@@ -29,6 +29,9 @@ en:
       blend:
         one: Blend
         other: Blends
+      ingredient:
+        one: Ingredient
+        other: Ingredients
     attributes: 
       substance:
         alt_names: "Alternative Names"

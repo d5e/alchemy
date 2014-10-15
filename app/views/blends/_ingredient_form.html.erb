@@ -2,9 +2,21 @@
 
     <div class="form-group">
         <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
-        <div class="col-sm-9">
-            <%= fd.label :amount %>
-            <%= fd.text_field :amount %>
+        <div class="col-sm-2">
+            <%= fd.text_field :amount, placeholder: :amount, class: 'form-control' %>
+        </div>
+        <div class="col-sm-4">
+            <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>
+        </div>
+        <div class="col-sm-3">
+            <%= fd.select :dilution_id, nil, {prompt: "Pure"}, class: "form-control dilution need-filtering"  do %>
+                <% Dilution.all.collect.each do |d| %>
+                    <option value="<%= d.id %>" <%= :disabled unless fd.object.substance_id %> data-substance-id="<%= d.substance_id %>"><%= d %></option>
+                <% end %>
+            <% end %>
+            
+            
+            
         </div>
     </div>
     
