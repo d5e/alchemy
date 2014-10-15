@@ -25,10 +25,12 @@ jQuery(document).ready(function($){
         { delay: 180}
     );
     
+    console.log("ready");
+    
     
     $('form').on('change', 'select.form-control.substance.having-dilution-select', function (e) {
         
-//        console.log("doing");
+        console.log("doing");
         
         var element = $(this);
         var substanceID = element.val();
@@ -54,7 +56,7 @@ jQuery(document).ready(function($){
         });
         if (activeGotDisabled)
             dilutionSelect.val(firstDilution.val());
-//        console.log("done");
+        console.log("done");
     });
     
     
@@ -67,3 +69,14 @@ jQuery(document).ready(function($){
 
 
 
+
+
+/***************************    IE    ***************************/
+
+/* do nothing on call console if console not exists */
+if (!window.console)
+    window.console = {
+        log : function(str) {},
+        debug : function(str) {},
+        warn : function(str) { alert("console.warn: " + str); }
+    };
