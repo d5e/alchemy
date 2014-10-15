@@ -19,7 +19,8 @@
 //= require jquery_nested_form
 
 
-jQuery(document).ready(function($){
+    
+window.runAfterInit = function(){
     
     $('[data-toggle="tooltip"]:visible').tooltip(
         { delay: 180}
@@ -58,15 +59,12 @@ jQuery(document).ready(function($){
             dilutionSelect.val(firstDilution.val());
         console.log("done");
     });
-    
-    
-    
-    
-    
-    
 
-}); // end of jQuery(document).ready
+};
 
+jQuery(document).ready(window.runAfterInit);
+
+$(document).on("page:load", window.runAfterInit);
 
 
 
