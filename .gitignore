@@ -13,3 +13,5 @@ blend_notes.txt
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+.ht*
+
