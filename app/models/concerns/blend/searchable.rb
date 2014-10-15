@@ -10,10 +10,14 @@ module Blend::Searchable
         indexes :name, analyzer: 'english', index_options: 'offsets'
         indexes :sensory_tags, analyzer: 'english', index_options: 'offsets'
         indexes :notes, analyzer: 'english', index_options: 'offsets'
+        indexes :ingredients do
+          indexes :substance do
+            indexes :sensory_tags, analyzer: 'english', index_options: 'offsets'
+            indexes :notes, analyzer: 'english', index_options: 'offsets'
+          end
+        end
       end
     end
-
   end
+  
 end
-
-

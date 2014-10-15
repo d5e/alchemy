@@ -35,6 +35,8 @@ en:
     attributes: 
       substance:
         alt_names: "Alternative Names"
+        notes_alt_1: "notes Ste"
+        notes_alt_2: "notes Hry"
       blend:
   attributes:
     cas: CAS

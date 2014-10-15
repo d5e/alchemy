@@ -1,5 +1,4 @@
 <%= f.fields_for :ingredients do |fd| %>
-
     <div class="form-group">
         <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
         <div class="col-sm-2">
@@ -15,11 +14,6 @@
                     <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %> <%= :disabled if !fd.object.substance_id || d.substance_id != fd.object.substance_id %> data-substance-id="<%= d.substance_id %>"><%= d %></option>
                 <% end %>
             <% end %>
-            
-            
-            
         </div>
     </div>
-    
-
 <% end %>

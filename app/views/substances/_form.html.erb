@@ -37,13 +37,15 @@
         <%= f.text_area :sensory_tags, :class => "form-control" %>
     </div>
 </div>
-<hr/>
-<div class="form-group">
-    <%= f.label :notes, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-        <%= f.text_area :notes, :class => "form-control", rows: 5 %>
+<% [:notes, :notes_alt_1, :notes_alt_2 ].each do |field| %>
+    <hr/>
+    <div class="form-group">
+        <%= f.label field, :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
+            <%= f.text_area field, :class => "form-control", rows: 5 %>
+        </div>
     </div>
-</div>
+<% end %>
 
 <div class="dilution-form">
     <%= render "dilution_form", :f => f %>

@@ -34,13 +34,16 @@
             </div>
         </div>
         <hr/>
-        <div class="row">
-            <%= content_tag :span, resource_class.human_attribute_name(:notes), class: 'col-sm-2 small-label' %>
-            <div class="col-sm-9">
-                <%= simple_format resource.notes %>
+        <% [:notes, :notes_alt_1, :notes_alt_2 ].each do |field| %>
+            <% next unless resource.send(field).present? %>
+            <div class="row">
+                <%= content_tag :span, resource_class.human_attribute_name(field), class: 'col-sm-2 small-label' %>
+                <div class="col-sm-9">
+                    <%= simple_format resource.send field %>
+                </div>
             </div>
-        </div>
-        <hr/>
+            <hr/>
+        <% end %>
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:dilutions), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">

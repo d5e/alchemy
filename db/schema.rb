@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014161417) do
+ActiveRecord::Schema.define(version: 20141015125951) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20141014161417) do
   create_table "ingredients", force: true do |t|
     t.integer  "blend_id"
     t.integer  "substance_id"
+    t.integer  "dilution_id"
     t.float    "amount",       limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -47,6 +48,8 @@ ActiveRecord::Schema.define(version: 20141014161417) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "ifra_cat_4_limit", limit: 24
+    t.text     "notes_alt_1"
+    t.text     "notes_alt_2"
   end
 
 end
