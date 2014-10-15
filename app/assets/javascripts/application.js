@@ -21,19 +21,15 @@
 
 jQuery(document).ready(function($){
     
-    
-    
-    
     $('[data-toggle="tooltip"]:visible').tooltip(
         { delay: 180}
     );
     
     
-    
-    
-    
-    
-    $('select.form-control.substance.having-dilution-select').on('change', function (e) {
+    $('form').on('change', 'select.form-control.substance.having-dilution-select', function (e) {
+        
+//        console.log("doing");
+        
         var element = $(this);
         var substanceID = element.val();
         if (!(substanceID > 0))
@@ -58,6 +54,7 @@ jQuery(document).ready(function($){
         });
         if (activeGotDisabled)
             dilutionSelect.val(firstDilution.val());
+//        console.log("done");
     });
     
     
