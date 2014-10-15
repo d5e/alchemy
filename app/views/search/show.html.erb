@@ -1,0 +1,62 @@
+<a onclick="$('pre').toggle();" style="font-size:10px; float: right;">debug</a>
+<pre style="display:none;">
+    <%= elastic_response rescue nil %>
+    
+    # response
+    <%=     elastic_response.took rescue nil %>
+    
+    # results total
+    <%= elastic_response.results.total rescue nil %>
+
+    # SCOREs
+    <%= elastic_response.results.map(&:_score).to_json rescue nil %>
+    
+    # first _source title
+    <%= elastic_response.results.first._source.title rescue nil %>
+    
+    <%= elastic_response.to_s %>
+    <%= elastic_response.methods.sort %>
+    
+<% if elastic_response && elastic_response.respond_to?(:results) && elastic_response.results.total > 0 %>
+    # results
+    <% elastic_response.each do |r| %>
+        <%= r.inspect %>
+        <%= r.methods.sort %>
+        <%= r.to_json %>
+    <% end %>
+<% end %>
+</pre>
+
+<% if elastic_response && elastic_response.respond_to?(:results) %>
+
+    <div class="panel panel-default <%= "panel-primary substance" if elastic_response.records.present? %>">
+        <div class="panel-heading">
+            <h3 class="panel-title"> <%= elastic_response.results.total %> <%= Substance.model_name.human(count: elastic_response.results.total) %> found</h3>
+        </div>
+        <% if elastic_response.records.present? %>
+            <div class="panel-body" data-scorable="substances">
+                <%= render "substances/list", collection: elastic_response.records, resource_class: Substance %>
+            </div>
+        <% end %>
+    </div>
+
+    <script type="text/javascript">
+
+    window.substance_scores = <%= raw elastic_response.results.map(&:_score).map{|score| "#{(score*100).round} %" }.to_json %>;
+
+    jQuery(document).ready(function($){
+
+        if (window.substance_scores) {
+            $('[data-scorable="substances"] table thead tr').each(function(i,e) {
+                $(e).append("<th></th>");
+            });
+            $('[data-scorable="substances"] table tbody tr').each(function(i,e) {
+                $(e).append("<td class='score'>"+ window.substance_scores[i] + "</td>");
+            });
+        }
+
+
+    });
+    </script>
+
+<% end %>

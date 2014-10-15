@@ -1,0 +1,33 @@
+<div class="panel panel-primary <%= resource_class_name %>">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <%= link_to edit_resource_path(resource), style: 'float: right;', title: "Edit", :'data-toggle' => "tooltip" do %>
+                <span class="glyphicon glyphicon-edit"></span>
+            <% end %>
+            <%= resource.name 
+            %>
+        </h3>
+    </div>
+    <div class="panel-body">
+       <div class="row">
+            <%= content_tag :span, resource_class.human_attribute_name(:sensory_tags), class: 'col-sm-2 small-label' %>
+            <div class="col-sm-9">
+                <%= resource.sensory_tags %>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <%= content_tag :span, resource_class.human_attribute_name(:notes), class: 'col-sm-2 small-label' %>
+            <div class="col-sm-9">
+                <%= resource.notes %>
+            </div>
+        </div>
+     </div>
+    <div class="panel-footer">
+    </div>
+</div>
+<p>
+    <%= link_to blends_path, :class => "btn btn-default" do %>
+        <span class="glyphicon glyphicon-th-list"></span> Index
+    <% end %>
+</p>

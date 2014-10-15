@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  cas: MyString
+  alt_names: MyText
+  sensory_tags: MyText
+  notes: MyText
+  dilutions: MyText
+
+two:
+  name: MyString
+  cas: MyString
+  alt_names: MyText
+  sensory_tags: MyText
+  notes: MyText
+  dilutions: MyText

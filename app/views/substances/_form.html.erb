@@ -1,0 +1,88 @@
+<%= render 'form_group_error_messages' %>
+
+<div class="form-group form-group-lg">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :cas, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-3">
+        <%= f.text_field :cas, :class => "form-control" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :alt_names, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_field :alt_names, :class => "form-control" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :ifra_cat_4_limit, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-3">
+        <%= f.text_field :ifra_cat_4_limit, list: :ifra_cat_4_limits, placeholder: "unregulated", class: "form-control" %>
+        <datalist id="ifra_cat_4_limits">
+            <%= options_for_select Substance::IFRA_LIMIT_CONCENTRATIONS.collect { |s| [ "#{s * 100} %", s ] } %>
+        </datalist>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :sensory_tags, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_area :sensory_tags, :class => "form-control" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :notes, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_area :notes, :class => "form-control", rows: 5 %>
+    </div>
+</div>
+
+<div class="dilution-form">
+    <%= render "dilution_form", :f => f %>
+</div>
+
+
+<% content_for :panel_header_right do %>
+    <% if f.object.persisted? %>
+        <%= link_to '#', style: "float:left;", class: "delete-resource-link", :onclick => "$('.delete-resource-link').toggle();", :title => "Delete", :'data-toggle' => "tooltip" do %>
+            <span class="glyphicon glyphicon-trash"></span>
+        <% end %>
+        <%= link_to "Delete", substance_path(f.object), method: :delete, :'data-confirm' => "This cannot be undone! Are you sure to delete #{resource.name.upcase} ?", class: "btn btn-danger delete-resource-link", style: " display:none; padding: 3px 16px; margin-top: -5px;" %>
+        &nbsp; &nbsp;
+    <% end %>
+    <%= link_to( {}, {title: "discard changes", :'data-toggle' => "tooltip"}) do %>
+        <span class="glyphicon glyphicon-backward"></span>
+    <% end %>
+    &nbsp; &nbsp;
+    <%= link_to( {:action => ( f.object.persisted? ? :show : :index )}, title: "cancel", :'data-toggle' => "tooltip") do 
+        %><span class="glyphicon glyphicon-remove-circle"></span><% 
+    end %>
+<% end %>
+
+<% content_for :panel_footer do %>
+    <div class"form-group">
+        <%= f.link_to_add :dilutions, class: "btn btn-default", :data => { :target => ".dilution-form" } do %>
+            <span class="glyphicon glyphicon-plus-sign"></span> Add Dilution
+        <% end %>
+    </div>
+<% end %>
+
+<% content_for :form_submit_controls do %>
+    <div class="form-inline">
+        <div class"form-group">
+            <div class="col-sm-3 col-sm-offset-6 control-label checkbox">
+                <%= label_tag :create_new_after %>
+                <%= check_box_tag :create_new_after, 1, params[:create_new_after] %>
+            </div>
+            <%= f.submit submit_label, :class => "btn btn-#{submit_class ||= :success} col-sm-3" %>
+        </div>
+    </div>
+<% end %>

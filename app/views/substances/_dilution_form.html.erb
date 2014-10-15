@@ -1,0 +1,4 @@
+
+    <%= f.fields_for :dilutions do |fd| %>
+        <%= render "dilutions/form", :fd => fd, :f => f %>
+    <% end %>

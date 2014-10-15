@@ -1,0 +1,12 @@
+<%= f.fields_for :ingredients do |fd| %>
+
+    <div class="form-group">
+        <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
+        <div class="col-sm-9">
+            <%= fd.label :amount %>
+            <%= fd.text_field :amount %>
+        </div>
+    </div>
+    
+
+<% end %>

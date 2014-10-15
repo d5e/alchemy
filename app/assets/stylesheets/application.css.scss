@@ -1,0 +1,122 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+$icon-font-path: "bootstrap/";
+
+@import "bootstrap";
+
+$substance-primary-color: #7274d3;
+$blend-primary-color: #00b293;
+
+body {
+  a {
+    cursor: pointer;
+  }
+}
+
+body #header {
+  
+}
+
+body #content {
+  padding: 20px 0 40px;
+  
+  table {
+    td.score {
+      font-size: 10px;
+      color: #999;
+      text-align: right;
+    }
+  }
+
+  .panel.blend,
+  .panel.substance {
+    .panel-heading {
+      a {
+        color: white;
+        font-weight: normal;
+      }
+    }
+    .small-label {
+      font-size: 11px;
+      color: #666;
+    }
+  }
+  
+}
+
+body #footer {
+  padding: 0 0 80px;
+}
+
+
+
+body {
+  
+  .panel.panel-primary.substance {
+    border-color: $substance-primary-color;
+  }
+  .panel.panel-primary.substance > .panel-heading {
+    background-color: $substance-primary-color;
+    border-color: inherit;
+  }
+
+  .panel.panel-primary.blend {
+    border-color: $blend-primary-color;
+  }
+  .panel.panel-primary.blend > .panel-heading {
+    background-color: $blend-primary-color;
+    border-color: inherit;
+  }
+  
+  ul.nav.navbar-nav,
+  .dropdown-menu {
+    li.active.substance a {
+      background-color: $substance-primary-color;
+      color: white;
+    }
+    li.active.blend a {
+      background-color: $blend-primary-color;
+      color: white;
+    }
+  }
+  
+  .row.dilution + .row.dilution {
+    border-top: 1px solid #eee;
+    padding-top: 1ex;
+    margin-top: 1ex;
+  }
+  
+  .form-group {
+    select.form-control {
+      float: left;
+    }
+    select.form-control + select.form-control {
+      margin-left: 1em;
+    }
+    select.form-control.year {
+      width: 7em;
+    }
+    select.form-control.month {
+      width: 9em;
+    }
+    select.form-control.day {
+      width: 5em;
+    }
+
+  }
+  
+}

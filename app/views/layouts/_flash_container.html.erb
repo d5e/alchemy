@@ -1,0 +1,17 @@
+<div id="cn-flash">
+    <% { :notice => :success, :alert  => :warning, :error  => :error, :resource_hint => :info }.each do |flash_type, flash_class| %>
+        <% if (fff = flash[flash_type]) %>
+            <% fff = [ fff ] unless fff.is_a?(Array) %>
+            <div class="alert alert-<%= flash_class %>">
+                <a class="close" href="#" data-dismiss="alert">×</a>
+                <% fff.each_with_index do |fs, i| %>
+                    <% if i == 0 %>
+                        <strong><%= fs %></strong>
+                    <% else %>
+                        <%= fs %>
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+</div>

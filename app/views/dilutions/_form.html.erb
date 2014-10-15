@@ -1,0 +1,24 @@
+
+    <div class="dilutions">
+        <hr/>
+        <div class="form-group">
+            <%= f.label :dilution, :class => "col-sm-3 control-label" %>
+            <div class="col-sm-2">
+                <%= fd.text_field :concentration, list: :abc, placeholder: "Concentration", class: "form-control" %>
+                <datalist id="abc">
+                    <%= options_for_select Dilution::CONCENTRATIONS.collect { |s| [ "#{s * 100} %", s ] } %>
+                </datalist>
+            </div>
+            <div class="col-sm-4">
+                <%= fd.select :solvent, Dilution::SOLVENTS.collect { |k,v| [ v, k ] }, {prompt: 'Solvent'}, class: "form-control"  %>
+            </div>
+            <div class="col-sm-2">
+                <%= fd.select :intensity, Dilution::INTENSITIES, {prompt: 'Intensity'}, class: "form-control", title: t(:'view.hints.intensity'), data: { toggle: "tooltip" } %>
+            </div>
+            <div class="col-sm-1">
+                <%= fd.link_to_remove class: "btn" do %>
+                    <span class="glyphicon glyphicon-trash"></span>
+                <% end %>
+            </div>
+        </div>
+    </div>
