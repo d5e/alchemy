@@ -2,7 +2,7 @@
     <div class="form-group">
         <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
         <div class="col-sm-2">
-            <%= fd.text_field :amount, placeholder: :amount, class: 'form-control' %>
+            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control' %>
         </div>
         <div class="col-sm-3">
             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>

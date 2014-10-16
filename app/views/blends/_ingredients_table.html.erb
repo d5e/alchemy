@@ -1,0 +1,41 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>parts of 100</td>
+            <td>Ingredient</td>
+            <td class="r">raw weight on blend creation</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% exceeding_cat_4 = false %>
+        <% (  resource.composition).each do |key, ing| %>
+            <tr>
+                <% fraction =  (ing.amount / resource.total_weight) %>
+                <td class="<%= ( exceeding_cat_4 = :red) if !key.is_a?(Symbol) && ing.substance.ifra_cat_4_limit.to_f > 0 && fraction > ing.substance.ifra_cat_4_limit %>">
+                    <%= number_with_precision fraction * 100.0, precision: 4 %>
+                    <span style="font-size:10px;">%</span>
+                </td>
+                <td>
+                    <% if key.is_a?(Symbol) %>
+                        <%= ing.dilution.solvent_human_name %>
+                    <% else %>
+                        <%= link_to ing.substance, ing.substance %>
+                    <% end %>
+                </td>
+                <td class="r">
+                    <%= ing.amount.round %> <span class="small-unit">mg</span>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td class="r">Total:</td>
+            <td class="r"><%= resource.total_weight %> <span class="small-unit">mg</span></td>
+        </tr>
+    </tfoot>
+</table>
+<% if exceeding_cat_4 %>
+<p class="red"><%= t :'view.hints.exceeding_cat_4' %></p>
+<% end %>
