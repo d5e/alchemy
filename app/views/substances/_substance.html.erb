@@ -8,4 +8,7 @@
     <td>
         <%= substance.sensory_tags %>
     </td>
+    <td class="r">
+        <%= number_with_precision substance.price_in_eur_per_100g, precision:0 %>
+    </td>
 </tr>

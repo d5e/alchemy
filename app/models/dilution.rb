@@ -28,6 +28,7 @@ class Dilution < ActiveRecord::Base
   INTENSITIES = (1..10).to_a
 
   belongs_to :substance
+  has_many :ingredients
   
   # concentration example 0,1 % would be stored as 0.001
   # intensity between 1 and 10

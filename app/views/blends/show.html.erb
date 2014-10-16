@@ -30,6 +30,9 @@
         </div>
      </div>
     <div class="panel-footer">
+        <button class="btn btn-default" data-toggle="modal" data-target="#bottle-wizard">
+            <span class="glyphicon glyphicon-new-window"></span> Bottle
+        </button>
     </div>
 </div>
 <p>
@@ -37,3 +40,50 @@
         <span class="glyphicon glyphicon-th-list"></span> Index
     <% end %>
 </p>
+<div class="bottle-modal" style="display:none;">
+    
+    
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="bottle-wizard" tabindex="-1" role="dialog" aria-labelledby="Bottling Wizard" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Bottling Wizard</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You are about to bottle a fraction of this blend into a new container and give it a new name. You can
+                    choose if you want to substract the bottled amount from this blend and keep track of the remaining amount in this way, or alternatively
+                    leave the raw amount numbers of the original recipe in place.
+                </p>
+                <hr/>
+                <%= form_tag do |f| %>
+                    <div class="row">
+                        <%= label :asd, "ASD" %>
+                    </div>
+                <% end %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<%= link_to bottle_blend_path(resource), :class => "btn btn-default" do %>
+
+<% end %>

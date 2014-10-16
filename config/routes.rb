@@ -12,7 +12,11 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :blends
+  resources :blends do
+    member do
+      post :bottle
+    end
+  end
   
   resource :search, :controller => "search"
   
