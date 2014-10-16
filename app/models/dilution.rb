@@ -37,7 +37,13 @@ class Dilution < ActiveRecord::Base
   end
   
   def to_s
-    "#{concentration * 100} % in #{solvent_human_name}"
+    if concentration == 0.0
+      solvent_human_name
+    elsif concentration == 1.0
+      "Pure"
+    else
+      "#{concentration * 100} % in #{solvent_human_name}"
+    end
   end
   
 end
