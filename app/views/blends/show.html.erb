@@ -25,21 +25,42 @@
         <div class="row">
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                WORK IN PROGRESS
-                <% ( [] || resource.composition).each do |key, ing| %>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <%= ing.amount %>
-                        </div>
-                        <div class="col-sm-6">
-                            <%= key.is_a?(Symbol) ? ing.dilution.solvent_human_name : ing.substance %>
-                        </div>
-                        <div class="col-sm-3">
-                            <%= ing.amount %>
-                        </div>
-                    </div>
-                    <hr style="margin: 1ex 0;"/>
-                <% end %>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>parts of 100</td>
+                            <td>Ingredient</td>
+                            <td class="r">raw weight on blend creation</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% (  resource.composition).each do |key, ing| %>
+                            <tr>
+                                <td>
+                                    <%= number_with_precision (ing.amount / resource.total_weight) * 100.0, precision: 4 %>
+                                    <span style="font-size:10px;">%</span>
+                                </td>
+                                <td>
+                                    <% if key.is_a?(Symbol) %>
+                                        <%= ing.dilution.solvent_human_name %>
+                                    <% else %>
+                                        <%= link_to ing.substance, ing.substance %>
+                                    <% end %>
+                                </td>
+                                <td class="r">
+                                    <%= ing.amount %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td class="r">Total:</td>
+                            <td class="r"><%= resource.total_weight %></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
      </div>

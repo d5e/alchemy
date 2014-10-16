@@ -1,0 +1,14 @@
+<% if f.object.persisted? %>
+    <%= link_to '#', style: "float:left;", class: "delete-resource-link", :onclick => "$('.delete-resource-link').toggle();", :title => "Delete", :'data-toggle' => "tooltip" do %>
+        <span class="glyphicon glyphicon-trash"></span>
+    <% end %>
+    <%= link_to "Delete", resource_path(f.object), method: :delete, :'data-confirm' => "This cannot be undone! Are you sure to delete #{resource.name.upcase} ?", class: "btn btn-danger delete-resource-link", style: " display:none; padding: 3px 16px; margin-top: -5px;" %>
+    &nbsp; &nbsp;
+<% end %>
+<%= link_to( {}, {title: "discard changes", :'data-toggle' => "tooltip"}) do %>
+    <span class="glyphicon glyphicon-backward"></span>
+<% end %>
+&nbsp; &nbsp;
+<%= link_to( {:action => ( f.object.persisted? ? :show : :index )}, title: "cancel", :'data-toggle' => "tooltip") do 
+    %><span class="glyphicon glyphicon-remove-circle"></span><% 
+end %>

@@ -126,4 +126,15 @@ body {
     }
   }
   
+  table.table {
+    thead td {
+      font-size: 12px;
+      font-weight: bold;
+      color: #999;
+    }
+    td.r,th.r {
+      text-align: right;
+    }
+  }
+  
 }

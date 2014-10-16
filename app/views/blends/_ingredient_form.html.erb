@@ -4,7 +4,7 @@
         <div class="col-sm-2">
             <%= fd.text_field :amount, placeholder: :amount, class: 'form-control' %>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>
         </div>
         <div class="col-sm-3">
@@ -13,6 +13,11 @@
                 <% Dilution.all.collect.each do |d| %>
                     <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %> <%= :disabled if !fd.object.substance_id || d.substance_id != fd.object.substance_id %> data-substance-id="<%= d.substance_id %>"><%= d %></option>
                 <% end %>
+            <% end %>
+        </div>
+        <div class="col-sm-1">
+            <%= fd.link_to_remove class: "btn" do %>
+                <span class="glyphicon glyphicon-trash"></span>
             <% end %>
         </div>
     </div>

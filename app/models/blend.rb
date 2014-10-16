@@ -5,19 +5,24 @@ class Blend < ActiveRecord::Base
   has_many :ingredients
   has_many :substances, :through => :ingredients
   
-  
   accepts_nested_attributes_for :ingredients, allow_destroy: true # reject_if: proc { |attributes| attributes['title'].blank? }
 
   validates :name, uniqueness: true
   validates :name, :sensory_tags, :notes, :ingredients, :presence => true
   
 
+  def to_s
+    name
+  end
 
   def composition
     cc = {}
-    ingredients.each do |ing|
+    total_weight = 0.0
+    ingredients.clone.each do |ing|
       # ing
+      next if ing.dilution && ing.dilution.concentration.to_f == 0
       amount = ing.amount * (ing.dilution.concentration rescue 1.0)
+      total_weight += amount
       if cc[ing.id]
         cc[ing.id].amount += amount
       else
@@ -25,10 +30,11 @@ class Blend < ActiveRecord::Base
         cc[ing.id] = ing
       end
     end
-    ingredients.each do |ing|
+    ingredients.clone.each do |ing|
       # solvent
-      next unless ing.dilution
+      next if !ing.dilution || ing.dilution.concentration == 1.0
       s_amount = ing.amount * (1.0 - ing.dilution.concentration)
+      total_weight += s_amount
       key = ing.dilution.solvent.to_sym
       if cc[key]
         cc[key].amount += s_amount
@@ -37,7 +43,14 @@ class Blend < ActiveRecord::Base
         cc[key] = ing
       end
     end
+    @total_weight = total_weight
     cc
+  end
+  
+  def total_weight
+    return @total_weight if @total_weight
+    composition
+    @total_weight
   end
 
 end

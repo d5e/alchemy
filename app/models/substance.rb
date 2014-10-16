@@ -8,6 +8,8 @@ class Substance < ActiveRecord::Base
   default_scope { order("#{self.table_name}.name ASC") }
 
   has_many :dilutions
+  has_many :ingredients, dependent: :restrict_with_error
+  has_many :blends, through: :ingredients
     
   accepts_nested_attributes_for :dilutions, allow_destroy: true # reject_if: proc { |attributes| attributes['title'].blank? }
   

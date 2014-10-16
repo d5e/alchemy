@@ -56,7 +56,9 @@
                 used in <%= Blend.model_name.human(count: 2) %>
             </span>
             <div class="col-sm-9">
-                
+                <% resource.blends.uniq.each do |blend| %>
+                    <%= link_to blend, blend_path(blend), class: "btn btn-default" %>
+                <% end %>
             </div>
         </div>
     </div>
