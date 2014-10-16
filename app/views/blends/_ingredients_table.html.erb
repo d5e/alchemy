@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>parts of 100</td>
+            <td class="r">parts of 100</td>
             <td>Ingredient</td>
             <td class="r">raw weight on blend creation</td>
         </tr>
@@ -11,8 +11,8 @@
         <% (  resource.composition).each do |key, ing| %>
             <tr>
                 <% fraction =  (ing.amount / resource.total_weight) %>
-                <td class="<%= ( exceeding_cat_4 = :red) if !key.is_a?(Symbol) && ing.substance.ifra_cat_4_limit.to_f > 0 && fraction > ing.substance.ifra_cat_4_limit %>">
-                    <%= number_with_precision fraction * 100.0, precision: 4 %>
+                <td class="r <%= ( exceeding_cat_4 = :red) if !key.is_a?(Symbol) && ing.substance.ifra_cat_4_limit.to_f > 0 && fraction > ing.substance.ifra_cat_4_limit %>">
+                    <%= number_with_precision fraction * 100.0, precision: 5 %>
                     <span style="font-size:10px;">%</span>
                 </td>
                 <td>
@@ -37,5 +37,5 @@
     </tfoot>
 </table>
 <% if exceeding_cat_4 %>
-<p class="red"><%= t :'view.hints.exceeding_cat_4' %></p>
+    <p class="warning"><%= t :'view.hints.exceeding_cat_4' %></p>
 <% end %>
