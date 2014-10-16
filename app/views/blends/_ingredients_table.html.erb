@@ -3,7 +3,7 @@
         <tr>
             <td class="r">parts of 100</td>
             <td>Ingredient</td>
-            <td class="r">raw weight on blend creation</td>
+            <td class="r">raw weight</td>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +23,7 @@
                     <% end %>
                 </td>
                 <td class="r">
-                    <%= ing.amount.round %> <span class="small-unit">mg</span>
+                    <%= number_with_delimiter ing.amount.round %> <span class="small-unit">mg</span>
                 </td>
             </tr>
         <% end %>
@@ -32,7 +32,7 @@
         <tr>
             <td></td>
             <td class="r">Total:</td>
-            <td class="r"><%= resource.total_weight %> <span class="small-unit">mg</span></td>
+            <td class="r"><%= number_with_delimiter resource.total_weight.to_i %> <span class="small-unit">mg</span></td>
         </tr>
     </tfoot>
 </table>
