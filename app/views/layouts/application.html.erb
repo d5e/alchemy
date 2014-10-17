@@ -45,9 +45,22 @@
                     <form class="navbar-form navbar-left" role="search" action="<%= search_path %>">
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="q">
+                                <input type="text" class="form-control" placeholder="Search" name="q" id="psf" autocomplete="off" onkeyup="
+                                $.ajax({
+                                  url: '<%= suggest_substances_path %>',
+                                  dataType: 'script',
+                                  data: {
+                                      suggest : $('#psf').val()
+                                  }
+                                });
+                                
+                                
+                                ">
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                                <div id="psf-autocomplete-dropdown">
+                                    
                                 </div>
                             </div>
                         </div>

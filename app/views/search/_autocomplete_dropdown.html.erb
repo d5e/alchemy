@@ -1,0 +1,9 @@
+<div id="psf-autocomplete-dropdown">
+    <% last_id = autocomplete_dropdown.to_a.last.last %>
+    <% autocomplete_dropdown.each do |s,id| %>
+        <%= link_to s, resource_path(id), class: "btn" %>
+        <% unless last_id == id %>
+            <hr />
+        <% end %>
+    <% end %>
+</div>

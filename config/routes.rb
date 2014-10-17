@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :new_dilution
+      get :suggest
     end
   end
   

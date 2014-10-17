@@ -9,6 +9,7 @@ gem 'mysql2'
 gem 'inherited_resources'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'elasticsearch-persistence'
 gem 'bootstrap-sass'
 
 gem 'nested_form'

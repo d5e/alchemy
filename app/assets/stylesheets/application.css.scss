@@ -170,4 +170,17 @@ body {
     color: #777;
   }
   
+  #psf-autocomplete-dropdown {
+    position: absolute; background: white; padding: 1ex 0; left: 0; margin-top: 43px;
+    -webkit-box-shadow: 7px 7px 37px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 7px 37px 1px rgba(0,0,0,0.75);
+    box-shadow: 7px 7px 37px 1px rgba(0,0,0,0.75);
+    a.btn {
+      display: block;
+    }
+    hr {
+      margin: 4px 0 4px 0;
+    }
+  }
+  
 }

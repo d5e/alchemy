@@ -93,4 +93,4 @@ class Blend < ActiveRecord::Base
   
 end
 
-Blend.import
+Blend.import force: true

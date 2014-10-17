@@ -1,5 +1,7 @@
 class Dilution < ActiveRecord::Base
   
+  include ActionView::Helpers::NumberHelper
+  
   SOLVENTS = {
     :ETH => "Ethanol (>95%)",
     :DPG => "Dipropylene Glycol",
@@ -43,7 +45,7 @@ class Dilution < ActiveRecord::Base
     elsif concentration == 1.0
       "Pure"
     else
-      "#{concentration * 100} % in #{solvent_human_name}"
+      "<strong>#{number_with_precision(concentration * 100, precision: 5, strip_insignificant_zeros: true)} %</strong> in #{solvent_human_name}".html_safe
     end
   end
   

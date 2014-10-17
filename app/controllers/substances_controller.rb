@@ -11,8 +11,29 @@ class SubstancesController < InheritedResources::Base
       success.html { redirect_after_save }
     end
   end
+  
+  def suggest
+    @suggest = substance_auto_suggest params[:suggest].gsub(/\W+/,' ')
+  end
 
   protected
+  
+  def substance_auto_suggest(string)
+    response = Elasticsearch::Persistence.client.suggest \
+      index: Substance.index_name,
+      body: {
+        substances_suggest: {
+          text: string,
+          completion: { field: 'name_suggest' }
+        },
+      }
+    output_to_substance_ids = {}
+    return {} unless response["substances_suggest"]
+    response["substances_suggest"].first["options"].each do |item|
+      output_to_substance_ids[ item["text"] ] = item["payload"]["resource_id"]
+    end
+    output_to_substance_ids
+  end
 
   def redirect_after_save
     logger.info "redirect_after_save"

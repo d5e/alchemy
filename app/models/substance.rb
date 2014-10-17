@@ -1,5 +1,4 @@
 class Substance < ActiveRecord::Base
-  
  
   include Substance::Searchable
   
@@ -39,5 +38,5 @@ class Substance < ActiveRecord::Base
 end
 
 
-Substance.import
+Substance.import force: true
 
