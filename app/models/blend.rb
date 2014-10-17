@@ -46,6 +46,16 @@ class Blend < ActiveRecord::Base
     cc
   end
   
+  def raw_price
+    price = 0.0
+    ingredients.each do |ing|
+      next if ing.dilution && ing.dilution.concentration.to_f == 0
+      amount = ing.amount * (ing.dilution.concentration rescue 1.0)
+      price += amount * ing.substance.price_in_eur_per_100g.to_f * 0.00001 
+    end
+    price
+  end
+  
   def total_weight
     ingredients.sum(:amount)
   end

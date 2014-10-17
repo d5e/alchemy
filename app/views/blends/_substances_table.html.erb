@@ -28,7 +28,7 @@
         <tr>
             <td class="r"><%= number_with_precision( (resource.total_weight * 100).round / 100, strip_insignificant_zeros: true) %> <span class="small-unit">mg</span></td>
             <td>Total</td>
-            <td></td>
+            <td><%= number_with_precision resource.raw_price %> EUR</td>
         </tr>
     </tfoot>
 </table>
