@@ -1,10 +1,19 @@
 <div id="psf-autocomplete-dropdown">
     <% if autocomplete_dropdown && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
-        <% autocomplete_dropdown.each do |s,id| %>
+        <% autocomplete_dropdown = autocomplete_dropdown.to_a %>
+        <% if autocomplete_dropdown.size > 15 %>
+            <% cropped = true %>
+            <% autocomplete_dropdown.pop %>
+        <% end %>
+        <% autocomplete_dropdown.to_a.each do |a| %>
+            <% s = a.first ; id = a.last %>
             <%= link_to s, resource_path(id), class: "btn" %>
             <% unless last_id == id %>
                 <hr />
             <% end %>
+        <% end %>
+        <% if cropped %><hr/>
+            <span class="btn"> ... </span>
         <% end %>
     <% end %>
 </div>
