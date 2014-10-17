@@ -24,7 +24,7 @@ class SubstancesController < InheritedResources::Base
       body: {
         substances_suggest: {
           text: string,
-          completion: { field: 'name_suggest', size: 16 }
+          completion: { field: 'name_suggest', size: 10 }
         },
       }
     output_to_substance_ids = {}

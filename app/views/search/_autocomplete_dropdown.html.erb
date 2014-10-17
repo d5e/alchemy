@@ -1,7 +1,7 @@
 <div id="psf-autocomplete-dropdown">
     <% if autocomplete_dropdown && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
         <% autocomplete_dropdown = autocomplete_dropdown.to_a %>
-        <% if autocomplete_dropdown.size > 15 %>
+        <% if autocomplete_dropdown.size > 9 %>
             <% cropped = true %>
             <% autocomplete_dropdown.pop %>
         <% end %>
