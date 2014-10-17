@@ -134,6 +134,15 @@ body {
     }
   }
   
+  .buttons-container {
+    .btn {
+      margin-bottom: 4px;
+    }
+    .btn.btn-xs {
+      margin-bottom: 3px;
+    }
+  }
+  
   table.table {
     thead td {
       font-size: 12px;

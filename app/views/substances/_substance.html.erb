@@ -6,6 +6,9 @@
         <%= substance.cas %>
     </td>
     <td>
+        <%= "#{substance.ifra_cat_4_limit * 100}<span class='small-unit'> %</span>".html_safe rescue nil %>
+    </td>
+    <td>
         <%= substance.sensory_tags %>
     </td>
     <td class="r">
