@@ -13,7 +13,7 @@ class SubstancesController < InheritedResources::Base
   end
   
   def suggest
-    @suggest = substance_auto_suggest params[:suggest].gsub(/\W+/,' ')
+    @suggest = substance_auto_suggest params[:suggest].gsub(/\W+/,' ') rescue nil
   end
 
   protected
