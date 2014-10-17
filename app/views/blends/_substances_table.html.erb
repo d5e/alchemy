@@ -16,10 +16,10 @@
                     <span style="font-size:10px;">mg</span>
                 </td>
                 <td>
-                    <%= ing.substance %>
+                    <%= link_to ing.substance, ing.substance %>
                 </td>
                 <td>
-                    <%= ing.dilution.solvent_human_name rescue "Pure" %>
+                    <%= ing.dilution || "Pure" %>
                 </td>
             </tr>
         <% end %>
