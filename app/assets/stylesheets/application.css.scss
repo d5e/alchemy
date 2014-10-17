@@ -171,6 +171,7 @@ body {
   }
   
   #psf-autocomplete-dropdown {
+    z-index: 5;
     position: absolute; background: white; padding: 1ex 0; left: 0; margin-top: 43px;
     -webkit-box-shadow: 7px 7px 37px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 7px 7px 37px 1px rgba(0,0,0,0.75);

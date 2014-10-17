@@ -33,7 +33,7 @@ module Substance::Searchable
        notes_alt_1: notes_alt_1,
        notes_alt_2: notes_alt_2,
        name_suggest: {
-         input: name.split(/\b/),
+         input: "#{name} #{sensory_tags}".split(/\b/),
          output: name,
          payload: {
            resource_id: id
