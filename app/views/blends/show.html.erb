@@ -25,7 +25,18 @@
         <div class="row">
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <%= render "ingredients_table" %>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#ingredients-table-<%= dom_id resource %>" role="tab" data-toggle="tab">Normalized composition</a></li>
+                    <li><a href="#substances-table-<%= dom_id resource %>" role="tab" data-toggle="tab">Ingredients</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="ingredients-table-<%= dom_id resource %>">
+                        <%= render "ingredients_table" %>
+                    </div>
+                    <div class="tab-pane" id="substances-table-<%= dom_id resource %>">
+                        <%= render "substances_table" %>
+                    </div>
+                </div>
             </div>
         </div>
      </div>
@@ -33,6 +44,10 @@
         <button class="btn btn-default" data-toggle="modal" data-target="#bottle-wizard">
             <span class="glyphicon glyphicon-new-window"></span> Bottle
         </button>
+        <p style="float:right; line-height: 34px;">
+            <%= number_with_precision resource.concentration * 100, precision: 1 %> %
+            <%= resource.concentration_human %>
+        </p>
     </div>
 </div>
 <p>
@@ -40,50 +55,41 @@
         <span class="glyphicon glyphicon-th-list"></span> Index
     <% end %>
 </p>
-<div class="bottle-modal" style="display:none;">
-    
-    
-</div>
 
 
 
-
-
-
-
-
-
-<!-- Modal -->
 <div class="modal fade" id="bottle-wizard" tabindex="-1" role="dialog" aria-labelledby="Bottling Wizard" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Bottling Wizard</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    You are about to bottle a fraction of this blend into a new container and give it a new name. You can
-                    choose if you want to substract the bottled amount from this blend and keep track of the remaining amount in this way, or alternatively
-                    leave the raw amount numbers of the original recipe in place.
-                </p>
-                <hr/>
-                <%= form_tag do |f| %>
-                    <div class="row">
-                        <%= label :asd, "ASD" %>
+        <%= form_tag bottle_blend_path(resource), :remote => true do %>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Bottling Wizard</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        You are about to bottle this blend into a new container and give it a new name. You can
+                        choose the desired total amount (weight) of the final product and alchemy will create a new blend 
+                        with this recipe and calculate the ingredients and amounts needed.
+                    </p>
+                    <hr/>
+                    <div class="form-group">
+                        <%= text_field_tag :new_blend_name, "#{resource.name}, bottled", class: 'form-control', placeholder: "Name of new blend" %>
                     </div>
-                <% end %>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <%= text_field_tag :amount_in_gram, nil, class: 'form-control', placeholder: "weight" %>
+                                <div class="input-group-addon">gram</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Bottle <span class="glyphicon glyphicon-new-window"></span></button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+        <% end %>
     </div>
 </div>
-
-
-
-<%= link_to bottle_blend_path(resource), :class => "btn btn-default" do %>
-
-<% end %>

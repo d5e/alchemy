@@ -46,3 +46,10 @@ en:
       ifra_cat_4_limit_hint: "Maximum Amount of substance in final product. Category 4 includes: Hydroalcoholic Products Applied To Unshaved Skin (includes body mists (aqueous based, alcoholic based and hydroalcoholic)), Body Creams, Oils, Lotions, Fragrancing Creams of all types (except baby creams and lotions), Ingredients of Perfume Kits"
       intensity: "Sensoric Relative Intensity compared to other substances"
       exceeding_cat_4: "This product does not comply with IFRA Category 4. Therefore it can be used as a fragrance internally to mix up other fragrances, but it is not suitable as a skin contact product."
+  number:
+    format:
+      delimiter: ','
+    precision:
+      format:
+        delimiter: ','
+        precision: 2

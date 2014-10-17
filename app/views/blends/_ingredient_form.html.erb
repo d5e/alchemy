@@ -1,10 +1,10 @@
 <%= f.fields_for :ingredients do |fd| %>
     <div class="form-group">
         <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
-        <div class="col-sm-2">
+        <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
             <%= fd.text_field :amount, placeholder: :mg, class: 'form-control' %>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3  <%= :'has-error' if :substance.in?(fd.object.errors) %>">
             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>
         </div>
         <div class="col-sm-3">

@@ -1,0 +1,34 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td class="r">amount</td>
+            <td>Substance</td>
+            <td>Dilution</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% resource.ingredients.each do |ing| %>
+            <tr>
+                <td class="r">
+                    <% precision = (5 - Math.log10(ing.amount)).round %>
+                    <% precision = 0 if precision < 0 %>
+                    <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: (precision > 1) %>
+                    <span style="font-size:10px;">mg</span>
+                </td>
+                <td>
+                    <%= ing.substance %>
+                </td>
+                <td>
+                    <%= ing.dilution.solvent_human_name rescue "Pure" %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="r"><%= number_with_precision( (resource.total_weight * 100).round / 100, strip_insignificant_zeros: true) %> <span class="small-unit">mg</span></td>
+            <td>Total</td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>

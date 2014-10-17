@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016135231) do
+ActiveRecord::Schema.define(version: 20141017095344) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20141016135231) do
     t.integer  "blend_id"
     t.integer  "substance_id"
     t.integer  "dilution_id"
-    t.float    "amount",       limit: 24
+    t.float    "amount",       limit: 53
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20141016135231) do
     t.text     "notes_alt_1"
     t.text     "notes_alt_2"
     t.float    "price_per_quantity",               limit: 24
-    t.integer  "price_currency",                   limit: 1
+    t.string   "price_currency",                   limit: 3
     t.float    "quantity_in_gram_of_raw_material", limit: 24
   end
 
