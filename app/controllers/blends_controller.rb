@@ -19,7 +19,7 @@ class BlendsController < InheritedResources::Base
           if new_bottle.errors.empty? && success
             render :js => "window.location ='#{url_for new_bottle}';"
           else
-            render :js => "alert(' resize success: #{success} \n\n #{new_bottle.errors.full_messages}');"
+            render :js => "alert('#{new_bottle.errors.full_messages.join(" - ")}');"
           end
         else
           render :js => "alert('Please fill out all fields');"
