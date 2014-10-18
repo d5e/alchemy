@@ -4,12 +4,11 @@
         <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
             <%= fd.text_field :amount, placeholder: :mg, class: 'form-control' %>
         </div>
-        <div class="col-sm-3  <%= :'has-error' if :substance.in?(fd.object.errors) %>">
+        <div class="col-sm-3 <%= :'has-error' if :substance.in?(fd.object.errors) %>">
             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>
         </div>
-        <div class="col-sm-3">
-            <%= fd.select :dilution_id, nil, {}, class: "form-control dilution need-filtering"  do %>
-                <option value>Pure</option>
+        <div class="col-sm-3 <%= :'has-error' if :dilution.in?(fd.object.errors) %>">
+            <%= fd.select :dilution_id, nil, {prompt: 'please select'}, class: "form-control dilution need-filtering"  do %>
                 <% Dilution.all.collect.each do |d| %>
                     <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %> <%= :disabled if !fd.object.substance_id || d.substance_id != fd.object.substance_id %> data-substance-id="<%= d.substance_id %>"><%= d %></option>
                 <% end %>

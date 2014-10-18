@@ -1,0 +1,72 @@
+<%= nested_form_for resource, :html => {:class => "form-horizontal", :role => "form"} do |f| %>
+    <div class="panel panel-primary <%= resource_class_name %>">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <div style="float:right;">
+                    <%= yield :panel_header_right %>
+                    <%= link_to( {:action => ( f.object.persisted? ? :show : :index )}, title: "cancel", :'data-toggle' => "tooltip") do 
+                        %><span class="glyphicon glyphicon-remove-circle"></span><% 
+                    end %>
+                </div>
+                <span class="glyphicon glyphicon-edit"></span> Diluting <%= resource_class.model_name.human %>
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            <%= render 'form_group_error_messages' %>
+
+            <div class="form-group form-group-lg">
+                <%= f.label :name, :class => "col-sm-3 control-label" %>
+                <div class="col-sm-9" style="font-weight: bold;">
+                    <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", disabled: true %>
+                </div>
+            </div>
+            <hr/>
+            <div class="ingredients-form">
+                <%= f.fields_for :ingredients do |fd| %>
+                    <div class="form-group dilution-wizard">
+                        <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
+                        <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
+                            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control', readonly: true, :'data-concentration' => fd.object.concentration %>
+                        </div>
+                        <div class="col-sm-3 <%= :'has-error' if :substance.in?(fd.object.errors) %>">
+                            <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select", disabled: true  %>
+                        </div>
+                        <div class="col-sm-3 <%= :'has-error' if :dilution.in?(fd.object.errors) %>">
+                            <%= fd.select :dilution_id, nil, {prompt: 'please select'}, class: "form-control dilution need-filtering wizard"  do %>
+                                <% Dilution.all.collect.each do |d| %>
+                                    <option value="<%= d.id %>" data-concentration="<%= d.concentration %>" <%= :selected if fd.object.dilution_id == d.id %> <%= :disabled if !fd.object.substance_id || d.substance_id != fd.object.substance_id %> data-substance-id="<%= d.substance_id %>"><%= d %></option>
+                                <% end %>
+                            <% end %>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+
+            <% content_for :panel_footer do %>
+                <div class"form-group">
+                </div>
+            <% end %>
+
+
+            <% content_for :form_submit_controls do %>
+                <div class="form-inline">
+                    <div class"form-group">
+                        <%= f.submit "Dilute", :class => "btn btn-primary col-sm-offset-9 col-sm-3" %>
+                    </div>
+                </div>
+            <% end %>
+
+        </div>
+        <div class="panel-footer">
+            <%= yield :panel_footer %>
+        </div>
+    </div>
+    
+    <div class="form-submit-controls">
+        <%= yield :form_submit_controls %>
+    </div>
+<% end %>
+

@@ -14,19 +14,8 @@
     </div>
 </div>
 <hr/>
-<div class="form-group">
-    <%= f.label :sensory_tags, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-        <%= f.text_area :sensory_tags, :class => "form-control" %>
-    </div>
-</div>
-<hr/>
-<div class="form-group">
-    <%= f.label :notes, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-        <%= f.text_area :notes, :class => "form-control", rows: 5 %>
-    </div>
-</div>
+<%= render 'text_area_form_group', f: f, c: :sensory_tags %>
+<%= render 'text_area_form_group', f: f, c: :notes, opt: { rows: 5 } %>
 
 <div class="ingredients-form">
     <%= render "ingredient_form", :f => f %>

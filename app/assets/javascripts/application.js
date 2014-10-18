@@ -19,6 +19,17 @@
 //= require jquery_nested_form
 
 
+function localeToFloat(string) {
+    if (typeof string == 'number')
+        return string;
+    if ( 'de' == $('html').attr('lang'))
+        string = string.replace(/\./g,'').replace(/,/g,'.');
+    else
+        string = string.replace(/\,/g,'')
+    return parseFloat(string);
+}
+
+
     
 window.runAfterInit = function(){
     
@@ -29,7 +40,7 @@ window.runAfterInit = function(){
     console.log("ready");
     
     
-    $('form').on('change', 'select.form-control.substance.having-dilution-select', function (e) {
+    $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
         
         console.log("doing");
         
@@ -58,6 +69,17 @@ window.runAfterInit = function(){
         if (activeGotDisabled)
             dilutionSelect.val(firstDilution.val());
         console.log("done");
+    });
+
+    $('form').on('change', '.dilution-wizard select.dilution.wizard', function(e) {
+        var sd = $(this);
+        var parent = sd.closest('.form-group.dilution-wizard');
+        var amount = parent.find('input[data-concentration]');
+        var old_concentration = localeToFloat(amount.attr('data-concentration'));
+        var new_concentration = localeToFloat(sd.find('option:selected').attr('data-concentration'));
+        var scale = old_concentration / new_concentration;
+        amount.val(localeToFloat(amount.val()) * scale);
+        amount.attr('data-concentration', new_concentration);
     });
 
 };

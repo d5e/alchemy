@@ -44,21 +44,11 @@
     </div>
 </div>
 <hr/>
-<div class="form-group">
-    <%= f.label :sensory_tags, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
-        <%= f.text_area :sensory_tags, :class => "form-control" %>
-    </div>
-</div>
-<% [:notes, :notes_alt_1, :notes_alt_2 ].each do |field| %>
-    <hr/>
-    <div class="form-group">
-        <%= f.label field, :class => "col-sm-3 control-label" %>
-        <div class="col-sm-9">
-            <%= f.text_area field, :class => "form-control", rows: 5 %>
-        </div>
-    </div>
-<% end %>
+
+<%= render 'text_area_form_group', f: f, c: :sensory_tags %>
+<%= render 'text_area_form_group', f: f, c: :notes, opt: { rows: 5 } %>
+<%= render 'text_area_form_group', f: f, c: :notes_alt_1, opt: { rows: 5 } %>
+<%= render 'text_area_form_group', f: f, c: :notes_alt_2, opt: { rows: 5 } %>
 
 <div class="dilution-form">
     <%= render "dilution_form", :f => f %>
