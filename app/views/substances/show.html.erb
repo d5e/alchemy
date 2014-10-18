@@ -40,7 +40,9 @@
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:sensory_tags), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <%= resource.sensory_tags %>
+                <% resource.sensory_tags.split(/\b/).each do |tag| %>
+                    <%= link_to tag, search_path(:q => tag) %>
+                <% end %>
             </div>
         </div>
         <hr/>
