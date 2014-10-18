@@ -6,6 +6,11 @@
         <div class="panel panel-primary <%= resource_class.model_name.to_s.underscore %>">
             <div class="panel-heading">
                 <h3 class="panel-title">
+                    <div style="float:right;">
+                        <%= link_to send("new_#{resource_class.model_name.to_s.underscore}_path") do %>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        <% end %>
+                    </div>
                     <%= link_to resource_class.model_name.plural do %>
                         <%= resource_class.count %> <%= resource_class.model_name.human(count: 2) %>
                     <% end %>
