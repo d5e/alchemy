@@ -74,12 +74,14 @@ body {
     border-color: inherit;
   }
 
+
   .panel.panel-primary.blend {
     border-color: $blend-primary-color;
   }
+  .btn.btn-primary.blend,
   .panel.panel-primary.blend > .panel-heading {
     background-color: $blend-primary-color;
-    border-color: inherit;
+    border-color: $blend-primary-color;
   }
   
   ul.nav.navbar-nav,

@@ -32,6 +32,9 @@ en:
       ingredient:
         one: Ingredient
         other: Ingredients
+      note:
+        one: Note
+        other: Notes
     attributes: 
       substance:
         alt_names: "Alternative Names"

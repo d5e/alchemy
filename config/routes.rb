@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :notes
+  
   resource :search, :controller => "search"
   
   resource :welcome, :controller => "welcome" do

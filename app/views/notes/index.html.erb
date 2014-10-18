@@ -1,0 +1,18 @@
+<div class="panel panel-primary <%= resource_class_name %>">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <%= resource_class.count %> <%= resource_class.model_name.human(count: resource_class.count) %>
+            <%= link_to new_note_path, style: "float:right;" do %>
+                <span class="glyphicon glyphicon-plus"></span>
+            <% end %>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <%= render 'list' %>
+    </div>
+    <div class="panel-footer">
+        <%= link_to new_note_path, :class => "btn btn-success" do %>
+            <span class="glyphicon glyphicon-plus"></span> Add 
+        <% end %>
+    </div>
+</div>

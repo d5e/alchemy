@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017095344) do
+ActiveRecord::Schema.define(version: 20141018093634) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 20141017095344) do
     t.integer  "substance_id"
     t.integer  "dilution_id"
     t.float    "amount",       limit: 53
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notes", force: true do |t|
+    t.string   "name"
+    t.text     "tags"
+    t.text     "body"
+    t.text     "links"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

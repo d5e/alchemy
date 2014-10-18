@@ -1,0 +1,44 @@
+<%= render 'form_group_error_messages' %>
+
+<div class="form-group form-group-lg">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :tags, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_area :tags, :class => "form-control" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :links, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_area :links, :class => "form-control" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :body, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_area :body, :class => "form-control", rows: 5 %>
+    </div>
+</div>
+
+
+
+<% content_for :panel_footer do %>
+    Add the name of Substances or Blends into the links field and they will become clickable (feature not implemented yet)
+<% end %>
+
+
+<% content_for :form_submit_controls do %>
+    <div class="form-inline">
+        <div class"form-group">
+            <%= f.submit submit_label, :class => "btn btn-#{submit_class ||= :success} col-sm-offset-9 col-sm-3" %>
+        </div>
+    </div>
+<% end %>

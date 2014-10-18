@@ -1,0 +1,11 @@
+<tr>
+    <td>
+        <%= link_to note.name, note_path(note), style: "width: 100%; display:block;" %>
+    </td>
+    <td>
+        <%= note.created_at %>
+    </td>
+    <td>
+        <%= note.tags %>
+    </td>
+</tr>

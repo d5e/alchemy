@@ -69,7 +69,7 @@
             </span>
             <div class="col-sm-9">
                 <% resource.blends.uniq.each do |blend| %>
-                    <%= link_to blend, blend_path(blend), class: "btn btn-default" %>
+                    <%= link_to blend, blend_path(blend), class: "btn btn-primary blend" %>
                 <% end %>
             </div>
         </div>
