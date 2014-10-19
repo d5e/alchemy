@@ -189,4 +189,32 @@ body {
     }
   }
   
+  
+  // COLOR select for substances categories
+  
+  .color-base { // amber, musk, cedar, sandal
+    background-color: #ebc8a6;
+    border-color: #ebc8a6;
+  }
+  .color-base-heart { // sweet, herbal
+    background-color: #eabfd1;
+    border-color: #eabfd1;
+  }
+  .color-heart { // floral
+    background-color: #c7afee;
+    border-color: #c7afee;
+  }
+  .color-heart-top { // ozone, fresh, fruity
+    background-color: #adc5f4;
+    border-color: #adc5f4;
+  }
+  .color-top-floral { // flower
+    background-color: #bfedc9;
+    border-color: #bfedc9;
+  }
+  .color-top-citral {  // citral
+    background-color: #e7ff9e;
+    border-color: #e7ff9e;
+  }
+  
 }
