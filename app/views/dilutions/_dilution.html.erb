@@ -1,6 +1,6 @@
 <div class="row dilution">
     <div class="col-sm-2" style="text-align: right;">
-        <%= dilution.concentration * 100 %> %
+        <%= number_with_precision dilution.concentration * 100, precision: 7, strip_insignificant_zeros: true %> %
     </div>
     <div class="col-sm-5">
         <%= dilution.solvent_human_name %>

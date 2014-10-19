@@ -11,7 +11,8 @@
             <tr>
                 <td class="r">
                     <% precision = (5 - Math.log10(ing.amount)).round %>
-                    <% precision = 0 if precision < 0 %>
+                    <% precision = 1 if precision < 2 %>
+                    <% precision += 1 if precision == 3 %>
                     <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: (precision > 1) %>
                     <span style="font-size:10px;">mg</span>
                 </td>
@@ -26,7 +27,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td class="r"><%= number_with_precision( (resource.total_weight * 100).round / 100, strip_insignificant_zeros: true) %> <span class="small-unit">mg</span></td>
+            <td class="r"><%= number_with_precision resource.total_weight, precision: (resource.total_weight > 1e6 ? 0 : 1), strip_insignificant_zeros: (resource.total_weight > 1e6) %> <span class="small-unit">mg</span></td>
             <td>Total</td>
             <td><%= number_with_precision resource.raw_price %> EUR</td>
         </tr>
