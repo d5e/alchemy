@@ -1,5 +1,5 @@
 <div class="character-strip">
     <% blend.character_proportions.each do |name, w| %>
-        <span class="segment color-<%= name %>" style="width:<%= w %>%;"></span>
+        <span class="segment color-<%= name %>" style="width:<%= w %>%;" title="<%= name %>" data-toggle="tooltip"></span>
     <% end %>
 </div>

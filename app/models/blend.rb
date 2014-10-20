@@ -53,7 +53,7 @@ class Blend < ActiveRecord::Base
       # substance
       next if ing.dilution && ing.dilution.concentration.to_f == 0
       percent = ing.amount * (ing.dilution.concentration rescue 1.0) / weight.to_f * 100.0
-      name = ing.substance.character || :none
+      name = ing.substance.character || :unknown
       if cp[name]
         cp[name] += percent
       else
