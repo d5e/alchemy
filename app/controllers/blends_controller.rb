@@ -35,7 +35,7 @@ class BlendsController < InheritedResources::Base
     # It's mandatory to specify the nested attributes that should be whitelisted.
     # If you use `permit` with just the key that points to the nested attributes hash,
     # it will return an empty hash.
-    params.require(:blend).permit(:name, :creation_at, :sensory_tags, :notes, 
+    params.require(:blend).permit(:name, :creation_at, :sensory_tags, :notes, :color,
       ingredients_attributes: [:substance_id, :amount, :dilution_id, :id, :_destroy ]
     )
    end

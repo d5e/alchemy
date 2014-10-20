@@ -74,7 +74,7 @@
             </span>
             <div class="col-sm-9 buttons-container ">
                 <% resource.blends.uniq.each do |blend| %>
-                    <%= link_to blend, blend_path(blend), class: "btn btn-primary btn-sm blend" %>
+                    <%= link_to blend, blend_path(blend), colored(blend, class: "btn btn-primary btn-sm blend") %>
                 <% end %>
             </div>
         </div>

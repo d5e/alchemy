@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ 
  */
 
 $icon-font-path: "bootstrap/";
@@ -56,6 +57,45 @@ body #content {
     }
   }
   
+  
+  
+  .panel.panel-primary.bg-white {
+    .panel-heading, .panel-title, .panel-title * {
+      color: rgba(0,0,0,0.7);
+    }
+  }
+  .panel.panel-primary.bg-bright {
+    .panel-heading, .panel-title, .panel-title * {
+      color: rgba(0,0,0,0.85);
+    }
+  }
+  .panel.panel-primary.bg-dark {
+    .panel-heading, .panel-title, .panel-title * {
+      color: rgba(255,255,255,0.90);
+    }
+  }
+  .panel.panel-primary.bg-black {
+    .panel-heading, .panel-title, .panel-title * {
+      color: rgba(255,255,255,0.83);
+    }
+  }
+
+
+  .bg-white {
+    color: rgba(0,0,0,0.7);
+  }
+  .bg-bright {
+    color: rgba(0,0,0,0.85);
+  }
+  .bg-dark {
+    color: rgba(255,255,255,0.90);
+  }
+  .bg-black {
+    color: rgba(255,255,255,0.83);
+  }
+
+  
+  
 }
 
 body #footer {
@@ -83,6 +123,10 @@ body {
     background-color: $blend-primary-color;
     border-color: $blend-primary-color;
   }
+  
+  
+  
+  
   
   ul.nav.navbar-nav,
   .dropdown-menu {
@@ -225,5 +269,19 @@ body {
       height: 100%
     }
   }
+  
+  div[data-colorpicker] {
+    position: absolute;
+    right: 3ex;
+    margin-top: 5ex;
+    z-index: 3;
+    padding: 3ex;
+    background: white;
+  }
+  div[data-colorpicker] input {
+    box-sizing: content-box;
+    padding: 1px 3px 0px 1px;
+  }
+
   
 }

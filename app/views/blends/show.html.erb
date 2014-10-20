@@ -1,5 +1,5 @@
-<div class="panel panel-primary <%= resource_class_name %>">
-    <div class="panel-heading">
+<div class="panel panel-primary <%= resource_class_name %> <%= bg_color_class(resource.color) %>" style="border-color:#<%= resource.color %>;">
+    <div class="panel-heading" style="background-color:#<%= resource.color %>; border-color:#<%= resource.color %>;">
         <h3 class="panel-title">
             <div style="float:right;">
                 <%= link_to dilute_blend_path(resource), style: "margin-right: 9px;" do %>

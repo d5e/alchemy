@@ -9,9 +9,14 @@
 <hr/>
 <div class="form-group">
     <%= f.label :creation_at, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
+    <div class="col-sm-6">
         <%= f.date_select :creation_at, { with_css_classes: true, order: [:day, :month, :year] }, :class => "form-control date" %>
     </div>
+    <div class="col-sm-3">
+        <%= link_to "COLOR", "#", class: "btn btn-default ", style: "font-weight:900; color:rgba(0,0,0,0.2); width: 100%; background-color:##{f.object.color};", :'data-colorpicker' => "button"  %>
+        <%= f.hidden_field :color, :'data-colorpicker' => '' %>
+    </div>
+    <div data-colorpicker="flat" style="display:none;"></div>
 </div>
 <hr/>
 <%= render 'text_area_form_group', f: f, c: :sensory_tags %>

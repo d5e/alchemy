@@ -63,11 +63,11 @@ window.runAfterInit = function(){
             if (el.val()) {
                 el.attr('disabled', '');
                 if (dilutionSelectedVal == el.val())
-                    activeGotDisabled = true;
+                activeGotDisabled = true;
             }
         });
         if (activeGotDisabled)
-            dilutionSelect.val(firstDilution.val());
+        dilutionSelect.val(firstDilution.val());
         console.log("done");
     });
 
@@ -97,14 +97,45 @@ window.runAfterInit = function(){
         button.attr('class',  nc);
         button.addClass('color-' + name);
     });
-    
-    
+
+//    $('[data-colorpicker="flat"]').ColorPicker({flat: true});
+
+    $('[data-colorpicker="flat"]').ColorPicker({
+        flat: true,
+        color: $('input[data-colorpicker]').val() || '#ffffff',
+        onShow: function (colpkr) {
+            $(colpkr).fadeIn(500);
+            return false;
+        },
+        onHide: function (colpkr) {
+            $(colpkr).fadeOut(500);
+            return false;
+        },
+        onChange: function (hsb, hex, rgb) {
+//            $('#colorSelector div').css('backgroundColor', '#' + hex);
+            console.log(hex);
+        },
+        onSubmit: function (hsb, hex, rgb) {
+//            $('#colorSelector div').css('backgroundColor', '#' + hex);
+            console.log(" sub: " + hex);
+            $('[data-colorpicker="flat"]').hide();
+            if (hex == "ffffff")
+                hex = "";
+            $('input[data-colorpicker]').val(hex);
+            $('[data-colorpicker="button"]').css('background-color', '#' + hex);
+        }
+    });
+
+    $('[data-colorpicker="button"]').on('click', function(e) {
+        $('[data-colorpicker="flat"]').toggle();
+    });
 
 };
 
 jQuery(document).ready(window.runAfterInit);
 
 $(document).on("page:load", window.runAfterInit);
+
 
 
 
