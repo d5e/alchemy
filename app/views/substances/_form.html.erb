@@ -2,8 +2,28 @@
 
 <div class="form-group form-group-lg">
     <%= f.label :name, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
+    <div class="col-sm-6">
         <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;" %>
+    </div>
+    <div class="col-sm-3" style="text-align: right;">
+        <div class="btn-group">
+            <button type="button" data-color-selector="list" class="btn btn-default dropdown-toggle <%= "color-#{resource.character}" if resource.character.present? %>" data-toggle="dropdown">
+                <span class="button-title">
+                    <span style="font-weight: bold; opacity: 0.7;" class="name"><%= resource.character.to_s.upcase %></span>
+                </span><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="padding:1px 1px 0; left:auto; right:0; ">
+                <% substance_character.each do |name, s| %>
+                    <li>
+                        <!-- ONCLICK -->
+                        <%= link_to "#", class: "color-#{name}", style: "border-bottom:1px solid #fff;", :'data-name' => name, :'data-color-selector' => 'list' do %>
+                            <span style="font-weight: bold; opacity: 0.7;"><%= name.upcase %></span> <span style="font-size: 11px; opacity: 0.6"><%= s.first %></span>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+            <%= f.hidden_field :character, class: 'character'  %>
+        </div>
     </div>
 </div>
 <hr/>

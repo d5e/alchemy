@@ -82,6 +82,24 @@ window.runAfterInit = function(){
         amount.attr('data-concentration', new_concentration);
     });
 
+    $('form').on('click', '.btn-group a[data-color-selector="list"]', function(e) {
+        var cs = $(this);
+        var parent = cs.closest('.btn-group');
+        var hidden = parent.find('input[type="hidden"]');
+        var button = parent.find('button[data-color-selector="list"]')
+        var name = cs.attr('data-name');
+        button.find('span.name').text(name.toUpperCase());
+        hidden.val(name);
+        var oldc = button.attr('class');
+        if (!oldc)            return;
+        var nc = oldc.replace(/color\-\w+/,'')
+        console.log(nc);
+        button.attr('class',  nc);
+        button.addClass('color-' + name);
+    });
+    
+    
+
 };
 
 jQuery(document).ready(window.runAfterInit);

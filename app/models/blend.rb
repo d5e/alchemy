@@ -46,6 +46,23 @@ class Blend < ActiveRecord::Base
     cc
   end
   
+  def character_proportions
+    return {} unless (weight = essence_weight)
+    cp = {}
+    ingredients.each do |ing|
+      # substance
+      next if ing.dilution && ing.dilution.concentration.to_f == 0
+      percent = ing.amount * (ing.dilution.concentration rescue 1.0) / weight.to_f * 100.0
+      name = ing.substance.character || :none
+      if cp[name]
+        cp[name] += percent
+      else
+        cp[name] = percent
+      end
+    end
+    cp
+  end
+  
   def raw_price
     return @raw_price if @raw_price 
     price = 0.0
@@ -64,13 +81,17 @@ class Blend < ActiveRecord::Base
   def total_weight
     ingredients.sum(:amount)
   end
-  
-  def concentration
+
+  def essence_weight
     c_v = 0
     ingredients.each do |ing|
       c_v += ing.amount * (ing.dilution.concentration rescue 1.0)
     end
-    c_v / total_weight
+    c_v
+  end
+    
+  def concentration
+    essence_weight / total_weight
   end
   
   def concentration_human

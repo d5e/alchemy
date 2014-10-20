@@ -20,6 +20,15 @@
             </div>
         </div>
         <hr/>
+
+        <div class="row">
+             <%= content_tag :span, resource_class.human_attribute_name(:character), class: 'col-sm-2 small-label' %>
+             <div class="col-sm-9">
+                 <%= render 'character_strip', blend: resource %>
+             </div>
+         </div>
+         <hr/>
+
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:notes), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">

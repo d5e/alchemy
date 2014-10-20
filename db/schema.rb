@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018093634) do
+ActiveRecord::Schema.define(version: 20141020073947) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20141018093634) do
     t.date     "creation_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "color",        limit: 8
   end
 
   create_table "dilutions", force: true do |t|
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 20141018093634) do
     t.float    "price_per_quantity",               limit: 24
     t.string   "price_currency",                   limit: 3
     t.float    "quantity_in_gram_of_raw_material", limit: 24
+    t.string   "character",                        limit: 20
   end
 
 end

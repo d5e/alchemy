@@ -21,6 +21,7 @@
                     <% if key.is_a?(Symbol) %>
                         <%= ing.dilution.solvent_human_name %>
                     <% else %>
+                        <span class="color-<%= ing.substance.character %>" style="display: inline-block; height: 59%; width: 0.66em;"></span>
                         <%= link_to ing.substance, ing.substance %>
                     <% end %>
                 </td>

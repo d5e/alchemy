@@ -1,0 +1,5 @@
+<div class="character-strip">
+    <% blend.character_proportions.each do |name, w| %>
+        <span class="segment color-<%= name %>" style="width:<%= w %>%;"></span>
+    <% end %>
+</div>

@@ -52,7 +52,7 @@ class SubstancesController < InheritedResources::Base
     # It's mandatory to specify the nested attributes that should be whitelisted.
     # If you use `permit` with just the key that points to the nested attributes hash,
     # it will return an empty hash.
-    params.require(:substance).permit(:name, :cas, :sensory_tags, :alt_names, :notes, :notes_alt_1, :notes_alt_2, :ifra_cat_4_limit,
+    params.require(:substance).permit(:name, :cas, :sensory_tags, :alt_names, :notes, :notes_alt_1, :notes_alt_2, :ifra_cat_4_limit, :character,
       :price_per_quantity, :price_currency, :quantity_in_gram_of_raw_material,
       dilutions_attributes: [:solvent, :concentration, :intensity, :_destroy, :id]
     )

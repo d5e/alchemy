@@ -1,6 +1,6 @@
 <tr>
-    <td>
-        <%= link_to substance.name, substance_path(substance), style: "width: 100%; display:block;" %>
+    <td class="color-<%= substance.character %>">
+        <%= link_to substance.name, substance_path(substance), style: "width: 100%; display:block; color:rgba(0,0,0,0.6); font-weight: bold;" %>
     </td>
     <td>
         <%= substance.cas %>
