@@ -1,6 +1,7 @@
 <tr>
-    <td>
+    <%= content_tag :td, colored(blend) do %>
         <%= link_to blend.name, blend_path(blend), style: "width: 100%; display:block;" %>
+    <% end %>
     </td>
     <td>
         <%= blend.creation_at %>

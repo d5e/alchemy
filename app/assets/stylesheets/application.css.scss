@@ -61,12 +61,12 @@ body #content {
   
   .panel.panel-primary.bg-white {
     .panel-heading, .panel-title, .panel-title * {
-      color: rgba(0,0,0,0.7);
+      color: rgba(0,0,0,0.85);
     }
   }
   .panel.panel-primary.bg-bright {
     .panel-heading, .panel-title, .panel-title * {
-      color: rgba(0,0,0,0.85);
+      color: rgba(0,0,0,0.7);
     }
   }
   .panel.panel-primary.bg-dark {
@@ -81,17 +81,25 @@ body #content {
   }
 
 
-  .bg-white {
+  .btn.bg-white,
+  td.bg-white {
     color: rgba(0,0,0,0.7);
+    a { color: inherit}
   }
-  .bg-bright {
+  .btn.bg-bright,
+  td.bg-bright {
     color: rgba(0,0,0,0.85);
+    a { color: inherit}
   }
-  .bg-dark {
+  .btn.bg-dark,
+  td.bg-dark {
     color: rgba(255,255,255,0.90);
+    a { color: inherit}
   }
-  .bg-black {
+  .btn.bg-black,
+  td.bg-black {
     color: rgba(255,255,255,0.83);
+    a { color: inherit}
   }
 
   
