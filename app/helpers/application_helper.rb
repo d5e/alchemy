@@ -11,11 +11,13 @@ module ApplicationHelper
   def substance_character 
     {
       'base' => ['amber, musk, cedar, sandal','#ebc8a6'],
+      'base-citral' => ['citral, green, floral', '#bedc55'],
       'base-heart' => ['sweet, herbal','#eabfd1'],
       'heart' => ['floral','#c7afee'],
       'heart-top' => ['ozone, fresh, fruity','#adc5f4'],
       'top-floral' => ['flower','#bfedc9'],
-      'top-citral' => ['citral','#e7ff9e']
+      'top-citral' => ['citral','#e7ff9e'],
+      'top-musk' => ['powdery, creamy, warm','#ffec83']
     }
   end
   
