@@ -20,7 +20,7 @@
                 <%= render 'list' %>
             </div>
             <div class="tab-pane" id="substances-table-by-price">
-                <%= render 'list', collection: collection.sort{|a,b|(a.price_in_currency_per_100)  || 0 <=>(b.price_in_currency_per_100g || 0)  } %>
+                <%= render 'list', collection: collection.sort{|a,b|(a.price_in_currency_per_100g  || 0 ) <=> (b.price_in_currency_per_100g || 0)  } %>
             </div>
             <div class="tab-pane" id="substances-table-by-character">
                 <%= render 'list', collection: collection.unscoped.order_character %>
