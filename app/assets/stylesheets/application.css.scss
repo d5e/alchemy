@@ -22,6 +22,12 @@ $icon-font-path: "bootstrap/";
 $substance-primary-color: #7274d3;
 $blend-primary-color: #00b293;
 
+// @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200);
+
+// @import url(http://fonts.googleapis.com/css?family=Aladin);
+
+@import url(http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic);
+
 body {
   a {
     cursor: pointer;
@@ -301,5 +307,9 @@ body {
     padding: 1px 3px 0px 1px;
   }
 
+  button.virtual.aligner {
+    width: 0px;
+    visibility: hidden;
+  }
   
 }

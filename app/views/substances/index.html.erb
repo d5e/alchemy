@@ -8,7 +8,28 @@
         </h3>
     </div>
     <div class="panel-body">
-        <%= render 'list' %>
+        
+        
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#substances-table-by-name" role="tab" data-toggle="tab">by name</a></li>
+            <li><a href="#substances-table-by-price" role="tab" data-toggle="tab">by price</a></li>
+            <li><a href="#substances-table-by-character" role="tab" data-toggle="tab">by character</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="substances-table-by-name">
+                <%= render 'list' %>
+            </div>
+            <div class="tab-pane" id="substances-table-by-price">
+                <%= render 'list', collection: collection.sort{|a,b| a.price_in_currency_per_100g || 0 <=> b.price_in_currency_per_100g || 0  } %>
+            </div>
+            <div class="tab-pane" id="substances-table-by-character">
+                <%= render 'list', collection: collection.unscoped.order_character %>
+            </div>
+            
+        </div>
+        
+        
+
     </div>
     <div class="panel-footer">
         <%= link_to new_substance_path, :class => "btn btn-success" do %>

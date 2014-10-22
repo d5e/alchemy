@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :substances do
     member do
       get :new_dilution
+      post :add_dilution_to_blend
     end
     collection do
       get :new_dilution

@@ -1,11 +1,18 @@
-<div class="row dilution">
-    <div class="col-sm-2" style="text-align: right;">
+<div class="row dilution" data-dilution="<%= dilution.to_param %>">
+    <div class="col-sm-3" style="text-align: right;">
         <%= number_with_precision dilution.concentration * 100, precision: 7, strip_insignificant_zeros: true %> %
+        <% if resource.is_a?(Substance) %>&nbsp;
+            <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#add-to-blend-modal" onclick="$('#add-to-blend-modal form input.dilution_id').val(<%= dilution.id %>);">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </button>
+        <% end %>
     </div>
     <div class="col-sm-5">
         <%= dilution.solvent_human_name %>
+        <button class="btn btn-sm virtual aligner ">&nbsp;</button>
     </div>
     <div class="col-sm-1">
         <%= dilution.intensity %>
+        <button class="btn btn-sm virtual aligner ">&nbsp;</button>
     </div>
 </div>

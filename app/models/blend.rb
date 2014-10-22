@@ -1,6 +1,8 @@
 class Blend < ActiveRecord::Base
 
   include Searchable
+  
+  scope :order_updated_at, -> { order("#{self.table_name}.updated_at DESC") }
 
   has_many :ingredients, dependent: :destroy
   has_many :substances, through: :ingredients

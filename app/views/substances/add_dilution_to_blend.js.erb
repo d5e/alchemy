@@ -1,0 +1,5 @@
+$('.modal.in').modal('hide');
+$('[data-dilution=\"<%= @dilution.to_param %>\"] button.btn[data-toggle=\"modal\"]').removeClass('btn-default').addClass('btn-success');
+
+var html = "<%= j render 'used_in_blends' %>";
+$('.used-in-blends-container').html(html);

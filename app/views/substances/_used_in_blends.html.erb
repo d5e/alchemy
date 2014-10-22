@@ -1,0 +1,8 @@
+<span class="col-sm-2 small-label">
+    used in <%= Blend.model_name.human(count: 2) %>
+</span>
+<div class="col-sm-9 buttons-container ">
+    <% resource.blends.uniq.each do |blend| %>
+        <%= link_to blend, blend_path(blend), colored(blend, class: "btn btn-primary btn-sm blend") %>
+    <% end %>
+</div>

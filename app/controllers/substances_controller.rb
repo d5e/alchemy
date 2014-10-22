@@ -15,6 +15,20 @@ class SubstancesController < InheritedResources::Base
   def suggest
     @suggest = substance_auto_suggest params[:suggest].gsub(/\W+/,' ') rescue nil
   end
+  
+  def add_dilution_to_blend
+    respond_to do |format|
+      format.js do
+        begin
+          blend = Blend.find(params[:blend_id])
+          @dilution = Dilution.find(params[:dilution_id])
+          blend.ingredients << Ingredient.new(:dilution_id => @dilution.id, :substance_id => resource.id, :amount => 1)
+        rescue Exception => e
+          render :js => "alert('error: #{e.message}');"
+        end
+      end
+    end
+  end
 
   protected
   

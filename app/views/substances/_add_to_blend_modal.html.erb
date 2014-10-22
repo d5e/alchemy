@@ -1,0 +1,26 @@
+<div class="modal fade" id="add-to-blend-modal" tabindex="-1" role="dialog" aria-labelledby="Add to Blend Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <%= form_tag add_dilution_to_blend_substance_path(resource), :remote => true do %>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add to blend</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Select the blend to which you would like to add this dilution
+                    </p>
+                    <div>
+                        <%= label_tag :blend_id, Blend.model_name.human %>
+                        <%= select_tag :blend_id, options_for_select( Blend.all.order_updated_at.collect { |b| [ b.name, b.id ] }), class: "form-control blend"  %>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add <span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+            <%= hidden_field_tag :dilution_id, nil, class: 'dilution_id' %>
+        <% end %>
+    </div>
+</div>
