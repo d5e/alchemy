@@ -39,7 +39,3 @@ class Substance < ActiveRecord::Base
   end
 
 end
-
-
-Substance.import force: true
-

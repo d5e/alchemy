@@ -59,8 +59,11 @@
             <span class="glyphicon glyphicon-new-window"></span> Bottle
         </button>
         <p style="float:right; line-height: 34px;">
+            <button class="btn btn-default" data-toggle="modal" data-target="#adjust-wizard">
+                <span class="glyphicon glyphicon-wrench"></span> Adjust
+            </button>
             <%= number_with_precision resource.concentration * 100, precision: 1 %> %
-            <%= resource.concentration_human %>
+            <%= concentration_human resource %>
         </p>
     </div>
 </div>
@@ -69,6 +72,41 @@
         <span class="glyphicon glyphicon-th-list"></span> Index
     <% end %>
 </p>
+
+
+
+<div class="modal fade" id="adjust-wizard" tabindex="-1" role="dialog" aria-labelledby="Adjust Wizard" aria-hidden="true">
+    <div class="modal-dialog">
+        <%= form_tag adjust_blend_path(resource) do %>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Adjust Wizard</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Please enter the desired concentration.
+                    </p>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <%= text_field_tag :concentration, nil, class: 'form-control', placeholder: "max: #{number_with_precision resource.max_concentration * 100} %", autocomplete: "off" %>
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Adjust <span class="glyphicon glyphicon-wrench"></span></button>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+
+
 
 
 

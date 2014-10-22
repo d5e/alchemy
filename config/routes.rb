@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :blends do
     member do
       post :bottle
+      post :adjust
       get :dilute
     end
   end

@@ -1,6 +1,6 @@
 class Ingredient < ActiveRecord::Base
   
-  belongs_to :blend
+  belongs_to :blend, touch: true
   belongs_to :substance
   belongs_to :dilution
   

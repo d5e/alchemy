@@ -8,6 +8,29 @@ module ApplicationHelper
     end
   end
   
+  def concentration_human(concentration)
+    concentration = concentration.concentration if concentration.is_a?(Blend)
+    if concentration > 0.39
+      "Huiles essentielles"
+    elsif concentration > 0.197
+      "Perfume extraits"
+    elsif concentration > 0.1145
+      "Eau de Parfum"
+    elsif concentration > 0.068
+      "Eau de Toilette"
+    elsif concentration > 0.039
+      "Eau de Cologne"
+    elsif concentration > 0.0149
+      "Eau Légère"
+    elsif concentration > 0.5
+      "Eau de solide"
+    elsif concentration > 0.0
+      "traces"
+    else
+      "inv"
+    end
+  end
+  
   def substance_character 
     {
       'base' => ['amber, musk, cedar, sandal','#ebc8a6'],

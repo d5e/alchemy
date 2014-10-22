@@ -81,7 +81,7 @@ class Blend < ActiveRecord::Base
   end
   
   def total_weight
-    ingredients.sum(:amount)
+    ingredients.sum(:amount).to_f
   end
 
   def essence_weight
@@ -89,33 +89,11 @@ class Blend < ActiveRecord::Base
     ingredients.each do |ing|
       c_v += ing.amount * (ing.dilution.concentration rescue 1.0)
     end
-    c_v
+    c_v.to_f
   end
     
   def concentration
     essence_weight / total_weight
-  end
-  
-  def concentration_human
-    if concentration > 0.39
-      "Huiles essentielles"
-    elsif concentration > 0.197
-      "Perfume extraits"
-    elsif concentration > 0.1145
-      "Eau de Parfum"
-    elsif concentration > 0.068
-      "Eau de Toilette"
-    elsif concentration > 0.039
-      "Eau de Cologne"
-    elsif concentration > 0.0149
-      "Eau Légère"
-    elsif concentration > 0.5
-      "Eau de solide"
-    elsif concentration > 0.0
-      "traces"
-    else
-      "inv"
-    end
   end
   
   def resize!(new_mass)
@@ -128,7 +106,40 @@ class Blend < ActiveRecord::Base
     end
     success
   end
+
+  def additional_solvents_amount
+    sum = 0.0
+    ingredients.each do |ing|
+      sum += ing.amount if ing.dilution && ing.dilution.concentration == 0.0
+    end
+    sum.to_f
+  end
+  
+  def max_concentration
+    essence_weight / (total_weight - additional_solvents_amount)
+  end
+  
+  def adjust!(new_concentration)
+    if new_concentration < max_concentration
+      new_mass = (essence_weight / new_concentration)
+      ing_m = total_weight - additional_solvents_amount
+      nasm = new_mass - ing_m
+      ratio = (nasm) / additional_solvents_amount
+      return total_weight if adjust_solvents_by!(ratio)
+    else
+      return false
+    end
+  end
+  
+  def adjust_solvents_by!(ratio)
+    puts ratio.to_s
+    success = true
+    ingredients.each do |ing|
+      next unless ing.dilution && ing.dilution.concentration == 0.0
+      ing.amount *= ratio
+      success = false unless ing.save
+    end
+    success
+  end
   
 end
-
-Blend.import force: true
