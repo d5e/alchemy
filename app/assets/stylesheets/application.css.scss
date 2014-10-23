@@ -41,6 +41,13 @@ body #header {
 body #content {
   padding: 20px 0 40px;
   
+  .tac {
+    text-align: center;
+  }
+  .tar {
+    text-align: right;
+  }
+  
   table {
     td.score {
       font-size: 10px;

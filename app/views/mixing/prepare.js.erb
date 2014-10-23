@@ -1,0 +1,7 @@
+$('#mix-wizard').remove();
+
+var modal = "<%= j render 'mixing_modal' %>";
+
+$('body #content').append(modal);
+
+$('#mix-wizard').modal();

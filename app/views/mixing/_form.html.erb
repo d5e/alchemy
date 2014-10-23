@@ -1,0 +1,72 @@
+
+<div class="form-group">
+    <%= text_field_tag :new_blend_name, nil, class: 'form-control', placeholder: "Name of new blend" %>
+</div>
+
+<div id="error-box">
+    
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#mix-essences" role="tab" data-toggle="tab" onclick="$('input#strategy').val('essences');">
+        mix essences
+    </a></li>
+    <li><a href="#mix-ingredients" role="tab" data-toggle="tab" onclick="$('input#strategy').val('ingredients');">
+        mix ingredients
+    </a></li>
+</ul>
+<%= hidden_field_tag :strategy, 'essences' %>
+<div class="tab-content">
+    <div class="tab-pane active" id="mix-essences" style="padding: 1ex;">
+        <p style="padding: 1ex 0;">
+            Enter the percentages of essences to take from each blend. Additional Solvents will be discarded. If specific ingredients are available in
+            higher concentration or pure, always the higher concentration will be taken into the blend. This will deduct the total weight entered here.
+            In such cases you will yield the highest possible concentration with your available ingredients. Use the adjust function after to dilute again.
+        </p>
+        <div class="form-horizontal">
+            <% @blends.each do |blend| %>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <%= text_field_tag "#{dom_id(blend)}_percent", nil, class: 'form-control tar', placeholder: "essence", autocomplete: "off" %>
+                            <div class="input-group-addon">%</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <%= content_tag :span, blend.name, colored(blend, class: "btn blend") %>
+                    </div>
+                </div>
+            <% end %>
+            <hr/>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <%= text_field_tag "total_weight", nil, class: 'form-control tar', placeholder: "total weight", autocomplete: "off" %>
+                        <div class="input-group-addon">gram</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="mix-ingredients" style="padding: 1ex;">
+        <p style="padding: 1ex 0;">
+            Enter the amounts of all ingredients, including solvents to take from each blend.
+        </p>
+        <div class="form-horizontal">
+            <% @blends.each do |blend| %>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <%= text_field_tag "#{dom_id(blend)}_mg", nil, class: 'form-control tar', placeholder: "ingredient", autocomplete: "off" %>
+                            <div class="input-group-addon">mg</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <%= content_tag :span, blend.name, colored(blend, class: "btn blend") %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+

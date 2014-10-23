@@ -8,24 +8,25 @@ module ApplicationHelper
     end
   end
   
+  def concentration_classes
+    {
+      0.39   =>   "Huiles essentielles",
+      0.197  =>   "Perfume extraits",
+      0.1145 =>   "Eau de Parfum",
+      0.068  =>   "Eau de Toilette",
+      0.039  =>   "Eau de Cologne",
+      0.0149 =>   "Eau Légère",
+      0.5    =>   "Eau de solide",
+      0.0    =>   "traces"
+    }
+  end
+  
   def concentration_human(concentration)
-    concentration = concentration.concentration if concentration.is_a?(Blend)
-    if concentration > 0.39
-      "Huiles essentielles"
-    elsif concentration > 0.197
-      "Perfume extraits"
-    elsif concentration > 0.1145
-      "Eau de Parfum"
-    elsif concentration > 0.068
-      "Eau de Toilette"
-    elsif concentration > 0.039
-      "Eau de Cologne"
-    elsif concentration > 0.0149
-      "Eau Légère"
-    elsif concentration > 0.5
-      "Eau de solide"
-    elsif concentration > 0.0
-      "traces"
+    concentration = concentration.concentration.to_f if concentration.is_a?(Blend)
+    if concentration > 0.0
+      concentration_classes.each do |p, n|
+        return n if concentration > p
+      end
     else
       "inv"
     end

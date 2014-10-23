@@ -91,6 +91,11 @@ class Blend < ActiveRecord::Base
     end
     c_v.to_f
   end
+  
+  # without additional solvents
+  def ingredient_weight
+    total_weight - additional_solvents_amount
+  end
     
   def concentration
     essence_weight / total_weight

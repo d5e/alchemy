@@ -22,6 +22,15 @@ Rails.application.routes.draw do
     end
   end
   
+  resource :mixing, :controller => "mixing" do
+    member do
+      get :new
+      post :prepare
+      get :prepare
+      post :create
+    end
+  end
+  
   resources :notes
   
   resource :search, :controller => "search"

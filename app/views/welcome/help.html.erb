@@ -4,3 +4,13 @@
 <p>
     <%= t :'view.hints.ifra_cat_4_limit_hint' %>
 </p>
+
+<hr/>
+
+<h4>Classification by concentration of essentials</h4>
+
+<ul>
+    <% concentration_classes.each do |p, n| %>
+        <li>above <%= number_with_precision p * 100, strip_insignificant_zeros: true %> % : <%= n %></li>
+    <% end %>
+</ul>

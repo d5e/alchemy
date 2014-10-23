@@ -1,0 +1,20 @@
+<div class="modal fade in" id="mix-wizard" tabindex="-1" role="dialog" aria-labelledby="Mixing Wizard" aria-hidden="true">
+    <div class="modal-dialog">
+        <%= form_tag mixing_path, remote: true do %>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mixing Wizard</h4>
+                </div>
+                <div class="modal-body">
+                    <%= render "form" %>
+                </div>
+                <div class="modal-footer">
+                    <%= link_to "restart in new window", prepare_mixing_path(params), class: "btn btn-default" %>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Mix! <span class="glyphicon glyphicon-random"></span></button>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

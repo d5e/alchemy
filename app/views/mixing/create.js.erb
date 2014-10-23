@@ -1,0 +1,15 @@
+<% @errors.each do |error| %>
+    var <%= error %> = $('form input#<%= error %>');
+    if (<%= error %>.length > 0)
+        <%= error %>.parent().addClass('has-error');
+    else
+        $('#error-box').append("<p class='alert'><%= j error %></p>");
+<% end %>
+
+<% if @new_blend.errors.present? %>
+    alert("<%= j @new_blend.errors.full_messages.join(" ") %>");
+<% end %> 
+
+<% if @errors.blank? && @new_blend.errors.blank? %>
+    window.location = "<%= url_for @new_blend %>";
+<% end %>

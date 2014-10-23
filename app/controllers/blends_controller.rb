@@ -1,8 +1,5 @@
 class BlendsController < InheritedResources::Base
   
-  def mix
-  end
-  
   def adjust
     target_c = params[:concentration].to_f / 100.0
     resource.adjust! target_c
