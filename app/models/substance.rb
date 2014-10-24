@@ -25,6 +25,8 @@ class Substance < ActiveRecord::Base
   
   validates :ifra_cat_4_limit, numericality: { greater_than_or_equal_to: 0, smaller_than: 1 }, allow_blank: true
   
+  validates_associated :dilutions
+  
   
   def price_in_eur_per_100g
     price_in_currency_per_100g / CURRENCIES[price_currency.to_sym] rescue nil

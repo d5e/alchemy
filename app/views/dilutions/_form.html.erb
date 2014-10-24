@@ -4,7 +4,7 @@
         <div class="form-group">
             <%= f.label :dilution, :class => "col-sm-3 control-label" %>
             <% disable = fd.object.persisted? && fd.object.ingredients.exists? %>
-            <div class="col-sm-2">
+            <div class="col-sm-2 <%= :'has-error' if :concentration.in? fd.object.errors %>">
                 <%= fd.text_field :concentration, list: :abc, placeholder: "Concentration", class: "form-control", disabled: disable %>
                 <datalist id="abc">
                     <%= options_for_select Dilution::CONCENTRATIONS.collect { |s| [ "#{s * 100} %", s ] } %>

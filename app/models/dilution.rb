@@ -32,6 +32,8 @@ class Dilution < ActiveRecord::Base
   belongs_to :substance
   has_many :ingredients
   
+  validates :concentration, numericality: { greater_than_or_equal_to: 0.0, less_than_or_equal_to: 1.0 }
+  
   # concentration example 0,1 % would be stored as 0.001
   # intensity between 1 and 10
 
