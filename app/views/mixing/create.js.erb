@@ -6,7 +6,7 @@
         $('#error-box').append("<p class='alert'><%= j error %></p>");
 <% end %>
 
-<% if @new_blend.errors.present? %>
+<% if (@new_blend.errors.present? rescue nil) %>
     alert("<%= j @new_blend.errors.full_messages.join(" ") %>");
 <% end %> 
 

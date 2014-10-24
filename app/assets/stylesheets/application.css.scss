@@ -248,6 +248,11 @@ body {
     .btn {
       display: block;
       text-align: left;
+      border-radius: 0px;
+    }
+    .btn[class*="color"] {
+      color: rgba(0,0,0,0.7);
+      font-weight: bold;
     }
     hr {
       margin: 4px 0 4px 0;

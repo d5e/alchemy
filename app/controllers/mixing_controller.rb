@@ -11,7 +11,7 @@ class MixingController < ApplicationController
   
   protected
   
-  def dilute(ingredients)
+  def dilute_ing(ingredients)
     ingredients.each do |ing|
       next if ing.dilution
       ing.dilution = ing.substance.dilutions.order("concentration DESC").first
@@ -19,9 +19,23 @@ class MixingController < ApplicationController
       ing.amount /= ing.dilution.concentration
     end
   end
+  
+  def dilute_ess(ingredients, dilutions)
+    ingredients.each do |ing|
+      next if ing.dilution
+      ddd = dilutions[ing.substance_id].first
+      dilutions[ing.substance_id].each do |di|
+        ddd = di if di.concentration > ddd.concentration
+      end
+      ing.dilution = ddd
+      next unless ing.dilution
+      ing.amount /= ing.dilution.concentration
+    end
+  end
 
   def mix_blends
     ingredients = {}
+    dilutions = {}
     blends = []
     blends_with_ratio do |blend, ratio|
       Rails.logger.info "#{blend}-r: #{ratio} "
@@ -31,19 +45,25 @@ class MixingController < ApplicationController
         if essence_strategy?
           next if concentration == 0.0
           new_amount = ing.amount * ratio * concentration
-          Rails.logger.info "  #{ing.substance} : #{new_amount}   by con: #{concentration}"
+          merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount)
         else
           if concentration == 0.0
             new_amount = ing.amount * ratio
+            merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount, ing.dilution)
           else
+            dilutions[ing.substance_id] ||= []
+            dilutions[ing.substance_id] << ing.dilution
             new_amount = ing.amount * ratio * concentration
+            merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount)
           end
         end
-        merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount, ing.dilution)
-        Rails.logger.info "    new ing amount : #{ingredients[ing.substance_id].amount}"
       end
     end
-    dilute ingredients.values
+    if essence_strategy?
+      dilute_ing ingredients.values
+    else
+      dilute_ess ingredients.values, dilutions
+    end
     new_blend = built_blend(blends)
     new_blend.ingredients << ingredients.values
     new_blend.save
