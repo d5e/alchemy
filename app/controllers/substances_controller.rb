@@ -38,12 +38,19 @@ class SubstancesController < InheritedResources::Base
       body: {
         substances_suggest: {
           text: string,
-          completion: { field: 'name_suggest', size: 10 }
+          completion: { field: 'name_suggest', size: 4 },
+        },
+        substances_suggest_tags: {
+          text: string,
+          completion: { field: 'tags_suggest', size: 8 }
         },
       }
     output_to_substance_ids = {}
     return {} unless response["substances_suggest"]
     response["substances_suggest"].first["options"].each do |item|
+      output_to_substance_ids[ item["text"] ] = item["payload"]["resource_id"]
+    end
+    response["substances_suggest_tags"].first["options"].each do |item|
       output_to_substance_ids[ item["text"] ] = item["payload"]["resource_id"]
     end
     output_to_substance_ids

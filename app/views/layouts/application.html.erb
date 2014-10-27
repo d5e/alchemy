@@ -46,6 +46,9 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="q" id="psf" autocomplete="off" onkeyup="
+                                
+                                if ( $('#psf').val().length > 1)
+                                
                                 $.ajax({
                                   url: '<%= suggest_substances_path %>',
                                   dataType: 'script',
@@ -55,13 +58,12 @@
                                 });
                                 
                                 
-                                ">
-                                <div class="input-group-btn">
+                                "/>
+                                <span class="input-group-btn">
                                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                                </div>
-                                <div id="psf-autocomplete-dropdown">
-                                    
-                                </div>
+                                </span>
+                            </div>
+                            <div id="psf-autocomplete-dropdown">
                             </div>
                         </div>
                         <div class="form-group">

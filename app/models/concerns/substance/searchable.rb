@@ -10,6 +10,7 @@ module Substance::Searchable
     mapping do
       indexes :name, analyzer: 'english', index_options: 'offsets'
       indexes :name_suggest, type: 'completion', payloads: true, index_analyzer: "simple", search_analyzer: "simple"
+      indexes :tags_suggest, type: 'completion', payloads: true, index_analyzer: "simple", search_analyzer: "simple"
       indexes :cas, analyzer: 'english', index_options: 'offsets'
       indexes :alt_names, analyzer: 'english', index_options: 'offsets'
       indexes :sensory_tags, analyzer: 'english', index_options: 'offsets'
@@ -33,7 +34,14 @@ module Substance::Searchable
        notes_alt_1: notes_alt_1,
        notes_alt_2: notes_alt_2,
        name_suggest: {
-         input: "#{name} #{sensory_tags}".split(/\b/),
+         input: name.split(/\b/),
+         output: name,
+         payload: {
+           resource_id: id
+         }
+       },
+       tags_suggest: {
+         input: sensory_tags.split(/\b/),
          output: name,
          payload: {
            resource_id: id
