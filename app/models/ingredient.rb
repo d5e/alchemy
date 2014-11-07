@@ -4,7 +4,7 @@ class Ingredient < ActiveRecord::Base
   belongs_to :substance
   belongs_to :dilution
   
-  validates :substance, :amount, :dilution, presence: true
+  validates :substance, :dilution, presence: true
   validates :amount, numericality: { greater_than: 0.0 }
   
   validate :substance_match_dilution

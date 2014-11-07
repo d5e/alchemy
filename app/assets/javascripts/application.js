@@ -80,7 +80,11 @@ window.runAfterInit = function(){
         var dilutionSelectedVal = dilutionSelect.val();
         dilutionSelect.find('option').remove();
         var dilutions = eval(" window.availableDilutions.s" + substanceID);
-        if (!dilutions) return;
+        if (!dilutions) {
+            dilutionSelect.append('<option value>no dilution available</option>');
+            return;
+        }
+        dilutionSelect.append('<option value>please select</option>');
         dilutions.forEach(function(dil) {
             console.log(dil);
             selected = " ";
