@@ -72,11 +72,10 @@ class MixingController < ApplicationController
   
   def blends_with_ratio(&block)
     # essence mixing actually does blend diluted ingredients (in concentrations as they appear in the source blends), but discards additional solvents
-    if params[:strategy] == 'essences'
+    if essence_strategy?
       percent = blend_params.values.map(&:to_f).sum
       total_weight = params[:total_weight].to_f
       adp = (total_weight * 1000.0) / percent
-    elsif params[:strategy] == 'ingredients'
     end
     
     blend_params.each do |k,v|
@@ -85,7 +84,7 @@ class MixingController < ApplicationController
         Rails.logger.info "adp: #{adp} ;   v.to_f: #{v.to_f} ;   bmax: #{blend.essence_weight}"
         ratio = (adp * v.to_f) / blend.ingredient_weight
       else
-        ratio = v.to_f / blend.total_weight
+        ratio = v.to_f == 0.0 ? 1.0 : (v.to_f / blend.total_weight)
       end
       yield(blend, ratio)
     end
@@ -144,7 +143,7 @@ class MixingController < ApplicationController
     valid = true
     params.each do |key, val|
       if key.to_s[/_mg\z/]
-        unless val.to_f > 0.0
+        if val.to_f == 0.0 && val != ""
           valid = false 
           add_error key
         end

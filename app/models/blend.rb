@@ -10,7 +10,7 @@ class Blend < ActiveRecord::Base
   accepts_nested_attributes_for :ingredients, allow_destroy: true # reject_if: proc { |attributes| attributes['title'].blank? }
 
   validates :name, uniqueness: true
-  validates :name, :sensory_tags, :notes, :ingredients, :presence => true
+  validates :name, :ingredients, :presence => true
 
   validates_associated  :ingredients
 

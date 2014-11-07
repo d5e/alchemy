@@ -8,11 +8,7 @@
             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>
         </div>
         <div class="col-sm-3 <%= :'has-error' if :dilution.in?(fd.object.errors) %>">
-            <%= fd.select :dilution_id, nil, {prompt: 'please select'}, class: "form-control dilution need-filtering"  do %>
-                <% Dilution.all.collect.each do |d| %>
-                    <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %> <%= :disabled if !fd.object.substance_id || d.substance_id != fd.object.substance_id %> data-substance-id="<%= d.substance_id %>"><%= d %></option>
-                <% end %>
-            <% end %>
+            <%= render 'dilution_select', fd: fd %>
         </div>
         <div class="col-sm-1">
             <%= fd.link_to_remove class: "btn" do %>

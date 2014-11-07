@@ -1,0 +1,11 @@
+<%
+    substance ||= fd.object.substance
+    dilutions = substance.try(:dilutions) || []
+%>
+<%= fd.select :dilution_id, nil, {prompt: 'please select'}, class: "form-control dilution need-filtering" do %>
+    <% if dilutions.present? %>
+        <% dilutions.each do |d| %>
+            <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %>  data-substance-id="<%= d.substance_id %>"><%= d %></option>
+        <% end %>
+    <% end %>
+<% end %>

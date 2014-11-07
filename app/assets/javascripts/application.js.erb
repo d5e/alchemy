@@ -40,36 +40,56 @@ window.runAfterInit = function(){
     console.log("ready");
     
     
+    // $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
+    //     
+    //     console.log("doing");
+    //     
+    //     var element = $(this);
+    //     var substanceID = element.val();
+    //     if (!(substanceID > 0))
+    //         return;
+    //     var parent = element.closest('.form-group');
+    //     var dilutionSelect = parent.find('select.form-control.dilution.need-filtering');
+    //     var dilutionSelectedVal = dilutionSelect.val();
+    //     var firstDilution = dilutionSelect.find('option:not(:disabled):first');
+    //     var optionsEnable = dilutionSelect.find('option[data-substance-id="' + substanceID + '"]');
+    //     var optionsDisable = dilutionSelect.find('option:not([data-substance-id="' + substanceID + '"])');
+    //     optionsEnable.each( function(i,e) {
+    //         $(e).attr('disabled', null);
+    //     });
+    //     var activeGotDisabled = false;
+    //     optionsDisable.each( function(i,e) {
+    //         var el = $(e);
+    //         if (el.val()) {
+    //             el.attr('disabled', '');
+    //             if (dilutionSelectedVal == el.val())
+    //             activeGotDisabled = true;
+    //         }
+    //     });
+    //     if (activeGotDisabled)
+    //     dilutionSelect.val(firstDilution.val());
+    //     console.log("done");
+    // });
+    
     $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
-        
-        console.log("doing");
-        
-        var element = $(this);
-        var substanceID = element.val();
-        if (!(substanceID > 0))
-            return;
-        var parent = element.closest('.form-group');
+        var selected = "";
+        var substanceID = $(this).val();
+        if (!(substanceID > 0)) return;
+        var parent = $(this).closest('.form-group');
         var dilutionSelect = parent.find('select.form-control.dilution.need-filtering');
         var dilutionSelectedVal = dilutionSelect.val();
-        var firstDilution = dilutionSelect.find('option:not(:disabled):first');
-        var optionsEnable = dilutionSelect.find('option[data-substance-id="' + substanceID + '"]');
-        var optionsDisable = dilutionSelect.find('option:not([data-substance-id="' + substanceID + '"])');
-        optionsEnable.each( function(i,e) {
-            $(e).attr('disabled', null);
-        });
-        var activeGotDisabled = false;
-        optionsDisable.each( function(i,e) {
-            var el = $(e);
-            if (el.val()) {
-                el.attr('disabled', '');
-                if (dilutionSelectedVal == el.val())
-                activeGotDisabled = true;
-            }
-        });
-        if (activeGotDisabled)
-        dilutionSelect.val(firstDilution.val());
-        console.log("done");
-    });
+        dilutionSelect.find('option').remove();
+        var dilutions = eval(" window.availableDilutions.s" + substanceID);
+        if (!dilutions) return;
+        dilutions.forEach(function(dil) {
+            console.log(dil);
+            selected = " ";
+            if (dilutionSelectedVal == dil.dilution_id)
+                selected = " selected "
+            dilutionSelect.append('<option value="' + dil.dilution_id + '" ' + selected + '>' + dil.dilution_name + '</option>');
+         });
+         
+     });
 
     $('form').on('change', '.dilution-wizard select.dilution.wizard', function(e) {
         var sd = $(this);

@@ -3,7 +3,7 @@
 <div class="form-group form-group-lg">
     <%= f.label :name, :class => "col-sm-3 control-label" %>
     <div class="col-sm-6">
-        <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;" %>
+        <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", autocomplete: "off" %>
     </div>
     <div class="col-sm-3" style="text-align: right;">
         <div class="btn-group">
@@ -30,21 +30,21 @@
 <div class="form-group">
     <%= f.label :cas, :class => "col-sm-3 control-label" %>
     <div class="col-sm-3">
-        <%= f.text_field :cas, :class => "form-control" %>
+        <%= f.text_field :cas, :class => "form-control", autocomplete: "off" %>
     </div>
 </div>
 <hr/>
 <div class="form-group">
     <%= f.label :alt_names, :class => "col-sm-3 control-label" %>
     <div class="col-sm-9">
-        <%= f.text_field :alt_names, :class => "form-control" %>
+        <%= f.text_field :alt_names, :class => "form-control", autocomplete: "off" %>
     </div>
 </div>
 <hr/>
 <div class="form-group">
     <%= f.label :ifra_cat_4_limit, :class => "col-sm-3 control-label" %>
     <div class="col-sm-3">
-        <%= f.text_field :ifra_cat_4_limit, list: :ifra_cat_4_limits, placeholder: "unregulated", class: "form-control" %>
+        <%= f.text_field :ifra_cat_4_limit, list: :ifra_cat_4_limits, placeholder: "unregulated", class: "form-control", autocomplete: "off" %>
         <datalist id="ifra_cat_4_limits">
             <%= options_for_select Substance::IFRA_LIMIT_CONCENTRATIONS.collect { |s| [ "#{s * 100} %", s ] } %>
         </datalist>
@@ -54,11 +54,11 @@
 <div class="form-group">
     <%= f.label :price, :class => "col-sm-3 control-label" %>
     <div class="col-sm-9">
-        <%= f.text_field :price_per_quantity, placeholder: "price", class: "form-control", style: "width: 6em; float:left; text-align: right;" %>
+        <%= f.text_field :price_per_quantity, placeholder: "price", class: "form-control", style: "width: 6em; float:left; text-align: right;", autocomplete: "off" %>
         <%= f.select :price_currency, Substance::CURRENCIES.collect { |k,v| [ k, k ] }, {}, class: "form-control", style: "width: 5em; float:left; margin: 0 1em;"  %>
         <div class="input-group">
            <div class="input-group-addon">per</div>
-           <%= f.text_field :quantity_in_gram_of_raw_material, placeholder: "raw material", class: "form-control", style: "text-align: right;" %>
+           <%= f.text_field :quantity_in_gram_of_raw_material, placeholder: "raw material", class: "form-control", style: "text-align: right;", autocomplete: "off" %>
             <div class="input-group-addon">gram of raw material</div>
          </div>
     </div>

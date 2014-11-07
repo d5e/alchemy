@@ -29,7 +29,7 @@ class SubstancesController < InheritedResources::Base
       end
     end
   end
-
+  
   protected
   
   def substance_auto_suggest(string)

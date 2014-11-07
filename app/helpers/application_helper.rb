@@ -8,6 +8,19 @@ module ApplicationHelper
     end
   end
   
+  def available_dilutions
+    #  <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %>  data-substance-id="<%= d.substance_id %>"><%= d %></option>
+    dilutions = {}
+    Dilution.all.each do |d|
+      dilutions["s#{d.substance_id}"] ||= []
+      dilutions["s#{d.substance_id}"] << {
+        dilution_id: d.id,
+        dilution_name: d.to_s
+      }
+    end
+    dilutions
+  end
+  
   def concentration_classes
     {
       0.39   =>   "Huiles essentielles",
