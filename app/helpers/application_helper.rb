@@ -9,7 +9,6 @@ module ApplicationHelper
   end
   
   def available_dilutions
-    #  <option value="<%= d.id %>" <%= :selected if fd.object.dilution_id == d.id %>  data-substance-id="<%= d.substance_id %>"><%= d %></option>
     dilutions = {}
     Dilution.all.each do |d|
       dilutions["s#{d.substance_id}"] ||= []
@@ -19,6 +18,17 @@ module ApplicationHelper
       }
     end
     dilutions
+  end
+  
+  def dilutions_as_options
+    Rails.logger.info I18n.locale
+    dc = Dilution::CONCENTRATIONS.collect do |s|
+      p = number_with_precision s * 100, precision: 8, strip_insignificant_zeros: true
+      v = number_with_precision s, precision: 8, strip_insignificant_zeros: true
+      Rails.logger.info "#{p}   #{v}"
+      [ "#{p} %", v ]
+    end
+    options_for_select dc
   end
   
   def concentration_classes

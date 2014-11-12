@@ -1,6 +1,6 @@
     
 <div class="jumbotron">
-    <p>Welcome to Alchemy!</p>
+    <p><%= t :hello %></p>
     
     <% [Substance, Blend].each do |resource_class| %>
         <div class="panel panel-primary <%= resource_class.model_name.to_s.underscore %>">

@@ -7,7 +7,7 @@
                     <%= yield :panel_header_right %>
                     <%= render "resource_edit_controls", :f => f %>
                 </div>
-                <span class="glyphicon glyphicon-edit"></span> Editing <%= resource_class.model_name.human %>
+                <span class="glyphicon glyphicon-edit"></span> <%= t :'global.edit' %> <%= resource_class.model_name.human %>
             </h3>
         </div>
         <div class="panel-body">

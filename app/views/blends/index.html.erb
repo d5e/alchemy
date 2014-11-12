@@ -8,7 +8,11 @@
         </h3>
     </div>
     <div class="panel-body">
-        <%= render 'list' %>
+        <%= nav_tabs :blend_tabs do |tabs| %>
+            <% tabs.add "List by name", 'list' %>
+            <% tabs.add "short by date", 'list_short_by_date' %>
+            <% tabs.add "short by tags", 'list_short_by_tags' %>
+        <% end %>
     </div>
     <div class="panel-footer">
         <%= link_to new_blend_path, :class => "btn btn-success" do %>

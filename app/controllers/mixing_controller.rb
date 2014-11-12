@@ -120,6 +120,7 @@ class MixingController < ApplicationController
     regex = essence_strategy? ? /_percent\z/ : /_mg\z/
     result = {}
     params.each do |key, val|
+      val = Numeric.parse_localized(val) if I18n.delocalization_enabled?
       result[key] = val if key.to_s[regex]
     end
     result
@@ -130,6 +131,7 @@ class MixingController < ApplicationController
     valid = true
     params.each do |key, val|
       if key.to_s[/_percent\z/] || key.to_s == 'total_weight'
+        val = Numeric.parse_localized(val) if I18n.delocalization_enabled?
         unless val.to_f > 0.0
           valid = false 
           add_error key
@@ -143,6 +145,7 @@ class MixingController < ApplicationController
     valid = true
     params.each do |key, val|
       if key.to_s[/_mg\z/]
+        val = Numeric.parse_localized(val) if I18n.delocalization_enabled?
         if val.to_f == 0.0 && val != ""
           valid = false 
           add_error key

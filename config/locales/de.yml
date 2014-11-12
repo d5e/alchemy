@@ -1,0 +1,232 @@
+de:
+  will_paginate:
+    previous_label: 'zurück'
+    next_label: vor
+    page_gap: '...'
+  activerecord:
+    attributes:
+  date:
+    year: Jahr
+    years: Jahre
+    quarter: Quartal
+    month: Monat
+    week: Woche
+    day: Tag
+    formats:
+      default: "%d.%m.%Y"
+      month_name: "%B"
+      short: "%e. %b"
+      long: "%e. %B %Y"
+      with_day_name: "%A, %d.%m.%Y"
+      only_day: "%e"
+      date_only: "%d.%m.%Y"
+      new_contact: "%d.%m."
+      highcharts:
+        day: '%e. %B %Y'
+        week: '%e. %B %Y'
+
+    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
+    abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
+    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+    abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
+    order: [ 'day', 'month', 'year' ]
+  
+  time:
+    formats:
+      month_name: "%B"
+      default: "%A, %d. %B %Y, %H:%M Uhr"
+      short: "%d. %B, %H:%M Uhr"
+      long: "%A, %d. %B %Y, %H:%M Uhr"
+      time: "%H:%M"
+      date_only: "%d.%m.%Y"
+      short_date_time: "%d.%m.%Y %H:%M"
+      date_time_at: "%d.%m.%Y um %H:%M Uhr"
+    am: "vormittags"
+    pm: "nachmittags"
+      
+  datetime:
+    distance_in_words:
+      half_a_minute: 'eine halbe Minute'
+      less_than_x_seconds:
+        one: 'weniger als eine Sekunde'
+        other: 'weniger als %{count} Sekunden'
+      x_seconds:
+        one: 'eine Sekunde'
+        other: '%{count} Sekunden'
+      less_than_x_minutes:
+        one: 'weniger als eine Minute'
+        other: 'weniger als %{count} Minuten'
+      x_minutes:
+        one: 'eine Minute'
+        other: '%{count} Minuten'
+      about_x_hours:
+        one: 'etwa eine Stunde'
+        other: 'etwa %{count} Stunden'
+      x_days:
+        one: 'ein Tag'
+        other: '%{count} Tage'
+      about_x_months:
+        one: 'etwa ein Monat'
+        other: 'etwa %{count} Monate'
+      x_months:
+        one: 'ein Monat'
+        other: '%{count} Monate'
+      almost_x_years:
+        one: 'fast ein Jahr'
+        other: 'fast %{count} Jahre'
+      about_x_years:
+        one: 'etwa ein Jahr'
+        other: 'etwa %{count} Jahre'
+      over_x_years:
+        one: 'mehr als ein Jahr'
+        other: 'mehr als %{count} Jahre'
+    prompts:
+      second: "Sekunden"
+      minute: "Minuten"
+      hour: "Stunden"
+      day: "Tag"
+      month: "Monat"
+      year: "Jahr"
+      years: "Jahre"
+
+  number:
+    precision:
+      format:
+        separator: ','
+        delimiter: '.'
+        precision: 2
+    format:
+      precision: 2
+      separator: ','
+      delimiter: '.'
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        unit: '€'
+        format: '%n%u'
+        separator: ","
+        delimiter: "."
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: Tsd
+          million: Mio
+          billion: Mrd
+          trillion: 
+            one: Billion
+            other: Billionen
+          quadrillion: 
+            one: Billiarde
+            others: Billiarden
+  range:
+    from: von
+    to:   bis
+    of:   von
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " und "
+      last_word_connector: " und "
+    select:
+      prompt: "Bitte wählen:"
+    "yes": "Ja"
+    "no": "Nein"  
+  
+  
+  
+  hello: "Alchemy heißt Sie Willkommen"
+  global:
+    search: Suche
+    help: Hilfe
+    add: 
+    create: Kreire
+    edit: Editiere
+    parts_of_100: Teile von 100
+    raw_weight: Rohgewicht
+    used_in: verwendet in
+    available:
+      one: Verfügbar
+      other: Verfügbare
+    selected:
+      one: Ausgewählt
+      other: Ausgewählte
+  activerecord: 
+    models:
+      substance:
+        one: Substanz
+        other: Substanzen
+      blend:
+        one: Mischung
+        other: Mischungen
+      ingredient:
+        one: Zutat
+        other: Zutaten
+      note:
+        one: Notiz
+        other: Notizen
+      dilution:
+        one: Lösung
+        other: Lösungen
+    attributes: 
+      substance:
+        alt_names: "Alternative Namen"
+        notes_alt_1: "notizen Ste"
+        notes_alt_2: "notizen Hry"
+      blend:
+  attributes:
+    amount: Menge
+    new_blend_name: Name der neuen Mischung
+    cas: CAS
+    ifra_cat_4_limit: "IFRA Cat 4 Grenze"
+    sensory_tags: "Sensorische Tags"
+    character: Charakter
+    concentration: Konzentration
+    notes: Notizen
+    price: Preis
+    dilution: Lösung
+    dilutions: Lösungen
+    intensity: Intensität
+    solvent: Lösungsmittel
+    total_weight: Gesamtgewicht
+    
+  view:
+    tabs:
+      by_name: Nach Name
+      by_price: Nach Preis
+      by_character: Nach Charakter
+      list_by_name: Liste nach Name
+      short_by_date: Kurz nach Datum
+      short_by_tags: Kurz nach Tags
+      normalized_composition: Normalisierte Komposition
+      ingredients: Inhaltsstoffe
+      
+    hints:
+      ifra_cat_4_limit_hint: "Maximum Amount of substance in final product. Category 4 includes: Hydroalcoholic Products Applied To Unshaved Skin (includes body mists (aqueous based, alcoholic based and hydroalcoholic)), Body Creams, Oils, Lotions, Fragrancing Creams of all types (except baby creams and lotions), Ingredients of Perfume Kits"
+      intensity: "relative, sensorische Intensität, verglichen mit anderen Substanzen und Lösungen"
+      exceeding_cat_4: "Dieses Produkt harmoniert nicht mit den IFRA Richtlinien der Kategorie 4. Eine Anwendung auf der Haut wird daher nicht empfohlen."

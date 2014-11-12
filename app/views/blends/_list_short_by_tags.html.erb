@@ -1,0 +1,7 @@
+<div class="panel-body">
+    <%= nav_tabs :blends_by_tags do |tabs| %>
+        <% blends_by_exclusive_tags.each do |tag, blends| %>
+            <% tabs.add tag, 'simple_buttons', blends: blends %>
+        <% end %>
+    <% end %>
+</div>

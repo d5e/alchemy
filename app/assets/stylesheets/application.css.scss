@@ -159,6 +159,14 @@ body {
       background-color: $blend-primary-color;
       color: white;
     }
+    li.locale-links {
+      a {
+        text-align: center !important;
+      }
+      a.active {
+        font-weight: bold;
+      }
+    }
   }
   
   .row.dilution + .row.dilution {

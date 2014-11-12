@@ -1,5 +1,5 @@
 <span class="col-sm-2 small-label">
-    used in <%= Blend.model_name.human(count: 2) %>
+    <%= t :'global.used_in' %> <%= Blend.model_name.human(count: 2) %>
 </span>
 <div class="col-sm-9 buttons-container ">
     <% resource.blends.uniq.each do |blend| %>

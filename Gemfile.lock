@@ -44,6 +44,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    delocalize (0.4.0)
+      rails (>= 3.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     elasticsearch (1.0.5)
@@ -165,6 +167,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   coffee-rails (~> 4.0.0)
+  delocalize
   elasticsearch-model
   elasticsearch-persistence
   elasticsearch-rails

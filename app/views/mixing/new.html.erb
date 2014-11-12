@@ -7,14 +7,14 @@
             </h3>
         </div>
         <div class="panel-body buttons-container">
-            <h4>Available <%= Blend.model_name.human(count: 2) %></h4>
+            <h4><%= t :'global.available', count: 2 %> <%= Blend.model_name.human(count: 2) %></h4>
             <div class="available-blends">
                 <% Blend.all.each do |record| %>
                     <%= link_to record.to_s, "#", colored(record, class: "btn btn-default btn-sm", :'data-blend-dom-id' => dom_id(record) ) %>
                 <% end %>
             </div>
             <hr/>
-            <h4>Selected <%= Blend.model_name.human(count: 2) %></h4>
+            <h4><%= t :'global.selected', count: 2 %> <%= Blend.model_name.human(count: 2) %></h4>
             <div class="selected-blends">
                 
             </div>

@@ -11,7 +11,7 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-persistence'
 gem 'bootstrap-sass'
-
+gem 'delocalize'
 gem 'nested_form'
 
 # Use SCSS for stylesheets

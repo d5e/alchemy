@@ -32,44 +32,13 @@ function localeToFloat(string) {
 
     
 window.runAfterInit = function(){
-    
+
+    console.log("JS ready : initializing");
+
     $('[data-toggle="tooltip"]:visible').tooltip(
         { delay: 180}
     );
     
-    console.log("ready");
-    
-    
-    // $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
-    //     
-    //     console.log("doing");
-    //     
-    //     var element = $(this);
-    //     var substanceID = element.val();
-    //     if (!(substanceID > 0))
-    //         return;
-    //     var parent = element.closest('.form-group');
-    //     var dilutionSelect = parent.find('select.form-control.dilution.need-filtering');
-    //     var dilutionSelectedVal = dilutionSelect.val();
-    //     var firstDilution = dilutionSelect.find('option:not(:disabled):first');
-    //     var optionsEnable = dilutionSelect.find('option[data-substance-id="' + substanceID + '"]');
-    //     var optionsDisable = dilutionSelect.find('option:not([data-substance-id="' + substanceID + '"])');
-    //     optionsEnable.each( function(i,e) {
-    //         $(e).attr('disabled', null);
-    //     });
-    //     var activeGotDisabled = false;
-    //     optionsDisable.each( function(i,e) {
-    //         var el = $(e);
-    //         if (el.val()) {
-    //             el.attr('disabled', '');
-    //             if (dilutionSelectedVal == el.val())
-    //             activeGotDisabled = true;
-    //         }
-    //     });
-    //     if (activeGotDisabled)
-    //     dilutionSelect.val(firstDilution.val());
-    //     console.log("done");
-    // });
     
     $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
         var selected = "";
@@ -101,6 +70,8 @@ window.runAfterInit = function(){
         var amount = parent.find('input[data-concentration]');
         var old_concentration = localeToFloat(amount.attr('data-concentration'));
         var new_concentration = localeToFloat(sd.find('option:selected').attr('data-concentration'));
+        if (old_concentration == 0.0 || new_concentration == 0.0)
+            return;
         var scale = old_concentration / new_concentration;
         amount.val(localeToFloat(amount.val()) * scale);
         amount.attr('data-concentration', new_concentration);
@@ -121,8 +92,6 @@ window.runAfterInit = function(){
         button.attr('class',  nc);
         button.addClass('color-' + name);
     });
-
-//    $('[data-colorpicker="flat"]').ColorPicker({flat: true});
 
     $('[data-colorpicker="flat"]').ColorPicker({
         flat: true,

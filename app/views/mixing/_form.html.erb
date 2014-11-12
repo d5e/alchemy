@@ -1,6 +1,6 @@
 
 <div class="form-group">
-    <%= text_field_tag :new_blend_name, nil, class: 'form-control', placeholder: "Name of new blend" %>
+    <%= text_field_tag :new_blend_name, nil, class: 'form-control', placeholder: Blend.human_attribute_name(:new_blend_name) %>
 </div>
 
 <div id="error-box">
@@ -9,10 +9,18 @@
 
 <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#mix-essences" role="tab" data-toggle="tab" onclick="$('input#strategy').val('essences');">
-        mix essences
+        <% if I18n.locale == :de %>
+            Essenzen mischen
+        <% else %>
+            mix essences
+        <% end %>
     </a></li>
     <li><a href="#mix-ingredients" role="tab" data-toggle="tab" onclick="$('input#strategy').val('ingredients');">
-        mix ingredients
+        <% if I18n.locale == :de %>
+            Zutaten Mischen
+        <% else %>
+            mix ingredients
+        <% end %>
     </a></li>
 </ul>
 <%= hidden_field_tag :strategy, 'essences' %>
@@ -41,7 +49,7 @@
             <div class="form-group">
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <%= text_field_tag "total_weight", nil, class: 'form-control tar', placeholder: "total weight", autocomplete: "off" %>
+                        <%= text_field_tag "total_weight", nil, class: 'form-control tar', placeholder: Blend.human_attribute_name(:total_weight), autocomplete: "off" %>
                         <div class="input-group-addon">gram</div>
                     </div>
                 </div>
@@ -57,7 +65,7 @@
                 <div class="form-group">
                     <div class="col-sm-4">
                         <div class="input-group">
-                            <%= text_field_tag "#{dom_id(blend)}_mg", nil, class: 'form-control tar', placeholder: "#{blend.total_weight}", autocomplete: "off" %>
+                            <%= text_field_tag "#{dom_id(blend)}_mg", nil, class: 'form-control tar', placeholder: "#{number_with_precision blend.total_weight, precision: 8, strip_insignificant_zeros: true}", autocomplete: "off" %>
                             <div class="input-group-addon">mg</div>
                         </div>
                     </div>

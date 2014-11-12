@@ -39,12 +39,7 @@ Rails.application.routes.draw do
     get :help
   end
   
-  
-  
-  
-  
-  
-  
+  match "set/:key/:value", :controller => "welcome", :action => "set_session_variables", via: [:get, :post]
   
   
   

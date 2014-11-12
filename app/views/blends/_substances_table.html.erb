@@ -1,9 +1,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td class="r">amount</td>
-            <td>Substance</td>
-            <td>Dilution</td>
+            <td class="r"><%= Blend.human_attribute_name :amount %></td>
+            <td><%= Substance.model_name.human %></td>
+            <td><%= Dilution.model_name.human %></td>
         </tr>
     </thead>
     <tbody>
