@@ -16,11 +16,7 @@
                     <% end %>
                 </h3>
               </div>
-              <div class="panel-body buttons-container">
-                  <% resource_class.all.each do |record| %>
-                      <%= link_to record.to_s, record, colored(record, class: "btn btn-default btn-sm") %>
-                  <% end %>
-              </div>
+              <%= render 'list_compact', resource_class: resource_class %>
         </div>
     <% end %>
     

@@ -86,6 +86,8 @@ en:
 
   hello: "Welcome to Alchemy"
   global:
+    close: Close
+    cancel: Cancel
     search: Search
     help: Help
     creating: Creating new
@@ -141,6 +143,7 @@ en:
         
   view:
     tabs:
+      compact: Compact
       by_name: by Name
       by_price: by Price
       by_character: by Character

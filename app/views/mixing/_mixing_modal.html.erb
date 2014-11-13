@@ -3,7 +3,7 @@
         <%= form_tag mixing_path, remote: true do %>
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><%= t :'global.close' %></span></button>
                     <h4 class="modal-title" id="myModalLabel">Mixing <%= I18n.locale == :de ? "Assistent" : "Wizard" %></h4>
                 </div>
                 <div class="modal-body">
@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-footer">
                     <%= link_to "restart in new window", prepare_mixing_path(params), class: "btn btn-default" %>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><%= t :'global.cancel' %></button>
                     <button type="submit" class="btn btn-primary">Mix! <span class="glyphicon glyphicon-random"></span></button>
                 </div>
             </div>

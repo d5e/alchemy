@@ -1,0 +1,5 @@
+<div class="panel-body buttons-container">
+    <% resource_class.all.each do |record| %>
+        <%= link_to record.to_s, record, colored(record, class: "btn btn-default btn-sm") %>
+    <% end %>
+</div>

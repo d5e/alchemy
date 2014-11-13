@@ -39,7 +39,7 @@ module ApplicationHelper
       0.068  =>   "Eau de Toilette",
       0.039  =>   "Eau de Cologne",
       0.0149 =>   "Eau Légère",
-      0.5    =>   "Eau de solide",
+      0.003  =>   "Eau de solide",
       0.0    =>   "traces"
     }
   end

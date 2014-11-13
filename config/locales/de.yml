@@ -162,6 +162,8 @@ de:
   
   hello: "Alchemy heißt Sie Willkommen"
   global:
+    close: Schließen
+    cancel: Abbrechen
     search: Suche
     help: Hilfe
     add: 
@@ -217,6 +219,7 @@ de:
     
   view:
     tabs:
+      compact: Kompakt
       by_name: Nach Name
       by_price: Nach Preis
       by_character: Nach Charakter

@@ -11,6 +11,6 @@
 
 <ul>
     <% concentration_classes.each do |p, n| %>
-        <li>above <%= number_with_precision p * 100, strip_insignificant_zeros: true %> % : <%= n %></li>
+        <li style="margin: 1ex 0 1ex 0;">above <%= number_with_precision p * 100, strip_insignificant_zeros: true %> % : <%= n %></li>
     <% end %>
 </ul>
