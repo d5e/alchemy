@@ -38,7 +38,7 @@ class Builders::NavTabs
   end
   
   def dom_tag(name)
-    name.to_s.downcase.gsub(/[\s_]+/,'-')
+    name.to_s.downcase.gsub(/[\s_\W]+/,'-').gsub(/[\s-]+\z/,'')
   end
   
   def li_class(tabs, classes="")
