@@ -7,6 +7,8 @@ Things you may want to cover:
 
 * Ruby version
 
+2.1.2, Rails 4.1.6
+
 * System dependencies
 
 * Configuration
@@ -18,6 +20,8 @@ Things you may want to cover:
 * How to run the test suite
 
 * Services (job queues, cache servers, search engines, etc.)
+
+elasticsearch
 
 * Deployment instructions
 
