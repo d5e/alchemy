@@ -1,6 +1,7 @@
 <div class="panel-body">
     <%= nav_tabs :blends_by_tags do |tabs| %>
         <% blends_by_tags.each do |tag, blends| %>
+            <% next unless blends.present? %>
             <% tabs.add "#{tag} (#{blends.size})", 'simple_buttons', blends: blends %>
         <% end %>
     <% end %>
