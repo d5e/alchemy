@@ -124,7 +124,7 @@ Substances}
 <% %w(sensory_tags notes notes_alt_1 notes_alt_2).each do |key| %>
 <% next if substance.send(key).blank? %>
 \paragraph{<%= Substance.human_attribute_name key %>}
-<%= substance.send key %>
+<%= raw substance.send key %>
 <% end %>
 
 <% if substance.dilutions.present? %>
