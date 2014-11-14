@@ -93,7 +93,7 @@ Substances}
 
 
 
-\<%= c.first %>{<%= substance.character.to_s.upcase %>}
+\<%= c.first %>{<%= etex substance.character.to_s.upcase %>}
 
     <% end %>
     
@@ -101,7 +101,7 @@ Substances}
         
 
         
-\<%= c[1] %>{<%= substance.name %>}
+\<%= c[1] %>{<%= etex substance.name %>}
 
 \paragraph{<%= Substance.human_attribute_name :cas %> <%= substance.cas %>}
 
@@ -109,13 +109,13 @@ Substances}
 
 <% %w(alt_names).each do |key| %>
 <% next if substance.send(key).blank? %>
-\paragraph{<%= Substance.human_attribute_name key %>}
-<%= substance.send key %>
+\paragraph{<%= etex Substance.human_attribute_name key %>}
+<%= etex substance.send key %>
 <% end %>
 
 <% %w(ifra_cat_4_limit).each do |key| %>
 <% next if substance.send(key).blank? %>
-\paragraph{<%= Substance.human_attribute_name key %>}
+\paragraph{<%= etex Substance.human_attribute_name key %>}
 <%= number_with_precision substance.send(key) * 100, strip_insignificant_zeros: true %>
 
 <% end %>
@@ -123,8 +123,8 @@ Substances}
 
 <% %w(sensory_tags notes notes_alt_1 notes_alt_2).each do |key| %>
 <% next if substance.send(key).blank? %>
-\paragraph{<%= Substance.human_attribute_name key %>}
-<%= raw substance.send key %>
+\paragraph{<%= etex Substance.human_attribute_name key %>}
+<%= etex substance.send key %>
 <% end %>
 
 <% if substance.dilutions.present? %>
@@ -133,12 +133,12 @@ Substances}
 
 \begin{table}[ht]
 \begin{tabular}{lll}
-<%= Substance.human_attribute_name :dilutions %>\\
+<%= etex Substance.human_attribute_name :dilutions %>\\
 \hline
 <%= Dilution.human_attribute_name :concentration %> & <%= Dilution.human_attribute_name :solvent %> & <%= Dilution.human_attribute_name :intensity %>\\
 \hline
 <% substance.dilutions.each do |dilution| %>
-<%= number_with_precision dilution.concentration * 100, strip_insignificant_zeros: true %> \% & <%= raw dilution.solvent_human_name.to_s.gsub('%', '\%') %> & <%= dilution.intensity %> \\
+<%= number_with_precision dilution.concentration * 100, strip_insignificant_zeros: true %> \% & <%= etex dilution.solvent_human_name %> & <%= dilution.intensity %> \\
 <% end %>
 \end{tabular}
 \end{table}
