@@ -9,45 +9,70 @@
 c = %w(chapter section subsection subsubsection subsubsubsection)
 %>
 
-<% if @style == :report %>
-\documentclass{report}
-<% elsif @style == :book %>
-\documentclass{book}
-<% else %>
-<% c.shift %>
-\documentclass{scrartcl}
-<% end %>
 
 
 
-\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
+
+
+%% xelatex xetex1.tex
+
+\documentclass[11pt]{article}
+
+\usepackage{xltxtra}
+\usepackage{fontspec} 
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Helvetica Neue}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
-\usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+
+
+
+
+
+
+
+
+
+
+
+
+% <% if @style == :report %>
+% \documentclass{report}
+% <% elsif @style == :book %>
+% \documentclass{book}
+% <% else %>
+% <% c.shift %>
+% \documentclass{scrartcl}
+% <% end %>
+% 
+% 
+% 
+% \usepackage[usenames,dvipsnames]{xcolor}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}
+% \usepackage[ngermanm,english,greek]{babel}
+% \usepackage{amsmath}
+% \usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+% 
+% \definecolor{cobalt}{HTML}{1007BB}
+% 
+% \hypersetup{colorlinks,%
+% citecolor=blue,%
+% filecolor=cobalt,%
+% linkcolor=Green,%
+% urlcolor=Cerulean,%
+% pdftex}
+
+
+
+
+
+
 
 %%\usepackage{zref-abspage,zref-lastpage}
 
 
-% \usepackage[compact]{titlesec}  
-% \titlespacing*{\section}
-% {0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
-% \titlespacing*{\subsection}
-% {0pt}{4.5ex plus 1ex minus .2ex}{3.3ex plus .2ex}
-% \titlespacing*{\subsubsection}
-% {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-
-
-\definecolor{cobalt}{HTML}{1007BB}
-
-\hypersetup{colorlinks,%
-citecolor=blue,%
-filecolor=cobalt,%
-linkcolor=Green,%
-urlcolor=Cerulean,%
-pdftex}
 
 \title{ALCHEMY\\
 Substances}
