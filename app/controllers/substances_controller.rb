@@ -1,4 +1,20 @@
 class SubstancesController < InheritedResources::Base
+  
+  respond_to :tex
+  
+  def index
+    respond_to do |format|
+      format.tex
+      format.html
+    end
+  end
+  
+  def report
+    @style = :report
+    respond_to do |format|
+      format.tex { render :action => :index }
+    end
+  end
 
   def create
     create! do |success, failure|

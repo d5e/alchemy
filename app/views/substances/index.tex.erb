@@ -1,0 +1,141 @@
+%% LaTeX Dokument
+%% benötigt BasicTex
+%% from https://tug.org/mactex/morepackages.html
+%% verwendet ausschließlich original TeX-Schriftarten
+%% kompilieren zum PDF mit Befehl:
+%% latex --output-format=pdf hello.tex 
+
+<%
+c = %w(chapter section subsection subsubsection subsubsubsection)
+%>
+
+<% if @style == :report %>
+\documentclass{report}
+<% elsif @style == :book %>
+\documentclass{book}
+<% else %>
+<% c.shift %>
+\documentclass{scrartcl}
+<% end %>
+
+
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+
+%%\usepackage{zref-abspage,zref-lastpage}
+
+
+% \usepackage[compact]{titlesec}  
+% \titlespacing*{\section}
+% {0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
+% \titlespacing*{\subsection}
+% {0pt}{4.5ex plus 1ex minus .2ex}{3.3ex plus .2ex}
+% \titlespacing*{\subsubsection}
+% {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+
+\definecolor{cobalt}{HTML}{1007BB}
+
+\hypersetup{colorlinks,%
+citecolor=blue,%
+filecolor=cobalt,%
+linkcolor=Green,%
+urlcolor=Cerulean,%
+pdftex}
+
+\title{ALCHEMY\\
+Substances}
+\author{Henry Stenzel}
+\date{\today}
+\begin{document}
+
+ 
+\maketitle
+\tableofcontents
+
+
+
+<% last_character = nil %>
+<% Substance.order_character.each do |substance| %>
+ 
+    <% if substance.character.present? && substance.character.to_s.strip != last_character %>
+
+
+
+\<%= c.first %>{<%= substance.character.to_s.upcase %>}
+
+    <% end %>
+    
+<% last_character = substance.character.to_s.strip %>
+        
+
+        
+\<%= c[1] %>{<%= substance.name %>}
+
+\paragraph{<%= Substance.human_attribute_name :cas %> <%= substance.cas %>}
+
+%%price_per_quantity price_currency quantity_in_gram_of_raw_material
+
+<% %w(alt_names).each do |key| %>
+<% next if substance.send(key).blank? %>
+\paragraph{<%= Substance.human_attribute_name key %>}
+<%= substance.send key %>
+<% end %>
+
+<% %w(ifra_cat_4_limit).each do |key| %>
+<% next if substance.send(key).blank? %>
+\paragraph{<%= Substance.human_attribute_name key %>}
+<%= number_with_precision substance.send(key) * 100, strip_insignificant_zeros: true %>
+
+<% end %>
+
+
+<% %w(sensory_tags notes notes_alt_1 notes_alt_2).each do |key| %>
+<% next if substance.send(key).blank? %>
+\paragraph{<%= Substance.human_attribute_name key %>}
+<%= substance.send key %>
+<% end %>
+
+<% if substance.dilutions.present? %>
+
+
+
+\begin{table}[ht]
+\begin{tabular}{lll}
+<%= Substance.human_attribute_name :dilutions %>\\
+\hline
+<%= Dilution.human_attribute_name :concentration %> & <%= Dilution.human_attribute_name :solvent %> & <%= Dilution.human_attribute_name :intensity %>\\
+\hline
+<% substance.dilutions.each do |dilution| %>
+<%= number_with_precision dilution.concentration * 100, strip_insignificant_zeros: true %> \% & <%= raw dilution.solvent_human_name.to_s.gsub('%', '\%') %> & <%= dilution.intensity %> \\
+<% end %>
+\end{tabular}
+\end{table}
+
+<% end # of dilutions %>
+
+
+
+\pagebreak[3]
+
+<% end # of Substance.all %>
+
+
+
+
+
+
+
+% \fancyfoot[C]{%
+%   \iffancylastpage{\textbf{LAST PAGE}}{NORMAL PAGE}%
+% }
+
+
+\end{document}
+

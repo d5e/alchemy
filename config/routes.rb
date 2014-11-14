@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     collection do
       get :new_dilution
       get :suggest
+      get :report
     end
   end
   
