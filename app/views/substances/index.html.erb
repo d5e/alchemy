@@ -11,7 +11,7 @@
         <%= nav_tabs :substances do |tabs| %>
             <% tabs.add "by name", 'list' %>
             <% tabs.add "by price", 'list', collection: collection.sort{|a,b|(a.price_in_currency_per_100g  || 0 ) <=> (b.price_in_currency_per_100g || 0)  } %>
-            <% tabs.add "by character", 'list', collection: collection.unscoped.order_character %>
+            <% tabs.add "by character", 'list', collection: collection.order_character %>
             <% tabs.add "compact", 'list_compact' %>
         <% end %>
     </div>

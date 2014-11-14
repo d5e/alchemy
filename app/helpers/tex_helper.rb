@@ -15,6 +15,10 @@ module TexHelper
     escaped.html_safe
   end
 
+  def bretex(stringy)
+    etex(stringy).gsub(/\n/,'\\\\')
+  end
+
   
   
 end
