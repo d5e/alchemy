@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027105320) do
+ActiveRecord::Schema.define(version: 20141121093520) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20141027105320) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "color",        limit: 8
+    t.boolean  "locked",                 default: false
+    t.boolean  "hidden",                 default: false
+    t.integer  "parent_id"
   end
 
   create_table "dilutions", force: true do |t|

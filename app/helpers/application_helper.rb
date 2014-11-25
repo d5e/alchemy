@@ -55,7 +55,8 @@ module ApplicationHelper
     end
   end
   
-  def substance_character 
+  # REFACTORING : replace css classes defintions by color values from here (?) / discard duplicates
+  def substance_character
     {
       'base' => ['amber, musk, cedar, sandal','#ebc8a6'],
       'base-citral' => ['citral, green, floral', '#bedc55'],

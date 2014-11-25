@@ -16,7 +16,7 @@ module TexHelper
   end
 
   def bretex(stringy)
-    etex(stringy).gsub(/\n/,'\\\\').html_safe
+    etex(stringy).gsub(/\n+/,'\u005c\u005c'.html_safe).html_safe
   end
 
   

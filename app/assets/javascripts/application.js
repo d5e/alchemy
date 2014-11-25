@@ -38,7 +38,15 @@ window.runAfterInit = function(){
     $('[data-toggle="tooltip"]:visible').tooltip(
         { delay: 180}
     );
+
+    $('[data-tooltip=click').tooltip(
+        { trigger: 'click' }
+    );
     
+    $('body').on('click', '[data-toggle=highlight]', function(e) {
+       $(this).toggleClass('highlighted');
+    });
+
     
     $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
         var selected = "";

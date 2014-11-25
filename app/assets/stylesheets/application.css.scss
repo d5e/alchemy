@@ -70,7 +70,14 @@ body #content {
     }
   }
   
+  [data-toggle=highlight] {
+    cursor: pointer;
+  }
   
+  label.highlighted {
+    background: #7cd5fa;
+  }
+
   
   .panel.panel-primary.bg-white {
     .panel-heading, .panel-title, .panel-title * {
@@ -269,6 +276,9 @@ body {
   
   // COLOR select for substances categories
   
+  .label[class*="color-"] {
+    cursor: default;
+  }
   .color-base { // amber, musk, cedar, sandal
     background-color: #ebc8a6 !important;
     border-color: #ebc8a6;

@@ -10,9 +10,9 @@ class Substance < ActiveRecord::Base
     :USD => 1.27444
   }
   
-  default_scope { order("#{self.table_name}.name ASC") }
-  
+  scope :order_alphabetical, lambda { order("#{self.table_name}.name ASC") }
   scope :order_character, -> { unscoped.order("#{self.table_name}.character ASC").order("#{self.table_name}.name ASC") }
+  default_scope lambda { order_alphabetical }
 
   has_many :dilutions
   has_many :ingredients, dependent: :restrict_with_error
