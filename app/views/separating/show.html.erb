@@ -1,0 +1,38 @@
+<%= form_tag separating_path, class: 'blends-separator', remote: true do %>
+    <div class="">
+
+        <h3>
+            <%= t :'global.separate' %> <%= resource.to_s %>
+        </h3>
+    
+        <% last_character = nil %>
+        <% substance_character.keys.each do |key| %>
+            <% trunk_key = key[/\A\w+/] %>
+            <% next if trunk_key == last_character %>
+            <div class="panel panel-primary color-<%= key %> droppable">
+                <div class="panel-heading color-<%= key %>">
+                    <h3 class="panel-title" style="color:rgba(0,0,0,0.7);"><%= trunk_key.upcase %></h3>
+                </div>
+                <div class="panel-body buttons-container" style="background:white;">
+                    <% resource.substances.each do |substance| %>
+                        <% next if substance.character.blank? || substance.character[/\A\w+/] != trunk_key %>
+                        <%= link_to substance.to_s, "#", colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(substance) ) %>                                
+                    <% end %>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <% last_character = trunk_key %>
+        <% end %>
+    
+
+
+
+
+        <button type="submit" class="btn btn-primary disabled">
+            <span class="glyphicon glyphicon-random"></span> <%= t :'global.separate' %>
+        </button>
+
+
+    </div>
+<% end %>

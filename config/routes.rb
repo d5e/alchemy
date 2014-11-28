@@ -31,6 +31,12 @@ Rails.application.routes.draw do
       post :create
     end
   end
+
+  resources :separating do
+    member do
+      get :prepare
+    end
+  end
   
   resources :notes
   

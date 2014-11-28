@@ -162,6 +162,7 @@ de:
   
   hello: "Alchemy heißt Sie Willkommen"
   global:
+    separate: Trenne
     close: Schließen
     cancel: Abbrechen
     search: Suche

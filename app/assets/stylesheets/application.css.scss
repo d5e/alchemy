@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require jquery-ui
  *= require_self
  
  */
@@ -279,37 +280,42 @@ body {
   .label[class*="color-"] {
     cursor: default;
   }
+  .panel[class*="color-"] {
+    .panel-footer {
+      background-color: inherit;
+    }
+  }
   .color-base { // amber, musk, cedar, sandal
     background-color: #ebc8a6 !important;
-    border-color: #ebc8a6;
+    border-color: #ebc8a6 !important;
   }
   .color-base-heart { // sweet, herbal
     background-color: #eabfd1 !important;
-    border-color: #eabfd1;
+    border-color: #eabfd1 !important;
   }
   .color-heart { // floral
     background-color: #c7afee !important;
-    border-color: #c7afee;
+    border-color: #c7afee !important;
   }
   .color-heart-top { // ozone, fresh, fruity
     background-color: #adc5f4 !important;
-    border-color: #adc5f4;
+    border-color: #adc5f4 !important;
   }
   .color-top-floral { // flower
     background-color: #bfedc9 !important;
-    border-color: #bfedc9;
+    border-color: #bfedc9 !important;
   }
   .color-top-citral {  // citral
     background-color: #e7ff9e !important;
-    border-color: #e7ff9e;
+    border-color: #e7ff9e !important;
   }
   .color-base-citral {
     background-color: #bedc55 !important;
-    border-color: #bedc55;
+    border-color: #bedc55 !important;
   }
   .color-top-musk {
     background-color: #ffec83 !important;
-    border-color: #ffec83;
+    border-color: #ffec83 !important;
   }
   
   

@@ -1,9 +1,15 @@
 class SeparatingController < ApplicationController
   
+  helper_method :resource
+  
   def prepare
   end
-  
+
   def create
+  end
+  
+  def resource
+    Blend.find params[:id]
   end
   
   protected

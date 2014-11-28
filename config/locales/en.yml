@@ -86,6 +86,7 @@ en:
 
   hello: "Welcome to Alchemy"
   global:
+    separate: Separate
     close: Close
     cancel: Cancel
     search: Search

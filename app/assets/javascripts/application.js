@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
@@ -46,6 +47,30 @@ window.runAfterInit = function(){
     $('body').on('click', '[data-toggle=highlight]', function(e) {
        $(this).toggleClass('highlighted');
     });
+    
+    
+    
+    
+    
+    
+    
+    // SEPARATOR
+    
+    $( ".draggable" ).draggable();
+    $( ".droppable" ).droppable({
+        drop: function( event, ui ) {
+            console.log(event);
+            console.log(ui);
+            $( this )
+                .find( ".panel-body" ).append(" ").append(ui.draggable);
+                ui.draggable.css('left','auto');
+                ui.draggable.css('top','auto');
+
+            }
+    });
+    
+    
+    
 
     
     $('form').on('change', 'select.form-control.substance.having-dilution-select', function(e) {
