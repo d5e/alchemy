@@ -6,17 +6,20 @@
         </h3>
     
         <% last_character = nil %>
+        <% ingredients_copy = [] %>
         <% substance_character.keys.each do |key| %>
             <% trunk_key = key[/\A\w+/] %>
             <% next if trunk_key == last_character %>
-            <div class="panel panel-primary color-<%= key %> droppable">
+            <div class="panel panel-primary color-<%= key %> droppable" data-category-name="<%= trunk_key.upcase %>">
                 <div class="panel-heading color-<%= key %>">
                     <h3 class="panel-title" style="color:rgba(0,0,0,0.7);"><%= trunk_key.upcase %></h3>
                 </div>
                 <div class="panel-body buttons-container" style="background:white;">
-                    <% resource.substances.each do |substance| %>
+                    <% resource.ingredients.each do |ingredient| %>
+                        <% substance = ingredient.substance %>
                         <% next if substance.character.blank? || substance.character[/\A\w+/] != trunk_key %>
-                        <%= link_to substance.to_s, "#", colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(substance) ) %>                                
+                        <% ingredients_copy << ingredient %>
+                        <%= content_tag :span, substance.to_s, colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(ingredient) ) %>
                     <% end %>
                 </div>
                 <div class="panel-footer">
@@ -24,14 +27,26 @@
             </div>
             <% last_character = trunk_key %>
         <% end %>
-    
+        
+        <% if ( remained = resource.ingredients.to_a.clone - ingredients_copy ).present? %>
+            <div class="panel panel-default droppable" data-category-name="OTHER">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="color:rgba(0,0,0,0.7);">OTHER</h3>
+                </div>
+                <div class="panel-body buttons-container">
+                    <% remained.each do |ingredient| %>
+                        <% substance = ingredient.substance %>
+                        <%= content_tag :span, substance.to_s, colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(ingredient) ) %>
+                    <% end %>
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        <% end %>
 
-
-
-
-        <button type="submit" class="btn btn-primary disabled">
+        <span type="ajax-submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-random"></span> <%= t :'global.separate' %>
-        </button>
+        </span>
 
 
     </div>

@@ -7,6 +7,7 @@ class Blend < ActiveRecord::Base
 
   has_many :ingredients, dependent: :destroy
   has_many :substances, through: :ingredients
+  has_many :children, class_name: "Blend", foreign_key: :parent_id
   
   accepts_nested_attributes_for :ingredients, allow_destroy: true # reject_if: proc { |attributes| attributes['title'].blank? }
 

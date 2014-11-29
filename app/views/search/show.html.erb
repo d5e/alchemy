@@ -1,4 +1,5 @@
 <a onclick="$('pre').toggle();" style="font-size:10px; float: right;">debug</a>
+<% if false # debug %>
 <pre style="display:none;">
     <%= elastic_response rescue nil %>
     
@@ -26,6 +27,7 @@
     <% end %>
 <% end %>
 </pre>
+<% end %>
 
 <% if elastic_response && elastic_response.respond_to?(:results) %>
 

@@ -45,6 +45,22 @@
                 <% end %>
             </div>
         </div>
+
+        <% if resource.children.present? %>
+            <div class="row">
+                <%= content_tag :span, "children", class: 'col-sm-2 small-label' %>
+                <div class="col-sm-9">
+                    <div class="buttons-container">
+                        
+                    </div>
+                    <% resource.children.each do |child| %>
+                        <%= link_to child, child, colored(child, class: "btn btn-default btn-sm") %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+
+        
      </div>
     <div class="panel-footer">
         <button class="btn btn-default" data-toggle="modal" data-target="#bottle-wizard">

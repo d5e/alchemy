@@ -65,9 +65,33 @@ window.runAfterInit = function(){
                 .find( ".panel-body" ).append(" ").append(ui.draggable);
                 ui.draggable.css('left','auto');
                 ui.draggable.css('top','auto');
-
             }
     });
+    
+    $('form.blends-separator').on("click", "span[type='ajax-submit']", function(e) {
+        window.Separator = {};
+        $('form.blends-separator .panel[data-category-name]').each(function(i,panel){
+            window.Separator[$(panel).attr('data-category-name')] = [];
+        });
+        $('form.blends-separator .panel[data-category-name] .draggable[data-resource-id]').each(function(i,substance){
+            var substance = $(substance);
+            var panel = substance.closest('.panel[data-category-name]');
+            window.Separator[$(panel).attr('data-category-name')].push($(substance).attr('data-resource-id'));
+        });
+        
+        
+        $.ajax({
+            type: "POST",
+            url: $(this).closest('form').attr('action'),
+            data: { 'separator' : window.Separator },
+            success: function(r) {
+                // alert('200');
+            }
+        
+        });
+        
+    });
+    
     
     
     
