@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       post :prepare
       get :prepare
       post :create
+      get :update_final_concentration
     end
   end
 

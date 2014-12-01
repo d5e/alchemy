@@ -52,6 +52,11 @@ window.runAfterInit = function(){
     
     
     
+    // $('#mix-ingredients').on('change', 'input[type=text]', function(e) {
+    //     alert('yo');
+    // });
+    
+    
     
     
     // SEPARATOR
