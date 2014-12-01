@@ -13,6 +13,7 @@ class BlendsController < InheritedResources::Base
           new_bottle = resource_class.new(resource.attributes)
           new_bottle.name = params[:new_blend_name]
           new_bottle.id = nil
+          new_bottle.parent = resource
           new_bottle.ingredients = []
           resource.ingredients.each do |ing|
             ing.id = nil
@@ -39,7 +40,7 @@ class BlendsController < InheritedResources::Base
     # It's mandatory to specify the nested attributes that should be whitelisted.
     # If you use `permit` with just the key that points to the nested attributes hash,
     # it will return an empty hash.
-    params.require(:blend).permit(:name, :creation_at, :sensory_tags, :notes, :color,
+    params.require(:blend).permit(:name, :creation_at, :sensory_tags, :notes, :color, :locked, :hidden,
       ingredients_attributes: [:substance_id, :amount, :dilution_id, :id, :_destroy ]
     )
    end

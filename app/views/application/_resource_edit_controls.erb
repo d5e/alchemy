@@ -1,4 +1,4 @@
-<% if f.object.persisted? %>
+<% if f.object.persisted? && !f.object.locked? %>
     <%= link_to '#', style: "float:left;", class: "delete-resource-link", :onclick => "$('.delete-resource-link').toggle();", :title => "Delete", :'data-toggle' => "tooltip" do %>
         <span class="glyphicon glyphicon-trash"></span>
     <% end %>

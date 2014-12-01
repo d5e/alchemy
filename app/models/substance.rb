@@ -13,6 +13,8 @@ class Substance < ActiveRecord::Base
   scope :order_alphabetical, lambda { order("#{self.table_name}.name ASC") }
   scope :order_character, -> { unscoped.order("#{self.table_name}.character ASC").order("#{self.table_name}.name ASC") }
   default_scope lambda { order_alphabetical }
+  scope :visible, lambda { where("1=1")}
+  scope :hidden, lambda { where("0=1")}
 
   has_many :dilutions
   has_many :ingredients, dependent: :restrict_with_error

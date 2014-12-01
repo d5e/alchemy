@@ -26,6 +26,24 @@
     <%= render "ingredient_form", :f => f %>
 </div>
 
+<% content_for :panel_header_right do %>
+    <div class="btn-group" style="margin-left: 27px; vertical-align: top;">
+      <span type="button" class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-th-large"></span>
+      </span>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu" style="color:#333;">
+          <li class="dropdown-header">
+              <%= f.check_box :hidden %>
+              <%= f.label :hidden %>
+          </li>
+          <li class="dropdown-header">
+              <%= f.check_box :locked %>
+              <%= f.label :locked %>
+          </li>
+      </ul>
+    </div>
+<% end %>
+
 <% content_for :panel_footer do %>
     <div class"form-group">
         <%= f.link_to_add :ingredients, class: "btn btn-default", :data => { :target => ".ingredients-form" } do %>

@@ -2,11 +2,15 @@
     <div class="panel-heading" style="background-color:#<%= resource.color %>; border-color:#<%= resource.color %>;">
         <h3 class="panel-title">
             <div style="float:right;">
-                <%= link_to dilute_blend_path(resource), style: "margin-right: 9px;" do %>
-                    <span class="glyphicon glyphicon-wrench"></span>
-                <% end %>
-                <%= link_to edit_resource_path(resource), style: 'float: right;', title: "Edit", :'data-toggle' => "tooltip" do %>
-                    <span class="glyphicon glyphicon-edit"></span>
+                <% unless resource.locked? %>
+                    <%= link_to dilute_blend_path(resource), style: "margin-right: 9px;" do %>
+                        <span class="glyphicon glyphicon-wrench"></span>
+                    <% end %>
+                    <%= link_to edit_resource_path(resource), style: 'float: right;', title: "Edit", :'data-toggle' => "tooltip" do %>
+                        <span class="glyphicon glyphicon-edit"></span>
+                    <% end %>
+                <% else %>
+                    <span class="glyphicon glyphicon-lock" data-original-title="locked" data-toggle="tooltip" data-container="body"></span>
                 <% end %>
             </div>
             <%= resource.name %>, <span style="font-size: 11px;"><%= resource.creation_at %></span>
@@ -70,9 +74,11 @@
             <span class="glyphicon glyphicon-new-window"></span> <%= t :'global.separate' %>
         <% end %>
         <p style="float:right; line-height: 34px;">
-            <button class="btn btn-default" data-toggle="modal" data-target="#adjust-wizard">
-                <span class="glyphicon glyphicon-wrench"></span> Adjust
-            </button>
+            <% unless resource.locked? %>
+                <button class="btn btn-default" data-toggle="modal" data-target="#adjust-wizard">
+                    <span class="glyphicon glyphicon-wrench"></span> Adjust
+                </button>
+            <% end %>
             <%= number_with_precision resource.concentration * 100, precision: 1 %> %
             <%= concentration_human resource %>
         </p>
@@ -85,37 +91,38 @@
 </p>
 
 
-
-<div class="modal fade" id="adjust-wizard" tabindex="-1" role="dialog" aria-labelledby="Adjust Wizard" aria-hidden="true">
-    <div class="modal-dialog">
-        <%= form_tag adjust_blend_path(resource) do %>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Adjust Wizard</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Please enter the desired concentration.
-                    </p>
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <%= text_field_tag :concentration, nil, class: 'form-control', placeholder: "max: #{number_with_precision resource.max_concentration * 100} %", autocomplete: "off" %>
-                                <div class="input-group-addon">%</div>
+<% unless resource.locked? %>
+    <div class="modal fade" id="adjust-wizard" tabindex="-1" role="dialog" aria-labelledby="Adjust Wizard" aria-hidden="true">
+        <div class="modal-dialog">
+            <%= form_tag adjust_blend_path(resource) do %>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Adjust Wizard</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Please enter the desired concentration.
+                        </p>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <%= text_field_tag :concentration, nil, class: 'form-control',
+                                        placeholder: "max: #{number_with_precision resource.max_concentration * 100} %", autocomplete: "off" %>
+                                    <div class="input-group-addon">%</div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Adjust <span class="glyphicon glyphicon-wrench"></span></button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Adjust <span class="glyphicon glyphicon-wrench"></span></button>
-                </div>
-            </div>
-        <% end %>
+            <% end %>
+        </div>
     </div>
-</div>
-
+<% end %>
 
 
 

@@ -3,7 +3,9 @@ class Blend < ActiveRecord::Base
   include Searchable
   
   scope :order_updated_at, -> { order("#{self.table_name}.updated_at DESC") }
-  scope :order_creation_at, -> { order("#{self.table_name}.creation_at DESC") }
+  scope :order_creation_at, -> { order("#{self.table_name}.creation_at DESC") }#
+  scope :visible, lambda { where :hidden => false }
+  scope :hidden, lambda { where :hidden => true }
 
   has_many :ingredients, dependent: :destroy
   has_many :substances, through: :ingredients
@@ -15,7 +17,10 @@ class Blend < ActiveRecord::Base
   validates :name, :ingredients, :presence => true
 
   validates_associated  :ingredients
-
+  
+  before_destroy :before_destroy
+  before_save    :careful_save
+  
   def to_s
     name
   end
@@ -148,5 +153,22 @@ class Blend < ActiveRecord::Base
     end
     success
   end
+  
+  protected
+  
+  def before_destroy
+    return true unless locked?
+    errors.add :id, "Cannot delete locked record"
+    false
+  end
+  
+  def careful_save
+    return true if changes["locked"] == [false, true] || changes.keys == ["locked"]
+    (changes.keys - ["locked"]).each do |ke|
+      errors.add ke, "Cannot change locked record"
+    end
+    false
+  end
+  
   
 end

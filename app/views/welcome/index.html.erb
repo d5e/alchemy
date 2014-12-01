@@ -12,11 +12,12 @@
                         <% end %>
                     </div>
                     <%= link_to resource_class.model_name.plural do %>
-                        <%= resource_class.count %> <%= resource_class.model_name.human(count: 2) %>
+                        <%= resource_class.visible.count %> <%= resource_class.model_name.human(count: 2) %>
                     <% end %>
+                    <span style="font-size:10px;">(<%= resource_class.hidden.count %> hidden)</span>
                 </h3>
               </div>
-              <%= render 'list_compact', resource_class: resource_class %>
+              <%= render 'list_compact', collection: resource_class.visible  %>
         </div>
     <% end %>
     
