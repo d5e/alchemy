@@ -1,22 +1,33 @@
 <div class="panel panel-primary <%= resource_class_name %> <%= bg_color_class(resource.color) %>" style="border-color:#<%= resource.color %>;">
     <div class="panel-heading" style="background-color:#<%= resource.color %>; border-color:#<%= resource.color %>;">
         <h3 class="panel-title">
-            <div style="float:right;">
+            <div class="topright-controls">
                 <% unless resource.locked? %>
-                    <%= link_to dilute_blend_path(resource), style: "margin-right: 9px;" do %>
+                    <%= link_to dilute_blend_path(resource) do %>
                         <span class="glyphicon glyphicon-wrench"></span>
                     <% end %>
-                    <%= link_to edit_resource_path(resource), style: 'float: right;', title: "Edit", :'data-toggle' => "tooltip" do %>
+                    <%= link_to edit_resource_path(resource), title: "Edit", :'data-toggle' => "tooltip" do %>
                         <span class="glyphicon glyphicon-edit"></span>
                     <% end %>
                 <% else %>
-                    <span class="glyphicon glyphicon-lock" data-original-title="locked" data-toggle="tooltip" data-container="body"></span>
+                    <%= link_to edit_resource_path(resource), title: "Edit", :'data-toggle' => "tooltip" do %>
+                        <span class="glyphicon glyphicon-lock" data-original-title="locked" data-toggle="tooltip" data-container="body"></span>
+                    <% end %>
                 <% end %>
             </div>
             <%= resource.name %>, <span style="font-size: 11px;"><%= resource.creation_at %></span>
         </h3>
     </div>
     <div class="panel-body">
+        <% if resource.parent.present? %>
+            <div class="row">
+                 <%= content_tag :span, resource_class.human_attribute_name(:parent), class: 'col-sm-2 small-label' %>
+                 <div class="col-sm-9">
+                     <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
+                 </div>
+             </div>
+             <hr/>
+        <% end %>
        <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:sensory_tags), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
@@ -52,7 +63,7 @@
 
         <% if resource.children.present? %>
             <div class="row">
-                <%= content_tag :span, "children", class: 'col-sm-2 small-label' %>
+                <%= content_tag :span, resource_class.human_attribute_name(:children), class: 'col-sm-2 small-label' %>
                 <div class="col-sm-9">
                     <div class="buttons-container">
                         

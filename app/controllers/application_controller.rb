@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   I18n.config.enforce_available_locales = false
   I18n.backend.class.send(:include, I18n::Backend::Fallbacks)
   I18n.fallbacks.map('de' => 'en')
-  I18n.fallbacks.map('en' => 'de')
   
   DEFAULT_LOCALE = :en
   

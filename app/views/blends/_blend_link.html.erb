@@ -1,0 +1,16 @@
+<% options = {} -%>
+<% options = o if defined?(o) -%>
+<% options[:style] = style if defined?(style) -%>
+<% options[:class] = css_class if defined?(css_class) -%>
+<%= link_to blend_path(blend), options do -%>
+    <%= blend.name %>
+    <% if blend.locked? -%>
+        <span class="glyphicon glyphicon-lock"></span>
+    <% end %>
+    <% if blend.hidden? -%>
+        <span class="glyphicon glyphicon-eye-close"></span>
+    <% end %>
+    <% if blend.parent_id -%>
+        <span class="glyphicon glyphicon-link"></span>
+    <% end %>
+<% end %>

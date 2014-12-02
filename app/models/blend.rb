@@ -2,10 +2,14 @@ class Blend < ActiveRecord::Base
 
   include Searchable
   
+  LOCKED_CHANGEABLE = %w(locked sensory_tags notes color)
+  
   scope :order_updated_at, -> { order("#{self.table_name}.updated_at DESC") }
   scope :order_creation_at, -> { order("#{self.table_name}.creation_at DESC") }#
   scope :visible, lambda { where :hidden => false }
   scope :hidden, lambda { where :hidden => true }
+  
+  belongs_to :parent, class_name: "Blend", foreign_key: :parent_id
 
   has_many :ingredients, dependent: :destroy
   has_many :substances, through: :ingredients
@@ -158,17 +162,31 @@ class Blend < ActiveRecord::Base
   
   def before_destroy
     return true unless locked?
-    errors.add :id, "Cannot delete locked record"
+    errors.add :id, "cannot delete locked record"
     false
   end
   
   def careful_save
-    return true if changes["locked"] == [false, true] || changes.keys == ["locked"]
+    return true if careful_save_allowed
     (changes.keys - ["locked"]).each do |ke|
-      errors.add ke, "Cannot change locked record"
+      errors.add ke, "cannot change locked record"
     end
     false
   end
   
+  private
+  
+  def careful_save_allowed
+    return true unless locked?
+    just_locked || locked_changeable
+  end
+  
+  def just_locked
+    changes["locked"] == [false, true]
+  end
+
+  def locked_changeable
+    (changes.keys - LOCKED_CHANGEABLE).blank?
+  end
   
 end

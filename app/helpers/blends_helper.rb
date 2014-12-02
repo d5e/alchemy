@@ -1,4 +1,9 @@
 module BlendsHelper
+  
+  def blend_link(blend, options={})
+    options[:blend] = blend
+    render '/blends/blend_link', options
+  end
 
   # TODO use ElasticSearch here to get blends by tags count for performance increase
   def blends_by_tags

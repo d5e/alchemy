@@ -10,7 +10,7 @@
         <div class="col-sm-3 <%= :'has-error' if :dilution.in?(fd.object.errors) %>">
             <%= render 'dilution_select', fd: fd %>
         </div>
-        <div class="col-sm-1">
+        <div class="col-sm-1 <%= :nodisplay if fd.object.locked? %>">
             <%= fd.link_to_remove class: "btn" do %>
                 <span class="glyphicon glyphicon-trash"></span>
             <% end %>

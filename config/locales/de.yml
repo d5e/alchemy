@@ -217,16 +217,23 @@ de:
     intensity: Intensität
     solvent: Lösungsmittel
     total_weight: Gesamtgewicht
+    children: Kinder
+    child: Kind
+    parent: Vorfahre
     
   view:
     tabs:
       compact: Kompakt
+      hidden: Versteckt
       by_name: Nach Name
       by_price: Nach Preis
       by_character: Nach Charakter
       list_by_name: Liste nach Name
       short_by_date: Kurz nach Datum
       short_by_tags: Kurz nach Tags
+      by_tags: nach Tags
+      by_creation_at: Nach Kreationsdatum
+      by_updated_at: Nach letztem Update
       normalized_composition: Normalisierte Komposition
       ingredients: Inhaltsstoffe
       

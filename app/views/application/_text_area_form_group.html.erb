@@ -1,7 +1,7 @@
 <% opt ||= {} %>
-<div class="form-group">
+<div class="form-group <%= :'has-error' if c.in?(f.object.errors) %>">
     <%= f.label c, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9 <%= :'has-error' if c.in?(f.object.errors) %>">
+    <div class="col-sm-9">
         <%= f.text_area c, {:class => "form-control"}.merge(opt) %>
     </div>
 </div>

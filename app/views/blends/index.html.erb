@@ -9,10 +9,12 @@
     </div>
     <div class="panel-body">
         <%= nav_tabs :blend_tabs do |tabs| %>
-            <% tabs.add "List by name", 'list' %>
-            <% tabs.add "short by creation at", 'list_short_by_creation_at' %>
-            <% tabs.add "short by updated_at",  'list_short_by_updated_at' %>
-            <% tabs.add "short by tags", 'list_short_by_tags' %>
+            <% tabs.add "Detail", 'list' %>
+            <% tabs.add "by creation at", 'list_short_by_creation_at' %>
+            <% tabs.add "by updated_at",  'list_short_by_updated_at' %>
+            <% tabs.add "by tags", 'list_short_by_tags' %>
+            <% tabs.active "Compact", 'list_short', collection: collection.visible %>
+            <% tabs.add "Hidden", 'list_short', collection: collection.hidden %>
         <% end %>
     </div>
     <div class="panel-footer">
