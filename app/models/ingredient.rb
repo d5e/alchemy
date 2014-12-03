@@ -20,7 +20,7 @@ class Ingredient < ActiveRecord::Base
   end
   
   def careful_save
-    return true unless blend.locked?
+    return true unless locked?
     changes.each do |k,v|
       errors.add k, "cannot change locked record" 
     end

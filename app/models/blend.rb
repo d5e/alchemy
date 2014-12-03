@@ -158,6 +158,11 @@ class Blend < ActiveRecord::Base
     success
   end
   
+  def unlock_silent
+    self.locked = false
+    @skip_carefulness = true
+  end
+  
   protected
   
   def before_destroy
@@ -177,6 +182,7 @@ class Blend < ActiveRecord::Base
   private
   
   def careful_save_allowed
+    return true if @skip_carefulness
     return true unless locked?
     just_locked || locked_changeable
   end
