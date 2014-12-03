@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% current_resources_name = resource_class.model_name.human(count: 2) rescue nil %>
-    <% current_resources_name ||=  controller.controller_name.capitalize %>
-  <title>Alchemy</title>
-  <meta name="viewport" content="minimal-ui, width=768" />
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+<% current_resources_name = resource_class.model_name.human(count: 2) rescue nil -%>
+<% current_resources_name ||=  controller.controller_name.capitalize -%>
+    <title>
+        <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' - ') %>
+    </title>
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    
+    <meta name="viewport" content="minimal-ui, width=768" />
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 </head>
 <body>
     

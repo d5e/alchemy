@@ -1,5 +1,9 @@
 <div class="panel-body buttons-container">
     <% collection.each do |record| %>
-        <%= link_to record.to_s, record, colored(record, class: "btn btn-default btn-sm") %>
+        <% if record.is_a?(Blend)%>
+            <%= blend_link record, o: colored(record, class: "btn btn-default btn-sm") %>
+        <% else %>
+            <%= link_to record.to_s, record, colored(record, class: "btn btn-default btn-sm") %>
+        <% end %>
     <% end %>
 </div>
