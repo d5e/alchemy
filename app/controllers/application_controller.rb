@@ -19,5 +19,13 @@ class ApplicationController < ActionController::Base
     I18n.locale = locale.to_sym
   end
   
+  def turbo_redirect(s)
+    render :js => "Turbolinks.visit('#{s}');"
+  end
+  
+  def turbo_reload
+    render :js => "Turbolinks.visit(location.toString());"
+  end
+  
   
 end

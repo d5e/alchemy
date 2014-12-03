@@ -32,7 +32,11 @@ class SeparatingController < ApplicationController
         
         blends.values.map &:save
         
-        render :js => "alert('OK');"
+        if blends.values.map(&:errors).any?(&:present?)
+          render :js => "alert('#{blends.values.map(&:errors).map(&:full_messages).join("\\n")}');"
+        else
+          turbo_redirect blend_path(resource)
+        end
       end
     end
   end
