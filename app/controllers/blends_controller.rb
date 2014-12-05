@@ -3,7 +3,7 @@ class BlendsController < InheritedResources::Base
   include ActionView::Helpers::JavaScriptHelper
   
   def adjust
-    target_c = params[:concentration].to_f / 100.0
+    target_c = to_f(params[:concentration]) / 100.0
     resource.adjust! target_c
     redirect_to resource
   end
