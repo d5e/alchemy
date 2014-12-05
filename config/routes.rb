@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     member do
       post :bottle
       post :adjust
+      post :resize
       get :dilute
     end
   end

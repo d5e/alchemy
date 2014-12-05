@@ -1,0 +1,14 @@
+<div class="panel-body">
+    <p>
+        <%= t :'view.hints.mass_resize' %>
+    </p>
+    <div class="form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <%= text_field_tag :gram, nil, class: 'form-control',
+                    placeholder: number_with_precision(resource.total_weight.to_f / 1000), autocomplete: "off" %>
+                    <div class="input-group-addon">gram</div>
+            </div>
+        </div>
+    </div>
+</div>

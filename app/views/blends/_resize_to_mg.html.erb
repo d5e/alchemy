@@ -1,0 +1,14 @@
+<div class="panel-body">
+    <p>
+        <%= t :'view.hints.mass_resize_mg' %>
+    </p>
+    <div class="form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <%= text_field_tag :mg, nil, class: 'form-control',
+                    placeholder: number_with_precision(resource.total_weight), autocomplete: "off" %>
+                    <div class="input-group-addon">mg</div>
+            </div>
+        </div>
+    </div>
+</div>

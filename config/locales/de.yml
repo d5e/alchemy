@@ -223,6 +223,8 @@ de:
     
   view:
     tabs:
+      to_total_weight: auf Gesamtgewicht
+      by_factor: nach Faktor
       compact: Kompakt
       hidden: Versteckt
       by_name: Nach Name
@@ -238,6 +240,9 @@ de:
       ingredients: Inhaltsstoffe
       
     hints:
+      mass_resize_mg: "Geben Sie die Gesamtmasse in Milligramm an, auf welche das Rezept angepasst werden soll."
+      mass_resize: "Geben Sie die Gesamtmasse in Gramm an, auf welche das Rezept angepasst werden soll."
+      factor_resize: "Geben Sie den Multiplikator ein, mit welchem alle Mengenanteile skalieren möchten. Beispiel: Ein Wert von 10 verzehnfacht die die Gesamtmasse, und ein Wert von 0,5 halbiert die Masse Ihrer Rezeptur."
       ifra_cat_4_limit_hint: "Maximum Amount of substance in final product. Category 4 includes: Hydroalcoholic Products Applied To Unshaved Skin (includes body mists (aqueous based, alcoholic based and hydroalcoholic)), Body Creams, Oils, Lotions, Fragrancing Creams of all types (except baby creams and lotions), Ingredients of Perfume Kits"
       intensity: "relative, sensorische Intensität, verglichen mit anderen Substanzen und Lösungen"
       exceeding_cat_4: "Dieses Produkt harmoniert nicht mit den IFRA Richtlinien der Kategorie 4. Eine Anwendung auf der Haut wird daher nicht empfohlen."

@@ -112,10 +112,16 @@ class Blend < ActiveRecord::Base
     essence_weight / total_weight
   end
   
-  def resize!(new_mass)
+  def resize!(opts={})
     success = true
     return nil unless total_weight.to_f > 0
-    scale = new_mass.to_f / total_weight.to_f
+    if opts[:factor].to_f > 0
+      scale = opts[:factor].to_f
+    elsif opts[:mg].to_f > 0
+      scale = opts[:mg].to_f / total_weight.to_f
+    else
+      return nil
+    end
     ingredients.each do |ing|
       ing.amount = ing.amount * scale
       success = false unless ing.save

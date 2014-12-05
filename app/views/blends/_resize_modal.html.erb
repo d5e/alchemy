@@ -1,0 +1,24 @@
+<div class="modal fade" id="resize-wizard" tabindex="-1" role="dialog" aria-labelledby="Resize Wizard" aria-hidden="true">
+    <div class="modal-dialog">
+        <%= form_tag resize_blend_path(resource), remote: true do %>
+            <%= hidden_field_tag :strategy, 'factor' %>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Resize Wizard</h4>
+                </div>
+                <div class="modal-body">
+                    <%= nav_tabs :resize_tabs do |tabs| %>
+                        <% tabs.active "by factor", 'resize_by_factor' %>
+                        <% tabs.add "to gram", 'resize_to_total_weight' %>
+                        <% tabs.add "to mg", 'resize_to_mg' %>
+                    <% end %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Resize <span class="glyphicon glyphicon-sort"></span></button>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

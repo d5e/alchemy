@@ -30,6 +30,12 @@ function localeToFloat(string) {
     return parseFloat(string);
 }
 
+function floatToLocale(number, precision) {
+    string = ( (precision) ? number = number.toFixed(precision) : number + "" );
+    if ( 'de' == $('html').attr('lang'))
+        string = string.replace(/\./g,',')
+    return string;
+}
 
     
 window.runAfterInit = function(){
@@ -49,6 +55,13 @@ window.runAfterInit = function(){
     });
     
     
+    
+    
+    
+    $('#resize-wizard').on('click', 'form ul.nav.nav-tabs a', function(e) {
+        var href = $(this).attr('href');
+        $('#resize-wizard form input[type=hidden][name="strategy"]').val(href);
+    });
     
     
     
@@ -130,12 +143,12 @@ window.runAfterInit = function(){
         var sd = $(this);
         var parent = sd.closest('.form-group.dilution-wizard');
         var amount = parent.find('input[data-concentration]');
-        var old_concentration = localeToFloat(amount.attr('data-concentration'));
-        var new_concentration = localeToFloat(sd.find('option:selected').attr('data-concentration'));
+        var old_concentration = parseFloat(amount.attr('data-concentration'));
+        var new_concentration = parseFloat(sd.find('option:selected').attr('data-concentration'));
         if (old_concentration == 0.0 || new_concentration == 0.0)
             return;
         var scale = old_concentration / new_concentration;
-        amount.val(localeToFloat(amount.val()) * scale);
+        amount.val( floatToLocale(localeToFloat(amount.val()) * scale) );
         amount.attr('data-concentration', new_concentration);
     });
 

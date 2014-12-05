@@ -1,0 +1,14 @@
+<div class="panel-body">
+    <p>
+        <%= t :'view.hints.factor_resize' %>
+    </p>
+    <div class="form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <%= text_field_tag :factor, nil, class: 'form-control',
+                    placeholder: "1", autocomplete: "off" %>
+                <div class="input-group-addon">x</div>
+            </div>
+        </div>
+    </div>
+</div>

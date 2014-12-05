@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= I18n.locale %>">
 <head>
 <% current_resources_name = resource_class.model_name.human(count: 2) rescue nil -%>
 <% current_resources_name ||=  controller.controller_name.capitalize -%>

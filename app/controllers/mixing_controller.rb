@@ -11,7 +11,8 @@ class MixingController < ApplicationController
   
   protected
   
-  def dilute_ing(ingredients)
+  # take dilution with highest available concentration in database
+  def dilute_ess(ingredients)
     ingredients.each do |ing|
       next if ing.dilution
       ing.dilution = ing.substance.dilutions.order("concentration DESC").first
@@ -20,7 +21,8 @@ class MixingController < ApplicationController
     end
   end
   
-  def dilute_ess(ingredients, dilutions)
+  # take dilution with highest concentration of all dilutions inside this mix of that substance
+  def dilute_ing(ingredients, dilutions)
     ingredients.each do |ing|
       next if ing.dilution
       ddd = dilutions[ing.substance_id].first
@@ -45,28 +47,30 @@ class MixingController < ApplicationController
         if essence_strategy?
           next if concentration == 0.0
           new_amount = ing.amount * ratio * concentration
-          merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount)
+          merge_amount new_amount, ing, ingredients
         else
           if concentration == 0.0
             new_amount = ing.amount * ratio
-            merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount, ing.dilution)
+            # TODO => different kinds of solvents are not kept this way => REFACTOR IN FAVOR OF RELATIONAL SOLVENTS
+            merge_amount new_amount, ing, ingredients, ing.dilution
           else
             dilutions[ing.substance_id] ||= []
             dilutions[ing.substance_id] << ing.dilution
             new_amount = ing.amount * ratio * concentration
-            merge_amount ingredients, ing.substance_id, new_ingredient(ing, new_amount)
+            merge_amount new_amount, ing, ingredients
           end
         end
       end
     end
     if essence_strategy?
-      dilute_ing ingredients.values
+      dilute_ess ingredients.values
     else
-      dilute_ess ingredients.values, dilutions
+      dilute_ing ingredients.values, dilutions
     end
     new_blend = built_blend(blends)
     new_blend.ingredients << ingredients.values
     new_blend.save
+    new_blend.resize! params[:total_weight].to_f if essence_strategy?
     new_blend
   end
   
@@ -98,13 +102,26 @@ class MixingController < ApplicationController
      )
   end
   
-  def merge_amount(hash, key, value)
-    if hash[key]
-      hash[key].amount += value.amount
+  # amount => the amount in mg of raw material to add from the substance inside ing
+  # ing    => the ingredient from where to take the substance
+  # ingredients => a hash holding all new merged ingredients, hashed by their substance_ids
+  # dilution => force a certain dilution (only necessary mixing pure solvents - soon deprecated)
+  def merge_amount(amount, ing, ingredients, dilution=nil)
+    key = ing.substance_id
+    if ingredients[key]
+      ingredients[key].amount += amount
     else
-      hash[key] = value
+      ingredients[key] = new_ingredient(ing, amount, dilution)
     end
   end
+  
+  # def old_merge_amount(hash, key, value)
+  #   if hash[key]
+  #     hash[key].amount += value.amount
+  #   else
+  #     hash[key] = value
+  #   end
+  # end
   
   def new_ingredient(source_ingredient, amount, dilution=nil)
     Ingredient.new substance_id: source_ingredient.substance_id, amount: amount, dilution: dilution

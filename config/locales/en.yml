@@ -154,6 +154,9 @@ en:
       normalized_composition: Normalized composition
       ingredients: Ingredients
     hints:
+      mass_resize_mg: "Enter the desired total mass in milligram to resize your recipe."
+      mass_resize: "Enter the desired total mass in gram to resize your recipe."
+      factor_resize: "Enter the factor by which you want to scale the mass of your recipe. Example: A factor of 10 will multiply the amount of all ingredients by 10, wheras a factor of 0.5 will halve the total mass of all ingredients"
       ifra_cat_4_limit_hint: "Maximum Amount of substance in final product. Category 4 includes: Hydroalcoholic Products Applied To Unshaved Skin (includes body mists (aqueous based, alcoholic based and hydroalcoholic)), Body Creams, Oils, Lotions, Fragrancing Creams of all types (except baby creams and lotions), Ingredients of Perfume Kits"
       intensity: "Sensoric Relative Intensity compared to other substances"
       exceeding_cat_4: "This product does not comply with IFRA Category 4. It can be used as a fragrance internally to mix up other fragrances, but it is not suitable as a skin contact product."
