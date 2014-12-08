@@ -6,7 +6,7 @@
             <% end %>
             <%= resource.name 
             %><% if resource.cas.present? %>,
-                <%= link_to "https://www.google.de/search?q=\"CAS #{resource.cas}\"", target: "_blank" do %>
+                <%= link_to "https://www.google.de/search?q=#{resource.cas}", target: "_blank" do %>
                     <span style="font-weight: normal; font-size: 12px;">CAS <%= resource.cas %></span>
                 <% end %>
             <% end %>

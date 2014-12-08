@@ -37,7 +37,8 @@ module Substance::Searchable
          input: name.split(/\b/),
          output: name,
          payload: {
-           resource_id: id
+           resource_id: id,
+           character: character
          }
        },
        tags_suggest: {

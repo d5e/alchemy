@@ -54,22 +54,28 @@ class SubstancesController < InheritedResources::Base
       body: {
         substances_suggest: {
           text: string,
-          completion: { field: 'name_suggest', size: 4 },
+          completion: { field: 'name_suggest', size: 5 },
         },
         substances_suggest_tags: {
           text: string,
-          completion: { field: 'tags_suggest', size: 8 }
+          completion: { field: 'tags_suggest', size: 13 }
         },
       }
-    output_to_substance_ids = {}
+    result = {}
     return {} unless response["substances_suggest"]
     response["substances_suggest"].first["options"].each do |item|
-      output_to_substance_ids[ item["text"] ] = item["payload"]["resource_id"]
+      result[ item["payload"]["resource_id"] ] = {
+        name: item["text"],
+        character: item["payload"]["character"]
+      }
     end
     response["substances_suggest_tags"].first["options"].each do |item|
-      output_to_substance_ids[ item["text"] ] = item["payload"]["resource_id"]
+      result[ item["payload"]["resource_id"] ] = {
+        name: item["text"],
+        character: item["payload"]["character"]
+      }
     end
-    output_to_substance_ids
+    result
   end
 
   def redirect_after_save
