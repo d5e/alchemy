@@ -27,7 +27,10 @@ class Dilution < ActiveRecord::Base
     M1E9:   "10 % MPG, 90 % Ethanol",
     M1E99:  "1 % MPG, 99 % Ethanol",
     E80M15I5: "80 % Ethanol, 15 % MPG, 5 % IPM",
-    E75D20I5: "75 % Ethanol, 20 % DPG, 5 % IPM"
+    E75D20I5: "75 % Ethanol, 20 % DPG, 5 % IPM",
+    
+    UNK:     "Unknown Solvents"
+    
   }
   
   CONCENTRATIONS = [ 1.0, 0.5, 0.25, 0.2, 0.1, 0.05, 0.02, 0.01, 0.001, 0.0001, 0.00001 ]
