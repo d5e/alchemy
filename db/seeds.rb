@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+#   def self.plain_create(name, symbol, cas=nil, price=nil, notes=nil)
+Solvent.plain_create "Ethanol (>95%)", "ETH", nil, 25
