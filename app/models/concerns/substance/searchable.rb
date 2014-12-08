@@ -45,7 +45,8 @@ module Substance::Searchable
          input: sensory_tags.split(/\b/),
          output: name,
          payload: {
-           resource_id: id
+           resource_id: id,
+           character: character
          }
        }
      }
