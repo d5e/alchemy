@@ -19,7 +19,7 @@ gem 'nested_form'
 
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
-
+gem "non-stupid-digest-assets"
 
 
 # Use SCSS for stylesheets

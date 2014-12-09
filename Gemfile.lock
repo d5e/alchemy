@@ -105,6 +105,7 @@ GEM
     multipart-post (2.0.0)
     mysql2 (0.3.16)
     nested_form (0.3.2)
+    non-stupid-digest-assets (1.0.4)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -188,6 +189,7 @@ DEPENDENCIES
   less-rails
   mysql2
   nested_form
+  non-stupid-digest-assets
   rails (= 4.1.6)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
