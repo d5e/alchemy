@@ -6,10 +6,11 @@
             <% end %>
             <%= resource.name 
             %><% if resource.cas.present? %>,
+                <% first_cas = true %>
                 <span style="font-weight: normal; font-size: 12px;">CAS
-                    <% resource.cas do |cas| %>
-                        <%= link_to cas, "https://www.google.de/search?q=cas+#{cas}", target: "_blank" %>
-                    <% end %>
+                    <% resource.cas do |cas| %><%= first_cas ? first_cas = nil : ", "
+                        %><%= link_to cas, "https://www.google.de/search?q=cas+#{cas}", target: "_blank" 
+                    %><% end %>
                 </span>
             <% end %>
         </h3>
