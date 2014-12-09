@@ -25,7 +25,7 @@ class Substance < ActiveRecord::Base
   validates :name, :cas, uniqueness: true, allow_blank: true
   validates :name, :sensory_tags, :presence => true
   
-  validates :ifra_cat_4_limit, numericality: { greater_than_or_equal_to: 0, smaller_than: 1 }, allow_blank: true
+  validates :ifra_cat_4_limit, numericality: { greater_than_or_equal_to: 0, less_than: 1 }, allow_blank: true
   
   validates_associated :dilutions
   
