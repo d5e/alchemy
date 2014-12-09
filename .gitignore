@@ -8,10 +8,13 @@
 /.bundle
 
 config/database.yml
-blend_notes.txt
+/blend_notes.txt
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 .ht*
+**/.DS_Store
+/**/.DS_Store
+./DS_Store
 
