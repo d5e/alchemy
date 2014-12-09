@@ -32,6 +32,15 @@ class SubstancesController < InheritedResources::Base
     @suggest = substance_auto_suggest params[:suggest].gsub(/\W+/,' ') rescue nil
   end
   
+  def refresh_elastic
+    respond_to do |format|
+      format.js do
+        Substance.import force: true
+        render js: "$('a.refresh-elastic').remove();"
+      end
+    end
+  end
+  
   def add_dilution_to_blend
     respond_to do |format|
       format.js do

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :new_dilution
       get :suggest
       get :report
+      put :refresh_elastic
     end
   end
   
