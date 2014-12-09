@@ -58,14 +58,18 @@ module ApplicationHelper
   # REFACTORING : replace css classes defintions by color values from here (?) / discard duplicates
   def substance_character
     {
-      'base' => ['amber, musk, cedar, sandal','#ebc8a6'],
-      'base-citral' => ['citral, green, floral', '#bedc55'],
-      'base-heart' => ['sweet, herbal','#eabfd1'],
-      'heart' => ['floral','#c7afee'],
+      'base' => ['animalic, wood','#d2a978'],
+      'base-citral' => ['citral, green, floral', '#8eba47'],
+      'base-heart' => ['sweet, herbal','#c1939a'],
+      'heart' => ['other','#cba7cd'],
+      'heart-sweet' => ['sweet','#e9acc1'],
+      'heart-floral' => ['floral','#c7afee'],
+      'heart-citral' => ['citral','#bcd174'],
       'heart-top' => ['ozone, fresh, fruity','#adc5f4'],
       'top-floral' => ['flower','#bfedc9'],
       'top-citral' => ['citral','#e7ff9e'],
-      'top-musk' => ['powdery, creamy, warm','#ffec83']
+      'top-fruity' => ['fruity, aldehylic','#eed5ff'],
+      'top-warm' => ['powdery, creamy, musk','#ffec83']
     }
   end
   

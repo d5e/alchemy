@@ -1,13 +1,24 @@
 
 <h5 style="text-align:right;">Alchemy Version 0.<%= "%03d" % `git rev-list HEAD --count`.to_f  rescue "x" %></h5>
 
-<h4><%= Substance.human_attribute_name :ifra_cat_4_limit %></h4>
-<p>
-    <%= t :'view.hints.ifra_cat_4_limit_hint' %>
-</p>
+<hr/>
+<h4>Classification by odor type and longevity</h4>
+<div class="buttons-container">
+    <% last_key = substance_character.first.first %>
+    <% substance_character.each do |key, prop| %>
+        <% if last_key[/\A\w+/].upcase != key[/\A\w+/].upcase %>
+            <br/>
+        <% end %>
+        <span style="background-color:<%= prop.last %>; display: inline-block; padding: 2ex 2em; border-radius:0.5ex; margin: 0 1em 2ex 0;">
+            <%= key.upcase %>
+            <span class="small"><%= prop.first %></span>
+        </span>
+        <% last_key = key %>
+    <% end %>
+</div>
+
 
 <hr/>
-
 <h4>Classification by concentration of essentials</h4>
 
 <ul>
@@ -15,3 +26,10 @@
         <li style="margin: 1ex 0 1ex 0;">above <%= number_with_precision p * 100, strip_insignificant_zeros: true %> % : <%= n %></li>
     <% end %>
 </ul>
+
+
+<hr/>
+<h4><%= Substance.human_attribute_name :ifra_cat_4_limit %></h4>
+<p>
+    <%= t :'view.hints.ifra_cat_4_limit_hint' %>
+</p>
