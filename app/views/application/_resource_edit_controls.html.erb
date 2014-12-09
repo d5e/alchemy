@@ -1,4 +1,5 @@
 <% if f.object.persisted? && !f.object.locked? %>
+    <%= f.button style: "background: transparent; border: none;" do %><i class="fa fa-floppy-o"></i><% end -%>
     <%= link_to '#', class: "delete-resource-link", :onclick => "$('.delete-resource-link').toggle();", :title => "Delete", :'data-toggle' => "tooltip" do %>
         <span class="glyphicon glyphicon-trash"></span>
     <% end %>
