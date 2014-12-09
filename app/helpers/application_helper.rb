@@ -64,11 +64,12 @@ module ApplicationHelper
       'heart' => ['other','#cba7cd'],
       'heart-sweet' => ['sweet','#e9acc1'],
       'heart-floral' => ['floral','#c7afee'],
-      'heart-citral' => ['citral','#bcd174'],
+      'heart-fresh' => ['water, ozone, green','#73b7f6'],
+      'heart-citral' => ['citral, aldehylic','#bcd174'],
       'heart-top' => ['ozone, fresh, fruity','#adc5f4'],
       'top-floral' => ['flower','#bfedc9'],
-      'top-citral' => ['citral','#e7ff9e'],
-      'top-fruity' => ['fruity, aldehylic','#eed5ff'],
+      'top-citral' => ['citral, aldehylic','#e7ff9e'],
+      'top-fruity' => ['fruity, sweet, aldehylic','#eed5ff'],
       'top-warm' => ['powdery, creamy, musk','#ffec83']
     }
   end
