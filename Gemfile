@@ -10,9 +10,17 @@ gem 'inherited_resources'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-persistence'
-gem 'bootstrap-sass'
+
 gem 'delocalize'
 gem 'nested_form'
+
+
+#gem 'bootstrap-sass'
+
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
+
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

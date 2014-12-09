@@ -16,11 +16,14 @@
  
  */
 
-//$icon-font-path: "bootstrap/";
-$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
+// old gem bootstrap-sass replaced by gem twitter-bootstrap-rails now
+//$icon-font-path: "bootstrap/";
+//@import "bootstrap-sprockets";
+//@import "bootstrap";
+
+
+
 
 $substance-primary-color: #7274d3;
 $blend-primary-color: #00b293;

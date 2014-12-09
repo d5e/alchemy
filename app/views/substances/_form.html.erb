@@ -93,7 +93,9 @@
                 <%= label_tag :create_new_after %>
                 <%= check_box_tag :create_new_after, 1, params[:create_new_after] %>
             </div>
-            <%= f.submit submit_label, :class => "btn btn-#{submit_class ||= :success} col-sm-3" %>
+            <%= f.button class: "btn btn-#{submit_class ||= :success} col-sm-3" do -%>
+                <i class="fa fa-floppy-o"></i> <%= submit_label %>
+            <% end -%>
         </div>
     </div>
 <% end %>
