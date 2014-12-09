@@ -6,9 +6,11 @@
             <% end %>
             <%= resource.name 
             %><% if resource.cas.present? %>,
-                <%= link_to "https://www.google.de/search?q=#{resource.cas}", target: "_blank" do %>
-                    <span style="font-weight: normal; font-size: 12px;">CAS <%= resource.cas %></span>
-                <% end %>
+                <span style="font-weight: normal; font-size: 12px;">CAS
+                    <% resource.cas do |cas| %>
+                        <%= link_to cas, "https://www.google.de/search?q=cas+#{cas}", target: "_blank" %>
+                    <% end %>
+                </span>
             <% end %>
         </h3>
     </div>

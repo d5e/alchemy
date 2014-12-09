@@ -41,5 +41,15 @@ class Substance < ActiveRecord::Base
   def to_s
     name
   end
+  
+  def cas
+    if block_given? && super.is_a?(String)
+      super.gsub(/[,\s]+/,' ').split(' ').each do |c|
+        yield c
+      end
+    else
+      super
+    end
+  end
 
 end
