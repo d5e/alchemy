@@ -44,9 +44,10 @@
 <div class="form-group">
     <%= f.label :ifra_cat_4_limit, :class => "col-sm-3 control-label" %>
     <div class="col-sm-3">
-        <%= f.text_field :ifra_cat_4_limit, list: :ifra_cat_4_limits, placeholder: "unregulated", class: "form-control", autocomplete: "off" %>
+        <%= f.text_field :ifra_cat_4_limit, list: :ifra_cat_4_limits, placeholder: "unregulated", class: "form-control", autocomplete: "off",
+            value: number_with_precision(resource.ifra_cat_4_limit, precision:9, strip_insignificant_zeros: true) %>
         <datalist id="ifra_cat_4_limits">
-            <%= options_for_select Substance::IFRA_LIMIT_CONCENTRATIONS.collect { |s| [ "#{s * 100} %", s ] } %>
+            <%= options_for_select Substance::IFRA_LIMIT_CONCENTRATIONS.collect{ |s| [ "#{s * 100} %", number_with_precision(s) ] } %>
         </datalist>
     </div>
 </div>
