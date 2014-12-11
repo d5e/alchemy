@@ -38,6 +38,23 @@ function floatToLocale(number, precision) {
     return string;
 }
 
+function initCharacterLegendHighlighting() {
+    console.log("yo");
+    if ( 0 == $('#content div.character-legend').length)
+        return null;
+    window.characterLegends = $('#content div.character-legend');
+    $('#content .buttons-container').on('mouseenter', 'a.btn[class*="color-"]', function(e) {
+        var button = $(this);
+        var color = (button.attr('class') + "").match(/color-[^\s]+/)[0];
+//        $(window.characterLegends).find('.label').removeClass('highlighted');
+        $(window.characterLegends).find('.label.' + color).addClass('highlighted');
+    });
+    $('#content .buttons-container').on('mouseleave', 'a.btn[class*="color-"]', function(e) {
+        $(window.characterLegends).find('.label').removeClass('highlighted');
+    });
+
+}
+
     
 window.runAfterInit = function(){
 
@@ -54,6 +71,20 @@ window.runAfterInit = function(){
     $('body').on('click', '[data-toggle=highlight]', function(e) {
        $(this).toggleClass('highlighted');
     });
+    
+    
+    
+    
+    
+    
+    
+    // character legend highlighting
+    
+    initCharacterLegendHighlighting();
+    
+    
+    
+    
     
     
     

@@ -322,40 +322,6 @@ body {
       border-color: <%= prop.last %> !important;
     }
   <% end %>
-
-//  .color-base { // amber, musk, cedar, sandal
-//    background-color: #ebc8a6 !important;
-//    border-color: #ebc8a6 !important;
-//  }
-//  .color-base-heart { // sweet, herbal
-//    background-color: #eabfd1 !important;
-//    border-color: #eabfd1 !important;
-//  }
-//  .color-heart { // floral
-//    background-color: #c7afee !important;
-//    border-color: #c7afee !important;
-//  }
-//  .color-heart-top { // ozone, fresh, fruity
-//    background-color: #adc5f4 !important;
-//    border-color: #adc5f4 !important;
-//  }
-//  .color-top-floral { // flower
-//    background-color: #bfedc9 !important;
-//    border-color: #bfedc9 !important;
-//  }
-//  .color-top-citral {  // citral
-//    background-color: #e7ff9e !important;
-//    border-color: #e7ff9e !important;
-//  }
-//  .color-base-citral {
-//    background-color: #bedc55 !important;
-//    border-color: #bedc55 !important;
-//  }
-//  .color-top-musk {
-//    background-color: #ffec83 !important;
-//    border-color: #ffec83 !important;
-//  }
-//  
   
   .character-strip {
     height: 27px;
@@ -365,6 +331,16 @@ body {
       display:inline-block;
       height: 100%
     }
+  }
+  
+  .character-legend {
+      <% Object.new.extend(ApplicationHelper).substance_character.each do |key, prop| %>
+        .highlighted.color-<%= key %> { // <%= prop.first %>
+          background-color: <%= prop[2] %> !important;
+          border-color: <%= prop[2] %> !important;
+          color: <%= prop[1] %> !important;
+        }
+      <% end %>
   }
   
   div[data-colorpicker] {

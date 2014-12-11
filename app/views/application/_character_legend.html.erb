@@ -1,3 +1,6 @@
-<% substance_character.each do |key, ar| %>
-    <span class="label label-default color-<%= key %>" style="color: rgba(0,0,0,0.4);" data-original-title="<%= ar.first %>" data-tooltip="click"><%= key.upcase %></span>
-<% end %>
+<div class="character-legend">
+    <% substance_character.each do |key, ar| %>
+        <span class="label label-default color-<%= key %>" style="color: rgba(0,0,0,0.4);" data-original-title="<%= ar.first %>"
+            data-tooltip="click"><%= key.upcase %></span>
+    <% end %>
+</div>

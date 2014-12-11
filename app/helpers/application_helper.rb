@@ -58,19 +58,19 @@ module ApplicationHelper
   # REFACTORING : replace css classes defintions by color values from here (?) / discard duplicates
   def substance_character
     {
-      'base' => ['animalic, wood','#d2a978'],
-      'base-citral' => ['citral, green, floral', '#8eba47'],
-      'base-heart' => ['sweet, herbal','#c1939a'],
-      'heart' => ['other','#cba7cd'],
-      'heart-sweet' => ['sweet','#e9acc1'],
-      'heart-floral' => ['floral','#c7afee'],
-      'heart-fresh' => ['water, ozone, green','#73b7f6'],
-      'heart-citral' => ['citral, aldehylic','#bcd174'],
-      'heart-top' => ['ozone, fresh, fruity','#adc5f4'],
-      'top-floral' => ['flower','#bfedc9'],
-      'top-citral' => ['citral, aldehylic','#e7ff9e'],
-      'top-fruity' => ['fruity, sweet, aldehylic','#eed5ff'],
-      'top-warm' => ['powdery, creamy, musk','#ffec83']
+      'base' => ['animalic, wood','#271c0f', '#a96834', '#d2a978'],
+      'base-citral' => ['citral, green, floral', '#152107', '#488116', '#8eba47'],
+      'base-heart' => ['sweet, herbal', '#231618', '#8c4d55', '#c1939a'],
+      'heart' => ['other', '#251b26', '#9d65a1', '#cba7cd'],
+      'heart-sweet' => ['sweet', '#2c1d23', '#d46c8c', '#e9acc1'],
+      'heart-floral' => ['floral', '#241e2d', '#9670de', '#c7afee'],
+      'heart-fresh' => ['water, ozone, green', '#0e202f', '#307ced', '#73b7f6'],
+      'heart-citral' => ['citral, aldehylic', '#21270e', '#84a830', '#bcd174'],
+      'heart-top' => ['ozone, fresh, fruity', '#1d242f', '#6d91e8', '#adc5f4'],
+      'top-floral' => ['flower', '#222d25', '#89dc9a', '#bfedc9'],
+      'top-citral' => ['citral, aldehylic', '#2c3119', '#d0ff5a', '#e7ff9e'],
+      'top-fruity' => ['fruity, sweet, aldehylic', '#2d2831', '#deafff', '#eed5ff'],
+      'top-warm' => ['powdery, creamy, musk', '#312d12', '#ffda3d', '#ffec83']
     }
   end
   
