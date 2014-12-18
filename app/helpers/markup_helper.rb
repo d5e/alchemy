@@ -1,10 +1,10 @@
 module MarkupHelper
-  
+
   def smarted(s)
     return s unless s.is_a?(String)
     linkable( simple_format s ).html_safe
   end
-  
+
   def linkable(s)
     return s unless s.is_a?(String)
     s.gsub(/\"[^\n\"\t\r:]{2,40}\":\"https?:\/\/[^\n\"\t\r]{15,512}\"/) do |chunk|
@@ -15,7 +15,28 @@ module MarkupHelper
       end
     end
   end
-  
+
+  def tabbed(s)
+    return s unless s.is_a?(String)
+    Rails.logger.info "s inspect: #{s.inspect}"
+    delimiter = /^\#[^\#]{2,40}\#\r?$/
+    headlines = s.scan delimiter
+    bodies = s.split(delimiter).select{|b| b.present? }
+    pre = ""
+    if headlines.size == (bodies.size - 1)
+      pre = "<div class='panel-body'>#{smarted bodies.shift}</div>"
+    elsif headlines.size == bodies.size
+    else
+      return s
+    end
+    html2 = nav_tabs( "tabable_#{rand(2e12).to_s(36)}") do |tabs|
+      headlines.each do |hl|
+        tabs.add hl.gsub(/\W+/,''), :inline => "<div class='panel-body'>#{smarted bodies.shift}</div>"
+      end
+    end
+    pre.html_safe + html2.html_safe
+  end
+
   # slow
   def stream_resource_links(s)
     return s unless s.is_a?(String)
@@ -47,6 +68,6 @@ module MarkupHelper
     end
     .html_safe
   end
-  
-  
+
+
 end

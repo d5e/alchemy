@@ -18,14 +18,14 @@
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:links), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <%= stream_resource_links resource.links %>
+                <%= simple_format stream_resource_links resource.links %>
             </div>
         </div>
         <hr/>
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:body), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <%= smarted resource.body %>
+                <%= tabbed resource.body %>
             </div>
         </div>
     </div>
