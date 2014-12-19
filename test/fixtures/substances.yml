@@ -1,17 +1,68 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  cas: MyString
-  alt_names: MyText
-  sensory_tags: MyText
-  notes: MyText
-  dilutions: MyText
+exaltolide:
+  id: 1
+  name: Exaltolide
+  cas: 106-02-5
+  alt_names: "Cyclopentadecanolide; Muskolactone"
+  sensory_tags: "fine elegant sweet musk note"
+  notes: "solid at room temp but melts easily"
+  ifra_cat_4_limit: 0.025
+  notes_alt_1: "stark wahrnehmbar, Moschus, maskulin, frisch"
+  notes_alt_2: "angenehm, süßlich, runder Moschusduft. anziehend"
+  price_per_quantity: 20.0
+  price_currency: GBP
+  quantity_in_gram_of_raw_material: 50.0
+  character: base
 
-two:
-  name: MyString
-  cas: MyString
-  alt_names: MyText
-  sensory_tags: MyText
-  notes: MyText
-  dilutions: MyText
+indole:
+  id: 2
+  name: Indole
+  cas: 120-72-9
+  alt_names: "Ketole; Benzopyrrole"
+  sensory_tags: "animal floral mothball faecal naphtalene"
+  notes:
+  ifra_cat_4_limit:
+  notes_alt_1: "Klogeruch"
+  notes_alt_2: "Südostasiatisches Pissoir"
+  price_per_quantity: 39
+  price_currency: GBP
+  quantity_in_gram_of_raw_material: 30.0
+  character: base
+
+oud:
+  id: 3
+  name: "Oud, Aquilaria crasna"
+  cas:
+  alt_names:
+  sensory_tags: "oud complex rich"
+  notes: "natural essential oil"
+  ifra_cat_4_limit:
+  notes_alt_1:
+  notes_alt_2:
+  price_per_quantity: 218
+  price_currency: GBP
+  quantity_in_gram_of_raw_material: 5.0
+  character: base
+
+strawberry:
+  id: 4
+  name: "4-hydroxy-2,5-dimethylfuran-3-one"
+  cas: 3658-77-3
+  alt_names: "alletone; strawberry furanone"
+  sensory_tags: "strawberry sweet cotton candy caramel"
+  price_per_quantity: 33
+  price_currency: GBP
+  quantity_in_gram_of_raw_material: 0.3
+  character: heart
+  
+isoesuper:
+  id: 5
+  name: "Iso E Super"  
+  cas: "54464-57-2 166090-45-5, 68155-66-8"
+  notes: "last CAS is a related product"
+  sensory_tags: "amber musk cedar rich complex warm gentle"
+  price_per_quantity: 100
+  price_currency: GBP
+  quantity_in_gram_of_raw_material: 500
+  character: base

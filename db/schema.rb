@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141121093520) do
+ActiveRecord::Schema.define(version: 20141219131529) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20141121093520) do
     t.text     "alt_names"
     t.text     "sensory_tags"
     t.text     "notes"
-    t.text     "dilutions"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "ifra_cat_4_limit",                 limit: 24

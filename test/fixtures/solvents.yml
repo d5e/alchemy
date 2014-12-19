@@ -1,13 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  symbol: MyString
-  notes: MyText
+ethanold:
+  id: 1
+  name: "Ethanol (denat., >95%)"
+  symbol: EDN
+  notes: denaturated
   price_per_kg: 1.5
 
-two:
-  name: MyString
-  symbol: MyString
-  notes: MyText
-  price_per_kg: 1.5
+ethanoln:
+  id: 2
+  name: "Ethanol (non-denat., >96%)"
+  symbol: ETH
+  notes: "natural, non-denaturated Ethyl Alcohol"
+  price_per_kg: 25
+
+dpg:
+  id: 3
+  name: "Dipropylene Glycol"
+  symbol: "DPG"
+  price_per_kg: 15

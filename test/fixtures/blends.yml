@@ -1,15 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  sensory_tags: MyText
-  notes: MyText
-  ingredients: MyText
-  creation_at: 2014-10-12
+skunk:
+  name: Skunk 100
+  sensory_tags: "animalic, musk"
+  notes: "masculin and animalic base note accord with subtle faecal odor"
+  creation_at: 2014-12-06
+  color: "#cfab8f"
+  locked: false
+  hidden: false
+  parent_id:
 
-two:
-  name: MyString
-  sensory_tags: MyText
-  notes: MyText
-  ingredients: MyText
-  creation_at: 2014-10-12
+sweet:
+  name: Sweet 200
+  sensory_tags: "sweet herbal"
+  notes: "sweet herbal base accord"
+  creation_at: 2014-12-07
+  color: "#db72bc"
+
