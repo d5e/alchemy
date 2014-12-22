@@ -3,6 +3,6 @@ class AddPropertiesToSubstances < ActiveRecord::Migration
     add_column :substances, :vp_mmHg_25C, :float
     add_column :substances, :bpC_760mmHg, :float
     add_column :substances, :tenacity_h, :integer, limit: 2
-    add_column :ingredients: :highlighted, :boolean
+    add_column :ingredients, :highlighted, :boolean
   end
 end
