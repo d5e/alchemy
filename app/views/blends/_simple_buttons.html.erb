@@ -1,5 +1,5 @@
 <div class="panel-body buttons-container">
-    <% blends.each do |blend| %>
-        <%= link_to blend.to_s, blend, colored(blend, class: "btn btn-default btn-sm") %>
+    <% blends.each do |record| %>
+        <%= blend_link record, o: colored(record, class: "btn btn-default btn-sm") %>
     <% end %>
 </div>

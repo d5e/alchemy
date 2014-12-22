@@ -4,7 +4,7 @@
         <% if last_date && last_date != record.updated_at.to_date %>
             <span class="small-unit"><%= l last_date %></span><br/>
         <% end %>
-        <%= link_to record.to_s, record, colored(record, class: "btn btn-default btn-sm") %>
+        <%= blend_link record, o: colored(record, class: "btn btn-default btn-sm") %>
         <% last_date = record.updated_at.to_date %>
     <% end %>
     <span class="small-unit"><%= l last_date %></span><br/>
