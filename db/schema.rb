@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219131529) do
+ActiveRecord::Schema.define(version: 20141222123735) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -26,11 +26,29 @@ ActiveRecord::Schema.define(version: 20141219131529) do
     t.integer  "parent_id"
   end
 
+  create_table "blends_families", force: true do |t|
+    t.integer "blend_id"
+    t.integer "family_id"
+  end
+
+  add_index "blends_families", ["blend_id"], name: "index_blends_families_on_blend_id", using: :btree
+  add_index "blends_families", ["family_id"], name: "index_blends_families_on_family_id", using: :btree
+
   create_table "dilutions", force: true do |t|
     t.integer "substance_id"
     t.string  "solvent",       limit: 15
     t.float   "concentration", limit: 24
     t.integer "intensity",     limit: 1
+  end
+
+  create_table "families", force: true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.string   "color",      limit: 8
+    t.text     "tags"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ingredients", force: true do |t|
@@ -40,6 +58,7 @@ ActiveRecord::Schema.define(version: 20141219131529) do
     t.float    "amount",       limit: 53
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "highlighted"
   end
 
   create_table "notes", force: true do |t|
@@ -76,6 +95,9 @@ ActiveRecord::Schema.define(version: 20141219131529) do
     t.string   "price_currency",                   limit: 3
     t.float    "quantity_in_gram_of_raw_material", limit: 24
     t.string   "character",                        limit: 20
+    t.float    "vp_mmHg_25C",                      limit: 24
+    t.float    "bpC_760mmHg",                      limit: 24
+    t.integer  "tenacity_h",                       limit: 2
   end
 
 end

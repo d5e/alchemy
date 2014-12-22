@@ -19,6 +19,14 @@
         </h3>
     </div>
     <div class="panel-body">
+        <% if resource.families.present? %>
+            <div class="row">
+                <% resource.families.each do |family| %>
+                    <%= render 'families/family_link', family: family %>
+                <% end %>
+             </div>
+             <hr/>
+        <% end %>
         <% if resource.parent.present? %>
             <div class="row">
                  <%= content_tag :span, resource_class.human_attribute_name(:parent), class: 'col-sm-2 small-label' %>

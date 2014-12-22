@@ -1,0 +1,39 @@
+<%= render 'form_group_error_messages' %>
+
+<div class="form-group form-group-lg <%= :'has-error' if :parent_id.in? f.object.errors %>">
+    <%= f.label :parent_id, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-6">
+        <%= f.select :parent_id,
+        options_for_select(Family.all.collect { |s| [ s.name, s.id ] }, (params[:parent_id] unless resource.persisted?))         , {prompt: 'Select parent family if this is a sub-category'}, class: "form-control"  %>
+    </div>
+    <div class="col-sm-3">
+        <%= link_to "COLOR", "#", class: "btn btn-default ", style: "font-weight:900; color:rgba(0,0,0,0.2); width: 100%; background-color:##{f.object.color};", :'data-colorpicker' => "button"  %>
+        <%= f.hidden_field :color, :'data-colorpicker' => '' %>
+    </div>
+    <div data-colorpicker="flat" style="display:none;"></div>
+</div>
+<hr/>
+<div class="form-group form-group-lg <%= :'has-error' if :name.in? f.object.errors %>">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", autocomplete: "off" %>
+    </div>
+</div>
+<hr/>
+<%= render 'text_area_form_group', f: f, c: :tags %>
+<hr/>
+<%= render 'text_area_form_group', f: f, c: :notes, opt: { rows: 5 } %>
+
+<% content_for :panel_footer do %>
+    <div class"form-group">
+    </div>
+<% end %>
+
+
+<% content_for :form_submit_controls do %>
+    <div class="form-inline">
+        <div class"form-group">
+            <%= f.submit submit_label, :class => "btn btn-#{submit_class ||= :success} col-sm-offset-9 col-sm-3" %>
+        </div>
+    </div>
+<% end %>

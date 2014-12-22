@@ -69,6 +69,7 @@ class MixingController < ApplicationController
     end
     new_blend = built_blend(blends)
     new_blend.ingredients << ingredients.values
+    new_blend.families = blends.map(&:families).uniq
     new_blend.save
     new_blend.resize! params[:total_weight].to_f if essence_strategy?
     new_blend

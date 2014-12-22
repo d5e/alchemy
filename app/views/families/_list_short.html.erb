@@ -1,0 +1,10 @@
+<div class="panel-body buttons-container">
+    <% collection.each do |record| %>
+        <%= link_to record, colored(record, class: "btn btn-default btn-sm") do -%>
+            <%= record %>
+            <% if record.parent_id -%>
+                <span class="glyphicon glyphicon-link"></span>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>

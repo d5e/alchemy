@@ -2,8 +2,11 @@
 
 <div class="form-group form-group-lg <%= :'has-error' if :name.in? f.object.errors %>">
     <%= f.label :name, :class => "col-sm-3 control-label" %>
-    <div class="col-sm-9">
+    <div class="col-sm-6">
         <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", autocomplete: "off" %>
+    </div>
+    <div class="col-sm-3" style="display:none;">
+        <%= f.select :parent_id, Blend.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Select parent', include_blank: 'No Parent'}, class: "form-control"  %>
     </div>
 </div>
 <hr/>
@@ -28,19 +31,19 @@
 
 <% content_for :panel_header_right do %>
     <div class="btn-group" style="margin-left: 27px; vertical-align: top;">
-      <span class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        <span class="glyphicon glyphicon-th-large"></span>
-      </span>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu" style="color:#333;">
-          <li class="dropdown-header">
-              <%= f.check_box :hidden %>
-              <%= f.label :hidden %>
-          </li>
-          <li class="dropdown-header">
-              <%= f.check_box :locked %>
-              <%= f.label :locked %>
-          </li>
-      </ul>
+        <span class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="glyphicon glyphicon-th-large"></span>
+        </span>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu" style="color:#333;">
+            <li class="dropdown-header">
+                <%= f.check_box :hidden %>
+                <%= f.label :hidden %>
+            </li>
+            <li class="dropdown-header">
+                <%= f.check_box :locked %>
+                <%= f.label :locked %>
+            </li>
+        </ul>
     </div>
 <% end %>
 

@@ -233,7 +233,7 @@ window.runAfterInit = function(){
     
     // BLENDS MIXER
     
-    $('form.blends-mixer').on("click", ".available-blends [data-blend-dom-id], .selected-blends [data-blend-dom-id]", function(e) {
+    $('form.blends-mixer, form.family-batch-add').on("click", ".available-blends [data-blend-dom-id], .selected-blends [data-blend-dom-id]", function(e) {
         var me = $(this);
         var form = me.closest('form');
         var dom_id = me.attr('data-blend-dom-id');
@@ -252,7 +252,7 @@ window.runAfterInit = function(){
             form.find('button[type="submit"]').addClass('disabled')
     });
 
-    $('form.blends-mixer').on("submit", function(e) {
+    $('form.blends-mixer, form.family-batch-add').on("submit", function(e) {
         var me = $(this);
         var hidden = me.find('input#selected_blend_ids[type="hidden"]');
         hidden.val(hidden.attr('class'));

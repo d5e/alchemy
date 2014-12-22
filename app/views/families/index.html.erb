@@ -8,21 +8,15 @@
         </h3>
     </div>
     <div class="panel-body">
-        <%= nav_tabs :blend_tabs do |tabs| %>
-            <% tabs.add "Detail", 'list' %>
-            <% tabs.add "by creation at", 'list_short_by_creation_at' %>
-            <% tabs.add "by updated_at",  'list_short_by_updated_at' %>
-            <% tabs.add "by tags", 'list_short_by_tags' %>
-            <% tabs.active "Compact", 'list_short', collection: collection.visible %>
-            <% tabs.add "Hidden", 'list_short', collection: collection.hidden %>
+        <%= nav_tabs :family_tabs do |tabs| %>
+            <%# tabs.add "Detail", 'list' %>
+            <% tabs.active "Compact", 'list_short', collection: collection.root %>
+            <% tabs.add "All", 'list_short' %>
         <% end %>
     </div>
     <div class="panel-footer">
         <%= link_to new_resource_path, :class => "btn btn-success" do %>
             <span class="glyphicon glyphicon-plus"></span> Add 
-        <% end %>
-        <%= link_to new_mixing_path, :class => "btn btn-primary" do %>
-            <span class="glyphicon glyphicon-random"></span> Mix
         <% end %>
     </div>
 </div>

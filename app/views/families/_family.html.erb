@@ -1,0 +1,9 @@
+<tr>
+    <%= content_tag :td, colored(family) do %>
+        <%= render 'family_link', family: family %>
+    <% end %>
+    </td>
+    <td>
+        <%= family.tags %>
+    </td>
+</tr>
