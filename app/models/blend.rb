@@ -38,11 +38,11 @@ class Blend < ActiveRecord::Base
       ing = Ingredient.new(ing.clone_attributes)
       next if ing.dilution && ing.dilution.concentration.to_f == 0
       amount = ing.amount * (ing.dilution.concentration rescue 1.0)
-      if cc[ing.id]
-        cc[ing.id].amount += amount
+      if cc[ing.substance_id]
+        cc[ing.substance_id].amount += amount
       else
         ing.amount = amount
-        cc[ing.id] = ing
+        cc[ing.substance_id] = ing
       end
     end
     ingredients.clone.each do |ing|
