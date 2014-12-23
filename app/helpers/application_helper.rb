@@ -7,7 +7,7 @@ module ApplicationHelper
       controller_name.underscore.gsub("_controller",'')
     end
   end
-  
+
   def available_dilutions
     dilutions = {}
     Dilution.all.each do |d|

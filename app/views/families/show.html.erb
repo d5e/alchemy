@@ -17,11 +17,11 @@
                      <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
                  </div>
              </div>
-
         <% end %>
-
-        <% if resource.tags.present? %>
+        <% if resource.parent.present? && resource.tags.present? %>
             <hr/>
+        <% end %>
+        <% if resource.tags.present? %>
             <div class="row">
                 <%= content_tag :span, resource_class.human_attribute_name(:tags), class: 'col-sm-2 small-label' %>
                 <div class="col-sm-9">
@@ -54,7 +54,6 @@
                 </div>
             </div>
         <% end %>
-        
         <% if resource.blends.present? %>
             <hr/>
             <div class="row">
@@ -67,7 +66,7 @@
                             <% tabs.active "Compact", 'list_short', collection: resource.blends %>
                         <% end %>
                     <% else %>
-                        <%= render 'blends/list_short', collection: resource.blends %>
+                        <%= render 'blends/list_short', collection: resource.blends, nopanel: true %>
                     <% end %>
                 </div>
             </div>
@@ -76,10 +75,10 @@
 
     <div class="panel-footer">
         <%= link_to add_blends_family_path(resource), {class: "btn btn-default"} do %>
-            <span class="glyphicon glyphicon-log-in"></span> Add Blend
+            <span class="glyphicon glyphicon-log-in"></span> <%= t :'global.manage_memberships' %>
         <% end %>
         <%= link_to url_for(action: :new, parent_id: resource.id), class: "btn btn-default" do %>
-            <span class="glyphicon glyphicon-file"></span> Add Subcategory
+            <span class="glyphicon glyphicon-th"></span> <%= t :'global.add_subcategory' %>
         <% end %>
     </div>
 </div>

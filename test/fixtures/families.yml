@@ -4,8 +4,24 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+fougere:
+  id: 1
+  parent_id:
+  name: "Fougère"
+  tags: "coumarin lavendel"
+  notes:
+  
+chypre:
+  id: 2
+  parent_id:
+  name: "Chypre"
+  tags:
+  notes: "musky and woody bases with floral heart and citral top" 
+
+chypre_base:
+  id: 3
+  parent_id: 2
+  name: "Chypre Base"
+  tags: "BASE, wood, musk, amber"
+  notes: "woody, musky, ambrette bases for chypre accords"

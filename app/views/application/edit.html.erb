@@ -1,5 +1,5 @@
-<%= nested_form_for resource, :html => {:class => "form-horizontal", :role => "form"} do |f| %>
-    <% form_s = render 'form', :submit_label => "Save", :submit_class => :primary, :f => f %>
+<%= nested_form_for resource, html: { class: "form-horizontal", role: "form"} do |f| %>
+    <% form_s = render 'form', submit_label: t(:'global.save'), submit_class: :primary, f: f %>
     <div class="panel panel-primary <%= resource_class_name %>">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -22,4 +22,3 @@
         <%= yield :form_submit_controls %>
     </div>
 <% end %>
-

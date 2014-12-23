@@ -1,10 +1,13 @@
 <%= nested_form_for resource, :html => {:class => "form-horizontal", :role => "form"} do |f| %>
-    <% form_s = render 'form', :submit_label => "Create", :f => f %>
+    <% form_s = render 'form', submit_label: t(:'global.create'), f: f %>
     <div class="panel panel-primary <%= resource_class_name %>">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <div style="float:right;">
                     <%= yield :panel_header_right %>
+                    <%= link_to( {action: :index}, title: t(:'global.cancel'), :'data-toggle' => :tooltip) do 
+                        %><span class="glyphicon glyphicon-remove-circle"></span><% 
+                    end %>
                 </div>
                 <span class="glyphicon glyphicon-edit"></span> <%= t :'global.create' %> <%= resource_class.model_name.human %>
             </h3>

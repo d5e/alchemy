@@ -82,7 +82,7 @@
 <% content_for :panel_footer do %>
     <div class"form-group">
         <%= f.link_to_add :dilutions, class: "btn btn-default", :data => { :target => ".dilution-form" } do %>
-            <span class="glyphicon glyphicon-plus-sign"></span> Add Dilution
+            <span class="glyphicon glyphicon-plus-sign"></span> <%= t :'global.add_dilution' %>
         <% end %>
     </div>
 <% end %>
@@ -91,7 +91,7 @@
     <div class="form-inline">
         <div class"form-group">
             <div class="col-sm-3 col-sm-offset-6 control-label checkbox">
-                <%= label_tag :create_new_after %>
+                <%= label_tag :create_new_after, t(:'global.create_new_after') %>
                 <%= check_box_tag :create_new_after, 1, params[:create_new_after] %>
             </div>
             <%= f.button class: "btn btn-#{submit_class ||= :success} col-sm-3" do -%>

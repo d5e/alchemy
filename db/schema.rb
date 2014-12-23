@@ -46,9 +46,9 @@ ActiveRecord::Schema.define(version: 20141222123735) do
     t.string   "name"
     t.string   "color",      limit: 8
     t.text     "tags"
-    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "notes"
   end
 
   create_table "ingredients", force: true do |t|

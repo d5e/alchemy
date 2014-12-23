@@ -19,20 +19,22 @@
         </h3>
     </div>
     <div class="panel-body">
-        <% if resource.families.present? %>
+        <% fnpp = resource.families.present? && resource.parent.present? %>
+        <% if resource.families.present? || resource.parent.present? %>
             <div class="row">
-                <% resource.families.each do |family| %>
-                    <%= render 'families/family_link', family: family %>
+                <span class="col-sm-2 small-label">
+                    <%= resource_class.human_attribute_name(:parent) if resource.parent.present? %><%
+                        if fnpp %>, <br/><% end %>
+                    <%= resource_class.human_attribute_name(:families) if resource.families.present? %>
+                </span>
+                <%= content_tag :div, class: "col-sm-2 #{:brr if fnpp}" do %>
+                    <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
                 <% end %>
-             </div>
-             <hr/>
-        <% end %>
-        <% if resource.parent.present? %>
-            <div class="row">
-                 <%= content_tag :span, resource_class.human_attribute_name(:parent), class: 'col-sm-2 small-label' %>
-                 <div class="col-sm-9">
-                     <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
-                 </div>
+                <div class="col-sm-7">
+                    <% resource.families.each do |family| %>
+                        <%= render 'families/family_link', family: family %>
+                    <% end %>
+                </div>
              </div>
              <hr/>
         <% end %>

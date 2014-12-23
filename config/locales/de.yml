@@ -163,14 +163,21 @@ de:
   hello: "Alchemy heißt Sie Willkommen"
   global:
     add: "Hinzufügen"
+    manage_memberships: "Mitgliedschaften verwalten"
+    add_subcategory: "Unterfamilie hinzufügen"
+    add_dilution: "Lösung hinzufügen"
+    add_substance: "Substanz hinzufügen"
     separate: Trenne
     close: Schließen
     cancel: Abbrechen
     search: Suche
     help: Hilfe
-    add: 
     create: Kreire
     edit: Editiere
+    save: Speichern
+    create_new_after: Danach weiter anlegen
+    delete: Löschen
+    undo: Änderungen verwerfen
     parts_of_100: Teile von 100
     raw_weight: Rohgewicht
     used_in: verwendet in
@@ -185,6 +192,9 @@ de:
       substance:
         one: Substanz
         other: Substanzen
+      family:
+        one: Familie
+        other: Familien
       blend:
         one: Mischung
         other: Mischungen
@@ -221,6 +231,8 @@ de:
     children: Kinder
     child: Kind
     parent: Vorfahre
+    hidden: versteckt
+    locked: gesichert
     
   view:
     tabs:

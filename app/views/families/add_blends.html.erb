@@ -1,4 +1,4 @@
-<%= form_tag resource_path(resource), class: 'family-batch-add', method: :put do %>
+<%= form_for resource, :html => {:class => 'family-batch-add', :role => "form"} do |f| %>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -19,7 +19,7 @@
                     <%= link_to record.to_s, "#", colored(record, class: "btn btn-default btn-sm", :'data-blend-dom-id' => dom_id(record) ) %>
                 <% end %>
             </div>
-            <%= hidden_field_tag :selected_blend_ids, nil, class: resource.selected_blend_ids %>
+            <%= f.hidden_field :selected_blend_ids, class: resource.selected_blend_ids, id: :selected_blend_ids %>
         </div>
         <div class="panel-footer">
             <%= link_to t(:'global.cancel'), resource, class: 'btn' %>

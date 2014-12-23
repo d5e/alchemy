@@ -1,5 +1,5 @@
 module BlendsHelper
-  
+
   def blend_link(blend, options={})
     options[:blend] = blend
     render '/blends/blend_link', options

@@ -1,4 +1,4 @@
-<div class="panel-body buttons-container">
+<div class="<%= 'panel-body' unless defined?(nopanel) && nopanel %> buttons-container">
     <% collection.each do |record| %>
         <%= blend_link record, o: colored(record, class: "btn btn-default btn-sm") %>
     <% end %>
