@@ -34,7 +34,7 @@ Substances}
 <% %w(alt_names).each do |key| %>
 <% next if substance.send(key).blank? %>
 \paragraph{<%= etex Substance.human_attribute_name key %>}
-<%= etex (substance.send key).gsub(/\s+;\+s/,' ; ') %>
+<%= etex substance.send(key).gsub(/\s+;\+s/,' ; ') %>
 <% end %>
 
 <% %w(ifra_cat_4_limit).each do |key| %>
