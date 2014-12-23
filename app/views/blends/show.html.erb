@@ -25,7 +25,7 @@
                 <span class="col-sm-2 small-label">
                     <%= resource_class.human_attribute_name(:parent) if resource.parent.present? %><%
                         if fnpp %>, <br/><% end %>
-                    <%= resource_class.human_attribute_name(:families) if resource.families.present? %>
+                    <%= Family.model_name.human(count: resource.families.count ) if resource.families.present? %>
                 </span>
                 <%= content_tag :div, class: "col-sm-3 #{:brr if fnpp}" do %>
                     <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
