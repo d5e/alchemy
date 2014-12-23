@@ -9,7 +9,7 @@ class Dilution < ActiveRecord::Base
     IPM:    "Isopropyl Myristate",
     TEC:    "Triethyl Citrate",
     BB:     "Benzyl Benzoate",
-    TPM:    "Dowanol Tripropylenglykolmonomethylether (CAS 25498-49-1)",
+    TPM:    "Dowanol TPGME (CAS 25498-49-1)",
     DME:    "Carbitol (CAS 111-90-0)",
     JJ:     "Jojoba Oil",
 
@@ -22,8 +22,8 @@ class Dilution < ActiveRecord::Base
     ED04:   "4 % Ethanol / 96 % DPG",
     ED01:   "1 % Ethanol / 99 % DPG",
 
-    EI10:   "10 % Ethanol, 90 % Isopropyl Myristate",
-    EI02:   "2 % Ethanol, 98 % Isopropyl Myristate",
+    EI10:   "10 % Ethanol, 90 % IPM",
+    EI02:   "2 % Ethanol, 98 % IPM",
     M1E9:   "10 % MPG, 90 % Ethanol",
     M1E99:  "1 % MPG, 99 % Ethanol",
     E80M15I5: "80 % Ethanol, 15 % MPG, 5 % IPM",

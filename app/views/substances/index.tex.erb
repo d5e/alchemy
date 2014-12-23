@@ -1,79 +1,3 @@
-%% LaTeX Dokument
-%% benötigt BasicTex
-%% from https://tug.org/mactex/morepackages.html
-%% verwendet ausschließlich original TeX-Schriftarten
-%% kompilieren zum PDF mit Befehl:
-%% latex --output-format=pdf hello.tex 
-
-<%
-c = %w(chapter section subsection subsubsection subsubsubsection)
-%>
-
-
-
-
-
-
-%% xelatex xetex1.tex
-
-\documentclass[11pt]{article}
-
-\usepackage{xltxtra}
-\usepackage{fontspec} 
-\defaultfontfeatures{Ligatures=TeX}
-\setmainfont{Helvetica Neue}
-\usepackage[ngerman]{babel}
-\usepackage{amsmath}
-
-
-
-
-
-
-
-
-
-
-
-
-% <% if @style == :report %>
-% \documentclass{report}
-% <% elsif @style == :book %>
-% \documentclass{book}
-% <% else %>
-% <% c.shift %>
-% \documentclass{scrartcl}
-% <% end %>
-% 
-% 
-% 
-% \usepackage[usenames,dvipsnames]{xcolor}
-% \usepackage[utf8]{inputenc}
-% \usepackage[T1]{fontenc}
-% \usepackage{lmodern}
-% \usepackage[ngermanm,english,greek]{babel}
-% \usepackage{amsmath}
-% \usepackage[pdftex,bookmarks,colorlinks]{hyperref}
-% 
-% \definecolor{cobalt}{HTML}{1007BB}
-% 
-% \hypersetup{colorlinks,%
-% citecolor=blue,%
-% filecolor=cobalt,%
-% linkcolor=Green,%
-% urlcolor=Cerulean,%
-% pdftex}
-
-
-
-
-
-
-
-%%\usepackage{zref-abspage,zref-lastpage}
-
-
-
 \title{ALCHEMY\\
 Substances}
 \author{Henry Stenzel}
@@ -93,7 +17,7 @@ Substances}
 
 
 
-\<%= c.first %>{<%= etex substance.character.to_s.upcase %>}
+\<%= tex_c.first %>{<%= etex substance.character.to_s.upcase %>}
 
     <% end %>
     
@@ -101,7 +25,7 @@ Substances}
         
 
         
-\<%= c[1] %>{<%= etex substance.name %>}
+\<%= tex_c[1] %>{<%= etex substance.name %>}
 
 \paragraph{<%= Substance.human_attribute_name :cas %> <%= substance.cas %>}
 
@@ -110,7 +34,7 @@ Substances}
 <% %w(alt_names).each do |key| %>
 <% next if substance.send(key).blank? %>
 \paragraph{<%= etex Substance.human_attribute_name key %>}
-<%= etex substance.send key %>
+<%= etex (substance.send key).gsub(/\s+;\+s/,' ; ') %>
 <% end %>
 
 <% %w(ifra_cat_4_limit).each do |key| %>
@@ -124,7 +48,7 @@ Substances}
 <% %w(sensory_tags notes notes_alt_1 notes_alt_2).each do |key| %>
 <% next if substance.send(key).blank? %>
 \paragraph{<%= etex Substance.human_attribute_name key %>}
-<%= bretex substance.send key %>
+<%= tex_readable_links substance.send key %>
 <% end %>
 
 <% if substance.dilutions.present? %>
@@ -150,17 +74,3 @@ Substances}
 \pagebreak[3]
 
 <% end # of Substance.all %>
-
-
-
-
-
-
-
-% \fancyfoot[C]{%
-%   \iffancylastpage{\textbf{LAST PAGE}}{NORMAL PAGE}%
-% }
-
-
-\end{document}
-

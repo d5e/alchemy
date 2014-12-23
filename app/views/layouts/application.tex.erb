@@ -1,0 +1,57 @@
+%% LaTeX Dokument
+%% benötigt BasicTex
+%% from https://tug.org/mactex/morepackages.html
+%% verwendet ausschließlich original TeX-Schriftarten
+%% kompilieren zum PDF mit Befehl:
+%% latex --output-format=pdf hello.tex 
+
+
+%% xelatex xetex1.tex
+
+\documentclass[11pt]{article}
+
+\usepackage{xltxtra}
+\usepackage{fontspec} 
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Helvetica Neue}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+
+\usepackage[bookmarks,breaklinks]{hyperref}
+
+
+
+
+
+
+% <%= tex_doc_class %> 
+% 
+% \usepackage[usenames,dvipsnames]{xcolor}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}
+% \usepackage[ngermanm,english,greek]{babel}
+% \usepackage{amsmath}
+% \usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+% 
+% \definecolor{cobalt}{HTML}{1007BB}
+% 
+% \hypersetup{colorlinks,%
+% citecolor=blue,%
+% filecolor=cobalt,%
+% linkcolor=Green,%
+% urlcolor=Cerulean,%
+% pdftex}
+
+%%\usepackage{zref-abspage,zref-lastpage}
+
+
+<%= yield %>
+
+
+% \fancyfoot[C]{%
+%   \iffancylastpage{\textbf{LAST PAGE}}{NORMAL PAGE}%
+% }
+
+
+\end{document}
