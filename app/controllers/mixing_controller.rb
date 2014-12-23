@@ -69,7 +69,13 @@ class MixingController < ApplicationController
     end
     new_blend = built_blend(blends)
     new_blend.ingredients << ingredients.values
-    new_blend.families = blends.map(&:families).uniq
+    
+    family_ids = blends.map(&:family_ids).reduce{|m,n| m & n }
+    if family_ids.empty?
+      family_ids = [blends.map(&:families).map(&:root).flatten.first.to_param] rescue []
+    end
+    new_blend.family_ids = family_ids
+    
     new_blend.save
     new_blend.resize! params[:total_weight].to_f if essence_strategy?
     new_blend

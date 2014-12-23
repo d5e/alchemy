@@ -16,12 +16,18 @@ class FamiliesController < InheritedResources::Base
   def build_resource
     super.tap do |res|
       if params[:parent_id]
-        resource.parent_id = params[:parent_id]
         if parent = resource_class.find(params[:parent_id]) rescue nil
           resource.color = parent.color
-          lb = parent.name.strip[parent.name.strip.size-1,1]
-          resource.name = "#{parent.name.strip[0,parent.name.strip.size-1]}#{(lb.ord + 1).chr}"
+          if parent.name.strip[/\s\d{1,4}\z/]
+            number = parent.name.strip[/\d+\z/].to_i + 1
+            resource.name = "#{parent.name.gsub(/\d+\z/,'')} #{number}"
+          elsif parent.name.strip[/\s\w{1,2}\z/] && 0 < (deputy = parent.name.strip[/\w+\z/].to_i(36))
+            resource.name = "#{parent.name.gsub(/\w+\z/,'')} #{(deputy + 1).to_s(36).upcase}"
+          else
+            resource.name = "#{parent.name} Sub"
+          end
           resource.tags = parent.tags
+          resource.parent = parent
           @parent = parent
         end
       end

@@ -4,7 +4,7 @@
     <%= f.label :parent_id, :class => "col-sm-3 control-label" %>
     <div class="col-sm-6">
         <%= f.select :parent_id,
-        options_for_select(Family.all.collect { |s| [ s.name, s.id ] }), {prompt: 'Select parent family if this is a sub-category'}, class: "form-control"  %>
+        options_for_select(Family.all.collect { |s| [ s.name, s.id ] }, resource.parent_id), {prompt: 'Select parent family if this is a sub-category', include_blank: 'No Parent'}, class: "form-control"  %>
     </div>
     <div class="col-sm-3">
         <%= link_to "COLOR", "#", class: "btn btn-default ", style: "font-weight:900; color:rgba(0,0,0,0.2); width: 100%; background-color:##{f.object.color};", :'data-colorpicker' => "button"  %>
