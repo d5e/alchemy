@@ -1,15 +1,15 @@
 <% if f.object.persisted? && !f.object.locked? %>
-    <%= f.button style: "background: transparent; border: none;", title: t(:'global.save'), :'data-toggle' => "tooltip" do %><i class="fa fa-floppy-o"></i><% end -%>
-    <%= link_to '#', class: "delete-resource-link", onclick: "$('.delete-resource-link').toggle();", title: t(:'global.delete'), :'data-toggle' => "tooltip" do %>
+    <%= f.button style: "background: transparent; border: none;", title: t(:'global.save', plain: 1), :'data-toggle' => "tooltip" do %><i class="fa fa-floppy-o"></i><% end -%>
+    <%= link_to '#', class: "delete-resource-link", onclick: "$('.delete-resource-link').toggle();", title: t(:'global.delete', plain: 1), :'data-toggle' => "tooltip" do %>
         <span class="glyphicon glyphicon-trash"></span>
     <% end %>
-    <%= link_to t(:'global.delete'), resource_path(f.object), method: :delete, :'data-confirm' => "This cannot be undone! Are you sure to delete #{resource.name.upcase} ?", class: "btn btn-danger delete-resource-link", style: " display:none; padding: 3px 16px; margin-top: -5px;" %>
+    <%= link_to t(:'global.delete', plain: 1), resource_path(f.object), method: :delete, :'data-confirm' => "This cannot be undone! Are you sure to delete #{resource.name.upcase} ?", class: "btn btn-danger delete-resource-link", style: " display:none; padding: 3px 16px; margin-top: -5px;" %>
 
 <% end %>
-<%= link_to( {}, {title: t(:'global.undo'), :'data-toggle' => "tooltip"}) do %>
+<%= link_to( {}, {title: t(:'global.undo', plain: 1), :'data-toggle' => "tooltip"}) do %>
     <span class="glyphicon glyphicon-backward"></span>
 <% end %>
 
-<%= link_to( {:action => ( f.object.persisted? ? :show : :index )}, title: t(:'global.cancel'), :'data-toggle' => "tooltip") do 
+<%= link_to( {:action => ( f.object.persisted? ? :show : :index )}, title: t(:'global.cancel', plain: 1), :'data-toggle' => "tooltip") do 
     %><span class="glyphicon glyphicon-remove-circle"></span><% 
 end %>

@@ -7,6 +7,15 @@ module ApplicationHelper
       controller_name.underscore.gsub("_controller",'')
     end
   end
+  
+  def t(key, options={})
+    options.symbolize_keys!
+    if options[:plain] && !I18n.exists?(key, options)
+      key.to_s[/\w+\z/].humanize
+    else
+      super
+    end
+  end
 
   def available_dilutions
     dilutions = {}

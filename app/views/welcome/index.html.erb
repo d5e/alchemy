@@ -8,7 +8,7 @@
                 <h3 class="panel-title">
                     <div style="float:right;">
                         <%= link_to send("new_#{resource_class.model_name.to_s.underscore}_path") do %>
-                            <%= content_tag :span, nil, class: 'glyphicon glyphicon-plus', title: t(:'global.add'), :'data-toggle' => :tooltip %>
+                            <%= content_tag :span, nil, class: 'glyphicon glyphicon-plus', title: t(:'global.add', plain: 1), :'data-toggle' => :tooltip %>
                         <% end %>
                     </div>
                     <%= link_to resource_class.model_name.plural do %>
