@@ -1,6 +1,8 @@
 class Family < ActiveRecord::Base
   
   scope :root, lambda { where :parent_id => nil }
+  scope :visible, lambda { root }
+  scope :hidden, lambda { where :parent_id => true }
   
   belongs_to :parent, class_name: "Family", foreign_key: :parent_id
   has_many :children, class_name: "Family", foreign_key: :parent_id
