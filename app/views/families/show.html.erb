@@ -28,20 +28,20 @@
                     <%= resource.tags %>
                 </div>
             </div>
+            <hr/>
         <% end %>
         
         <% if resource.notes.present? %>
-            <hr/>
             <div class="row">
                 <%= content_tag :span, resource_class.human_attribute_name(:notes), class: 'col-sm-2 small-label' %>
                 <div class="col-sm-9">
                     <%= smarted resource.notes %>
                 </div>
             </div>
+            <hr/>
         <% end %>
 
         <% if resource.children.present? %>
-            <hr/>
             <div class="row">
                 <%= content_tag :span, resource_class.human_attribute_name(:children), class: 'col-sm-2 small-label' %>
                 <div class="col-sm-9">
@@ -54,8 +54,10 @@
                 </div>
             </div>
         <% end %>
-        <% if resource.blends.present? %>
+        <% if resource.children.present? && resource.blends.present? %>
             <hr/>
+        <% end %>
+        <% if resource.blends.present? %>
             <div class="row">
                 <%= content_tag :span, resource_class.human_attribute_name(:blends), class: 'col-sm-2 small-label' %>
                 <div class="col-sm-9">
