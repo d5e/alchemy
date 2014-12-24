@@ -5,7 +5,7 @@
     <div class="col-sm-6">
         <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", autocomplete: "off" %>
     </div>
-    <div class="col-sm-3" style="display:none;">
+    <div class="col-sm-3">
         <%= f.select :parent_id, Blend.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Select parent', include_blank: 'No Parent'}, class: "form-control"  %>
     </div>
 </div>

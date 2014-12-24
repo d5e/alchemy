@@ -27,10 +27,10 @@
                         if fnpp %>, <br/><% end %>
                     <%= Family.model_name.human(count: resource.families.count ) if resource.families.present? %>
                 </span>
-                <%= content_tag :div, class: "col-sm-3 #{:brr if fnpp}" do %>
+                <%= if resource.parent ; content_tag :div, class: "col-sm-3 #{:brr if fnpp}" do %>
                     <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
-                <% end %>
-                <div class="col-sm-6">
+                <% end ; end %>
+                <div class="col-sm-6 buttons-container">
                     <% resource.families.each do |family| %>
                         <%= render 'families/family_link', family: family %>
                     <% end %>

@@ -1,8 +1,11 @@
 en:
   number:
     format:
+      precision: 2
       separator: '.'
       delimiter: ','
+      significant: false
+      strip_insignificant_zeros: true
     precision:
       format:
         delimiter: ','

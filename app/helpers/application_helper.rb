@@ -29,11 +29,11 @@ module ApplicationHelper
     dilutions
   end
   
-  def dilutions_as_options
+  def dilutions_as_options(object=nil)
     Rails.logger.info I18n.locale
-    dc = Dilution::CONCENTRATIONS.collect do |s|
+    dc = Dilution::CONCENTRATIONS.compact.uniq.map do |s|
       p = number_with_precision s * 100, precision: 8, strip_insignificant_zeros: true
-      v = number_with_precision s, precision: 8, strip_insignificant_zeros: true
+      v = number_with_precision s, precision: 10, strip_insignificant_zeros: true
       Rails.logger.info "#{p}   #{v}"
       [ "#{p} %", v ]
     end

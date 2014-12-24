@@ -100,7 +100,7 @@ de:
       separator: ','
       delimiter: '.'
       significant: false
-      strip_insignificant_zeros: false
+      strip_insignificant_zeros: true
     currency:
       format:
         unit: '€'

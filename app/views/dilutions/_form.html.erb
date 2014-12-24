@@ -5,9 +5,9 @@
             <%= f.label :dilution, :class => "col-sm-3 control-label" %>
             <% disable = fd.object.persisted? && fd.object.ingredients.exists? %>
             <div class="col-sm-2 <%= :'has-error' if :concentration.in? fd.object.errors %>">
-                <%= fd.text_field :concentration, list: :abc, placeholder: :default, class: "form-control", disabled: disable, autocomplete: "off" %>
+                <%= fd.text_field :concentration, list: :abc, placeholder: :default, class: "form-control", disabled: disable, autocomplete: "off", precision: 8 %>
                 <datalist id="abc">
-                    <%= dilutions_as_options %>
+                    <%= dilutions_as_options(fd.object) %>
                 </datalist>
             </div>
             <div class="col-sm-4">
