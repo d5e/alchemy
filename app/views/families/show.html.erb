@@ -18,7 +18,7 @@
                  </div>
              </div>
         <% end %>
-        <% if resource.parent.present? && resource.tags.present? %>
+        <% if resource.parent.present? and resource.tags.present? || resource.children.present? || resource.notes.present? %>
             <hr/>
         <% end %>
         <% if resource.tags.present? %>
