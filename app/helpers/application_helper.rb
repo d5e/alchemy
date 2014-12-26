@@ -40,6 +40,10 @@ module ApplicationHelper
     options_for_select dc
   end
   
+  def select_present(object, *methods)
+    methods.select{|m| object.send(m).present?}
+  end
+  
   def concentration_classes
     {
       0.39   =>   "Huiles essentielles",

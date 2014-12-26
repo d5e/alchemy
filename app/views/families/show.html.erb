@@ -10,70 +10,8 @@
         </h3>
     </div>
     <div class="panel-body">
-        <% if resource.parent.present? %>
-            <div class="row">
-                 <%= content_tag :span, resource_class.human_attribute_name(:parent), class: 'col-sm-2 small-label' %>
-                 <div class="col-sm-9">
-                     <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
-                 </div>
-             </div>
-        <% end %>
-        <% if resource.parent.present? and resource.tags.present? || resource.children.present? || resource.notes.present? %>
-            <hr/>
-        <% end %>
-        <% if resource.tags.present? %>
-            <div class="row">
-                <%= content_tag :span, resource_class.human_attribute_name(:tags), class: 'col-sm-2 small-label' %>
-                <div class="col-sm-9">
-                    <%= resource.tags %>
-                </div>
-            </div>
-            <hr/>
-        <% end %>
-        
-        <% if resource.notes.present? %>
-            <div class="row">
-                <%= content_tag :span, resource_class.human_attribute_name(:notes), class: 'col-sm-2 small-label' %>
-                <div class="col-sm-9">
-                    <%= smarted resource.notes %>
-                </div>
-            </div>
-            <hr/>
-        <% end %>
-
-        <% if resource.children.present? %>
-            <div class="row">
-                <%= content_tag :span, resource_class.human_attribute_name(:children), class: 'col-sm-2 small-label' %>
-                <div class="col-sm-9">
-                    <div class="buttons-container">
-                        
-                    </div>
-                    <% resource.children.each do |child| %>
-                        <%= link_to child, child, colored(child, class: "btn btn-default btn-sm") %>
-                    <% end %>
-                </div>
-            </div>
-        <% end %>
-        <% if resource.children.present? && resource.blends.present? %>
-            <hr/>
-        <% end %>
-        <% if resource.blends.present? %>
-            <div class="row">
-                <%= content_tag :span, resource_class.human_attribute_name(:blends), class: 'col-sm-2 small-label' %>
-                <div class="col-sm-9">
-                    <% if resource.blends.size > 18 %>
-                        <%= nav_tabs :blend_tabs do |tabs| %>
-                            <% tabs.add "Detail", 'blends/list', collection: resource.blends %>
-                            <% tabs.add "by creation at", 'blends/list_short_by_creation_at', collection: resource.blends %>
-                            <% tabs.active "Compact", 'list_short', collection: resource.blends %>
-                        <% end %>
-                    <% else %>
-                        <%= render 'blends/list_short', collection: resource.blends, nopanel: true %>
-                    <% end %>
-                </div>
-            </div>
-        <% end %>
-     </div>
+        <%= render partial: 'element', collection: select_present(resource, :parent, :tags, :notes, :children, :blends), spacer_template: 'layouts/hr' %>
+    </div>
 
     <div class="panel-footer">
         <%= link_to new_mixing_path(family_id: resource.id), {class: "btn btn-success"} do %>

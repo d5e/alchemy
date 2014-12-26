@@ -1,0 +1,29 @@
+<% element = element.to_sym %>
+<div class="row">
+    <%= content_tag :span, resource_class.human_attribute_name(element), class: 'col-sm-2 small-label' %>
+    <div class="col-sm-9">
+        <% if element == :parent %>
+             <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
+        <% elsif element == :notes %>
+            <%= smarted resource.notes %>
+        <% elsif element == :children %>
+            <div class="buttons-container">
+                <% resource.children.each do |child| %>
+                    <%= link_to child, child, colored(child, class: "btn btn-default btn-sm") %>
+                <% end %>
+            </div>
+        <% elsif element == :blends %>
+            <% if resource.blends.size > 18 %>
+                <%= nav_tabs :blend_tabs do |tabs| %>
+                    <% tabs.add "Detail", 'blends/list', collection: resource.blends %>
+                    <% tabs.add "by creation at", 'blends/list_short_by_creation_at', collection: resource.blends %>
+                    <% tabs.active "Compact", 'list_short', collection: resource.blends %>
+                <% end %>
+            <% else %>
+                <%= render 'blends/list_short', collection: resource.blends, nopanel: true %>
+            <% end %>
+        <% else %>
+            <%= resource.send element %>
+        <% end %>
+    </div>
+</div>
