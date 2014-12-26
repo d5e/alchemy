@@ -1,6 +1,7 @@
 <%= f.fields_for :ingredients do |fd| %>
     <div class="form-group">
-        <%= f.label :ingredient, class: "col-sm-3 control-label", data: { toggle: :highlight }  %>
+        <%= fd.hidden_field :highlighted, class: 'highlight' %>
+        <%= f.label :ingredient, Ingredient.model_name.human, class: "col-sm-3 control-label #{:highlighted if fd.object.highlighted}", data: { toggle: :highlight }  %>
         <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
             <%= fd.text_field :amount, placeholder: :mg, class: 'form-control' %>
         </div>

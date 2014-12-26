@@ -228,6 +228,7 @@ de:
     intensity: Intensität
     solvent: Lösungsmittel
     total_weight: Gesamtgewicht
+    creation_at: Kreiert am
     children: Kinder
     child: Kind
     parent: Vorfahre

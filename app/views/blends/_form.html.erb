@@ -24,9 +24,13 @@
 <hr/>
 <%= render 'text_area_form_group', f: f, c: :sensory_tags %>
 <%= render 'text_area_form_group', f: f, c: :notes, opt: { rows: 5 } %>
-
-<div class="ingredients-form">
-    <%= render "ingredient_form", :f => f %>
+<hr/>
+<div>
+    <%= label_tag Ingredient.model_name.human(count: 2) %>
+    <a class="btn" data-toggle="invert-highlighted"><span class="glyphicon glyphicon-transfer" title="Invert"></span></a>
+    <div class="ingredients-form">
+        <%= render "ingredient_form", :f => f %>
+    </div>
 </div>
 
 <% content_for :panel_header_right do %>

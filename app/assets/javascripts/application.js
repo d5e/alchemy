@@ -70,8 +70,14 @@ window.runAfterInit = function(){
     
     $('body').on('click', '[data-toggle=highlight]', function(e) {
        $(this).toggleClass('highlighted');
+       var hiddenField = null;
+       if (hiddenField = $(this).parent().find('input[type=hidden].highlight'))
+            hiddenField.val( $(this).hasClass('highlighted') ? '1' : '0' )
     });
     
+    $('body').on('click', 'a[data-toggle="invert-highlighted"]', function(e) {
+       $(this).parent().find('[data-toggle=highlight]').trigger('click');
+    });
     
     
     
