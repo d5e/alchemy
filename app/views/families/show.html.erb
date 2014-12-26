@@ -76,6 +76,9 @@
      </div>
 
     <div class="panel-footer">
+        <%= link_to new_mixing_path(family_id: resource.id), {class: "btn btn-success"} do %>
+            <span class="glyphicon glyphicon-random"></span> Mix!
+        <% end %>
         <%= link_to add_blends_family_path(resource), {class: "btn btn-default"} do %>
             <span class="glyphicon glyphicon-log-in"></span> <%= t :'global.manage_memberships' %>
         <% end %>

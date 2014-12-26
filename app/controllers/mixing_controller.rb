@@ -1,5 +1,19 @@
 class MixingController < ApplicationController
   
+  def new
+    @families = []
+    if params[:family_id]
+      if (ids = params[:family_id].split(',')).size > 1
+        @families = Family.where(id: ids)
+      else
+        @families << Family.find(params[:family_id])
+      end
+      @available_blends = @families.map(&:blends).flatten.compact.uniq
+    else
+      @available_blends = Blend.all
+    end
+  end
+  
   def prepare
     blend_dom_ids = params[:selected_blend_ids].gsub(/[\.,\s]+/,' ').split(/\s/)
     @blends = blend_dom_ids.map{ |dom_id| Blend.find dom_id[/\d+/].to_i }

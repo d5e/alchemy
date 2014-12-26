@@ -41,11 +41,11 @@ class BlendsController < InheritedResources::Base
   def resize
     respond_to do |format|
       format.js do
-        if params[:gram].to_f > 0 && params[:strategy].to_s[/gram/]
+        if to_f(params[:gram]) > 0 && params[:strategy].to_s[/gram/]
           resize! mg: to_f(params[:gram]) * 1000
-        elsif params[:mg].to_f > 0 && params[:strategy].to_s[/mg/]
+        elsif to_f(params[:mg]) > 0 && params[:strategy].to_s[/mg/]
           resize! mg: to_f(params[:mg])
-        elsif params[:factor].to_f > 0 && params[:strategy].to_s[/factor/]
+        elsif to_f(params[:factor]) > 0 && params[:strategy].to_s[/factor/]
           resize! factor: to_f(params[:factor])
         else
           render js: "alert('Please fill out all fields');"

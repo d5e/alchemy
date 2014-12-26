@@ -9,7 +9,7 @@
         <div class="panel-body buttons-container">
             <h4><%= t :'global.available', count: 2 %> <%= Blend.model_name.human(count: 2) %></h4>
             <div class="available-blends">
-                <% Blend.all.each do |record| %>
+                <% @available_blends.each do |record| %>
                     <%= link_to record.to_s, "#", colored(record, class: "btn btn-default btn-sm", :'data-blend-dom-id' => dom_id(record) ) %>
                 <% end %>
             </div>
@@ -21,6 +21,9 @@
             <%= hidden_field_tag :selected_blend_ids %>
         </div>
         <div class="panel-footer">
+            <% @families.each do |family| %>
+                <%= link_to family, family, class: 'btn' %>
+            <% end %>
             <button type="submit" class="btn btn-primary disabled">
                 <span class="glyphicon glyphicon-random"></span> Mix!
             </button>
