@@ -1,6 +1,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <td class="r"><%= t :'global.vp_mmHg_25C' %></td>
             <td class="r"><%= t :'global.parts_of_100' %></td>
             <td><%= Ingredient.model_name.human %></td>
             <td class="r"><%= t :'global.raw_weight' %></td>
@@ -10,6 +11,7 @@
         <% exceeding_cat_4 = false %>
         <% (  resource.composition).each do |key, ing| %>
             <tr>
+                <td class="r"><%= ing.substance.vp_mmHg_25C unless key.is_a?(Symbol) %></td>
                 <% fraction =  (ing.amount / resource.total_weight) %>
                 <td class="r <%= ( exceeding_cat_4 = :red) if !key.is_a?(Symbol) && ing.substance.ifra_cat_4_limit.to_f > 0 && fraction > ing.substance.ifra_cat_4_limit %>">
                     <% precision = (6 - Math.log10(fraction * 100.0)).round %>
