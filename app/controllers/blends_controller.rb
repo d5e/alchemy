@@ -2,6 +2,8 @@ class BlendsController < InheritedResources::Base
   
   include ActionView::Helpers::JavaScriptHelper
   
+  helper_method :blends_for_parentship
+  
   def adjust
     target_c = to_f(params[:concentration]) / 100.0
     resource.adjust! target_c
@@ -56,6 +58,22 @@ class BlendsController < InheritedResources::Base
 
   private
   
+  def build_resource
+    super.tap do |res|
+      begin
+        res.families << Family.where(id: params[:family_ids].to_s.split(',')) if params[:family_ids].present?
+      rescue Exception => e
+        raise params[:family_ids].inspect
+      end
+    end
+  end
+  
+  def blends_for_parentship
+    []
+    return resource.families.map(&:blends).flatten.compact.uniq if resource && resource.families
+    Blend.all
+  end
+  
   def to_f(f)
     I18n.delocalization_enabled? ? Numeric.parse_localized(f).to_f : f.to_f
   end
@@ -73,7 +91,7 @@ class BlendsController < InheritedResources::Base
     # It's mandatory to specify the nested attributes that should be whitelisted.
     # If you use `permit` with just the key that points to the nested attributes hash,
     # it will return an empty hash.
-    params.require(:blend).permit(:name, :creation_at, :sensory_tags, :notes, :color, :locked, :hidden, :parent_id,
+    params.require(:blend).permit(:name, :creation_at, :sensory_tags, :notes, :color, :locked, :hidden, :parent_id, :family_ids,
       ingredients_attributes: [:substance_id, :amount, :dilution_id, :highlighted, :id, :_destroy ]
     )
    end

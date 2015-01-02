@@ -1,3 +1,4 @@
+<% family ||= family_link %>
 <%= link_to family, colored(family, class: "btn btn-default btn-sm"), style: "width: 100%; display:block;" do -%>
     <%= family %>
     <% if family.parent_id -%>

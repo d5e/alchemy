@@ -1,15 +1,31 @@
 <%= render 'form_group_error_messages' %>
 
+<% if false ## DISABLED DEV TODO %>
+<div class="form-group form-group-lg <%= :'has-error' if :families.in? f.object.errors %>">
+    <%= f.label :families, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <div class="buttons-container" style="margin-top: 9px;">
+            <%= render partial: "families/family_link", collection: f.object.families %>
+            <%= f.hidden_field :family_ids %>
+            <pre>
+                family_ids: <%= f.object.family_ids.inspect %>
+            </pre>
+        </div>
+    </div>
+</div>
+<hr/>
+<% end %>
+
 <div class="form-group form-group-lg <%= :'has-error' if :name.in? f.object.errors %>">
     <%= f.label :name, :class => "col-sm-3 control-label" %>
     <div class="col-sm-6">
         <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", autocomplete: "off" %>
     </div>
     <div class="col-sm-3">
-        <%= f.select :parent_id, Blend.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Select parent', include_blank: 'No Parent'}, class: "form-control"  %>
+        <%= f.select :parent_id, blends_for_parentship.map { |s| [ s.name, s.id ] }, {prompt: 'Select parent', include_blank: 'No Parent'}, class: "form-control"  %>
     </div>
 </div>
-<hr/>
+
 <div class="form-group <%= :'has-error' if :creation_at.in?(f.object.errors) %>">
     <%= f.label :creation_at, :class => "col-sm-3 control-label" %>
     <div class="col-sm-6">

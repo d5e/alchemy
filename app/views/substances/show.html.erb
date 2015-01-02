@@ -26,7 +26,7 @@
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:ifra_cat_4_limit), class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
-                <%= "#{resource.ifra_cat_4_limit * 100} %" rescue "unregulated"  %>
+                <%= "#{resource.ifra_cat_4_limit * 100} %" rescue "unregulated"  %><br/>
             </div>
             <% if resource.character.present? %>
                 <div class="col-sm-4">
@@ -35,6 +35,15 @@
             <% end %>
         </div>
         <hr/>
+
+        <div class="row">
+            <%= content_tag :span, resource_class.human_attribute_name(:vp_mmHg_25C), class: 'col-sm-2 small-label' %>
+            <div class="col-sm-6">
+                <%= resource.vp_mmHg_25C ? number_with_precision( resource.vp_mmHg_25C, precision: 9, strip_insignificant_zeros: true) : "&nbsp;".html_safe %>
+            </div>
+        </div>
+        <hr/>
+
         <% if resource.price_per_quantity.to_f > 0 && resource.quantity_in_gram_of_raw_material > 0 %>
             <div class="row">
                 <%= content_tag :span, resource_class.human_attribute_name(:price), class: 'col-sm-2 small-label' %>

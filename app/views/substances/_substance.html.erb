@@ -12,6 +12,9 @@
         <%= substance.sensory_tags %>
     </td>
     <td class="r">
+        <%= number_with_precision substance.vp_mmHg_25C, precision:9, strip_insignificant_zeros: true %>
+    </td>
+    <td class="r">
         <%= number_with_precision substance.price_in_eur_per_100g, precision:0 %>
     </td>
 </tr>
