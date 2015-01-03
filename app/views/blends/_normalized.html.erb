@@ -1,0 +1,44 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td class="r"><%= t :'global.vp_mmHg_25C' %></td>
+            <td class="r"><%= t :'global.parts_of_100' %></td>
+            <td><%= Ingredient.model_name.human %></td>
+            <td class="r"><%= t :'global.raw_weight' %></td>
+        </tr>
+    </thead>
+    <tbody>
+        <% exceeding_cat_4 = false %>
+        <% essence_weight = resource.essence_weight %>
+        <% resource.essence_composition.each do |key, ing| %>
+            <% next if key.is_a?(Symbol) %>
+            <tr>
+                <td class="r"><%= ing.substance.vp_mmHg_25C unless key.is_a?(Symbol) %></td>
+                <% fraction =  (ing.amount / essence_weight) %>
+                <td class="r">
+                    <% precision = (6 - Math.log10(fraction * 100.0)).round %>
+                    <% precision = 5 if precision < 5 %>
+                    <%= number_with_precision fraction * 100.0, precision: precision, strip_insignificant_zeros: true %>
+                    <span style="font-size:10px;">%</span>
+                </td>
+                <td>
+                    <span class="color-<%= ing.substance.character %> ctag"></span>
+                    <%= link_to ing.substance, ing.substance %>
+                </td>
+                <td class="r">
+                    <% precision = (5 - Math.log10(ing.amount)).round %>
+                    <% precision = 1 if precision < 2 %>
+                    <% precision += 1 if precision == 3 %>
+                    <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: (precision > 1) %> <span class="small-unit">mg</span>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" class="r">price <%= number_with_precision resource.price_per_gram %> EUR per 100g</td>
+            <td class="r">Total Essences:</td>
+            <td class="r"><%= number_with_precision resource.essence_weight, precision: 1 %> <span class="small-unit">mg</span></td>
+        </tr>
+    </tfoot>
+</table>

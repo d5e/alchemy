@@ -9,10 +9,11 @@
     </thead>
     <tbody>
         <% exceeding_cat_4 = false %>
+        <% total_weight = resource.total_weight %>
         <% (  resource.composition).each do |key, ing| %>
             <tr>
                 <td class="r"><%= ing.substance.vp_mmHg_25C unless key.is_a?(Symbol) %></td>
-                <% fraction =  (ing.amount / resource.total_weight) %>
+                <% fraction =  (ing.amount / total_weight) %>
                 <td class="r <%= ( exceeding_cat_4 = :red) if !key.is_a?(Symbol) && ing.substance.ifra_cat_4_limit.to_f > 0 && fraction > ing.substance.ifra_cat_4_limit %>">
                     <% precision = (6 - Math.log10(fraction * 100.0)).round %>
                     <% precision = 5 if precision < 5 %>
@@ -23,7 +24,7 @@
                     <% if key.is_a?(Symbol) %>
                         <%= ing.dilution.solvent_human_name %>
                     <% else %>
-                        <span class="color-<%= ing.substance.character %>" style="display: inline-block; height: 59%; width: 0.66em;"></span>
+                        <span class="color-<%= ing.substance.character %> ctag"></span>
                         <%= link_to ing.substance, ing.substance %>
                     <% end %>
                 </td>
@@ -38,7 +39,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td class="r">price <%= number_with_precision resource.price_per_gram %> EUR per 100g</td>
+            <td colspan="2" class="r">price <%= number_with_precision resource.price_per_gram %> EUR per 100g</td>
             <td class="r">Total:</td>
             <td class="r"><%= number_with_precision resource.total_weight, precision: 1 %> <span class="small-unit">mg</span></td>
         </tr>

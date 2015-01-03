@@ -65,8 +65,9 @@
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
                 <%= nav_tabs :composition_as do |tabs| %>
-                    <% tabs.add "Normalized composition", 'ingredients_table' %>
-                    <% tabs.add "Ingredients", 'substances_table' %>
+                    <% tabs.add "Composition", 'composition' %>
+                    <% tabs.add "Ingredients", 'ingredients' %>
+                    <% tabs.add "Normalized", 'normalized' %>
                 <% end %>
             </div>
         </div>

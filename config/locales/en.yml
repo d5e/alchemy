@@ -132,6 +132,7 @@ en:
   attributes:
     amount: Amount
     cas: CAS
+    vp_mmHg_25C: "VP mmHg @ 25°C"
     new_blend_name: Name of new blend
     ifra_cat_4_limit: "IFRA Cat 4 Limit"
     sensory_tags: "Sensory Tags"
