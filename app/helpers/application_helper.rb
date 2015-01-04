@@ -116,6 +116,22 @@ module ApplicationHelper
     end
   end
   
+  def prec(f, p, max=40)
+    s = p - Math.log10(f.to_f)
+    if s > max
+      s = max
+    elsif s < 0
+      s = 2
+    else
+      s = s.to_i
+    end
+    if s == 3
+      4
+    else
+      s
+    end
+  end
+  
   def hex_rgb_luminance(hex)
     hex.gsub!(/[\s\#]/,'')
     if hex.size == 3

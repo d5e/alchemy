@@ -27,7 +27,7 @@
                     <div class="form-group dilution-wizard">
                         <%= f.label :ingredient, :class => "col-sm-3 control-label" %>
                         <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
-                            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control', readonly: true, :'data-concentration' => fd.object.concentration %>
+                            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control', readonly: true, :'data-concentration' => fd.object.concentration, precision: (prec(fd.object.amount,7)), strip_insignificant_zeros: true %>
                         </div>
                         <div class="col-sm-3 <%= :'has-error' if :substance.in?(fd.object.errors) %>">
                             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance", disabled: true  %>
