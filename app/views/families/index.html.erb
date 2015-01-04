@@ -10,8 +10,8 @@
     <div class="panel-body">
         <%= nav_tabs :family_tabs do |tabs| %>
             <%# tabs.add "Detail", 'list' %>
-            <% tabs.active "Compact", 'list_short', collection: collection.root %>
-            <% tabs.add "All", 'list_short' %>
+            <% tabs.active "Compact", 'list_compact', collection: collection.root %>
+            <% tabs.add "All", 'list_compact' %>
         <% end %>
     </div>
     <div class="panel-footer">
