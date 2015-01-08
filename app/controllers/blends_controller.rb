@@ -70,7 +70,18 @@ class BlendsController < InheritedResources::Base
   
   def blends_for_parentship
     []
-    return resource.families.map(&:blends).flatten.compact.uniq if resource && resource.families
+    if resource && resource.families
+      b1 = resource.families.map(&:blends).flatten.compact.uniq
+      pfs = resource.families.map(&:parent).flatten.compact.uniq
+      if pfs.present? && ( pfs_blends = pfs.map(&:blends).flatten.compact.uniq).present?
+        delim = '-----------'
+        delim.extend MockNameable
+        return [b1, delim, pfs_blends].flatten
+      else
+        return b1
+      end
+    end
+    
     Blend.all
   end
   

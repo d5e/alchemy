@@ -91,11 +91,11 @@
     <div class="panel-footer">
         <% unless resource.locked? %>
             <button class="btn btn-default" data-toggle="modal" data-target="#resize-wizard">
-                <span class="glyphicon glyphicon-sort"></span> Resize
+                <span class="glyphicon glyphicon-sort"></span> <%= t :'view.resize.action' %>
             </button>
         <% end %>
         <button class="btn btn-default" data-toggle="modal" data-target="#bottle-wizard">
-            <span class="glyphicon glyphicon-new-window"></span> Bottle
+            <span class="glyphicon glyphicon-new-window"></span><%= t :'view.bottling.action' %>
         </button>
         <%= link_to separating_path(resource.id), class: "btn btn-default" do %>
             <span class="glyphicon glyphicon-new-window"></span> <%= t :'global.separate' %>
@@ -103,7 +103,7 @@
         <p style="float:right; line-height: 34px;">
             <% unless resource.locked? %>
                 <button class="btn btn-default" data-toggle="modal" data-target="#adjust-wizard">
-                    <span class="glyphicon glyphicon-wrench"></span> Adjust
+                    <span class="glyphicon glyphicon-wrench"></span><%= t :'view.adjust.action' %>
                 </button>
             <% end %>
             <%= number_with_precision resource.concentration * 100, precision: 1 %> %

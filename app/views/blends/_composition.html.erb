@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td class="r"><%= t :'global.vp_mmHg_25C' %></td>
+            <td class="r"><%= Blend.human_attribute_name :vp_mmHg_25C %></td>
             <td class="r"><%= t :'global.parts_of_100' %></td>
             <td><%= Ingredient.model_name.human %></td>
             <td class="r"><%= t :'global.raw_weight' %></td>
@@ -39,7 +39,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2" class="r">price <%= number_with_precision resource.price_per_gram %> EUR per 100g</td>
+            <td colspan="2" class="r"><%= Blend.human_attribute_name :price %> <%= number_with_precision resource.price_per_gram %> EUR per 100g</td>
             <td class="r">Total:</td>
             <td class="r"><%= number_with_precision resource.total_weight, precision: 1 %> <span class="small-unit">mg</span></td>
         </tr>

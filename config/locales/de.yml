@@ -252,8 +252,19 @@ de:
       by_updated_at: Nach letztem Update
       normalized_composition: Normalisierte Komposition
       ingredients: Inhaltsstoffe
+    bottling:
+      action: Abfüllen
+      title: Abfüllassistent
+      new_name: Name der neuen Flasche
+    resize:
+      action: Skalieren
+      title: Skalierungsassistent
+    adjust:
+      action: Justieren
+      title: Justierungsassistent
       
     hints:
+      bottling_wizad: "Dieser Assitent füllt ihr Rezept in eine neue Flasche mit neuem Namen und beliebiger Menge ab."
       mass_resize_mg: "Geben Sie die Gesamtmasse in Milligramm an, auf welche das Rezept angepasst werden soll."
       mass_resize: "Geben Sie die Gesamtmasse in Gramm an, auf welche das Rezept angepasst werden soll."
       factor_resize: "Geben Sie den Multiplikator ein, mit welchem alle Mengenanteile skalieren möchten. Beispiel: Ein Wert von 10 verzehnfacht die die Gesamtmasse, und ein Wert von 0,5 halbiert die Masse Ihrer Rezeptur."

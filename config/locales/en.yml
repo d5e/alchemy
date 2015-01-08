@@ -157,7 +157,23 @@ en:
       short_by_tags: short by Tags
       normalized_composition: Normalized composition
       ingredients: Ingredients
+    bottling:
+      action: Bottle
+      title: Bottling Wízard
+      new_name: Name of new Bottle
+    resize:
+      action: Resize
+      title: Resize Wizard
+    adjust:
+      action: Adjust
+      title: Adjust Wizard
+      
+        
     hints:
+      bottling_wizad: "You are about to bottle this blend into a new container and give it a new name. You can
+      choose the desired total amount (weight) of the final product and alchemy will create a new blend 
+      with this recipe and calculate the ingredients and amounts needed.
+      "
       mass_resize_mg: "Enter the desired total mass in milligram to resize your recipe."
       mass_resize: "Enter the desired total mass in gram to resize your recipe."
       factor_resize: "Enter the factor by which you want to scale the mass of your recipe. Example: A factor of 10 will multiply the amount of all ingredients by 10, wheras a factor of 0.5 will halve the total mass of all ingredients"
