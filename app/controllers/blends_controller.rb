@@ -76,7 +76,8 @@ class BlendsController < InheritedResources::Base
       if pfs.present? && ( pfs_blends = pfs.map(&:blends).flatten.compact.uniq).present?
         delim = '-----------'
         delim.extend MockNameable
-        return [b1, delim, pfs_blends].flatten
+        pfs -= b1
+        return [b1, delim, pfs_blends].flatten if pfs.present?
       else
         return b1
       end
