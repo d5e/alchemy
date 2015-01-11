@@ -256,6 +256,8 @@ window.runAfterInit = function(){
             form.find('button[type="submit"]').removeClass('disabled')
         else
             form.find('button[type="submit"]').addClass('disabled')
+            
+        e.preventDefault();
     });
 
     $('form.blends-mixer, form.family-batch-add').on("submit", function(e) {
