@@ -9,7 +9,7 @@ class SearchController < ApplicationController
   
   def elastic_response
     return [] if params[:q].nil?
-    Substance.search params[:q]
+    Substance.search params[:q], size: 1000
   end
   
   
