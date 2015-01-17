@@ -33,6 +33,10 @@ module Substance::Searchable
        notes: notes,
        notes_alt_1: notes_alt_1,
        notes_alt_2: notes_alt_2,
+       vp_mmHg_25C: {
+         type: 'float',
+         vp_mmHg_25C
+       }
        name_suggest: {
          input: name.split(/\b/),
          output: name,
