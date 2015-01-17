@@ -17,6 +17,7 @@ module Substance::Searchable
       indexes :notes, analyzer: 'english', index_options: 'offsets'
       indexes :notes_alt_1, analyzer: 'english', index_options: 'offsets'
       indexes :notes_alt_2, analyzer: 'english', index_options: 'offsets'
+      indexes :vp_mmHg_25C, type: 'float'
     end
 
 
@@ -33,10 +34,7 @@ module Substance::Searchable
        notes: notes,
        notes_alt_1: notes_alt_1,
        notes_alt_2: notes_alt_2,
-       vp_mmHg_25C: {
-         type: 'float',
-         vp_mmHg_25C
-       }
+       vp_mmHg_25C: vp_mmHg_25C,
        name_suggest: {
          input: name.split(/\b/),
          output: name,
