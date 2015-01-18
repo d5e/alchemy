@@ -4,6 +4,7 @@ class Blend < ActiveRecord::Base
   
   LOCKED_CHANGEABLE = %w(locked sensory_tags notes color)
   
+  scope :order_name, -> { order("#{self.table_name}.name ASC") }
   scope :order_updated_at, -> { order("#{self.table_name}.updated_at DESC") }
   scope :order_creation_at, -> { order("#{self.table_name}.creation_at DESC") }#
   scope :visible, lambda { where :hidden => false }
