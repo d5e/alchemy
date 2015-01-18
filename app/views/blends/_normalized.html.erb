@@ -10,10 +10,9 @@
     <tbody>
         <% exceeding_cat_4 = false %>
         <% essence_weight = resource.essence_weight %>
-        <% resource.essence_composition.each do |key, ing| %>
-            <% next if key.is_a?(Symbol) %>
+        <% resource.essence_composition.each do |ing| %>
             <tr>
-                <td class="r"><%= ing.substance.vp_mmHg_25C unless key.is_a?(Symbol) %></td>
+                <td class="r"><%= ing.substance.vp_mmHg_25C %></td>
                 <% fraction =  (ing.amount / essence_weight) %>
                 <td class="r">
                     <% precision = (6 - Math.log10(fraction * 100.0)).round %>
