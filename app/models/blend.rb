@@ -63,11 +63,10 @@ class Blend < ActiveRecord::Base
   
   def essence_composition
     cc = {}
-    ingredients.sort{|a,b| a.amount * (a.dilution.concentration rescue 1.0) <=> b.amount * (b.dilution.concentration rescue 1.0) }.reverse.each do |ing|
-      # substance
-      ing = Ingredient.new(ing.clone_attributes)
-      next if ing.dilution && ing.dilution.concentration.to_f == 0
-      amount = ing.amount * (ing.dilution.concentration rescue 1.0)
+    ingredients.each do |ingo|
+      ing = Ingredient.new(ingo.clone_attributes)
+      next if ingo.dilution && ingo.dilution.concentration.to_f == 0
+      amount = ing.amount * (ingo.dilution.concentration rescue 1.0)
       if cc[ing.substance_id]
         cc[ing.substance_id].amount += amount
       else
@@ -75,7 +74,7 @@ class Blend < ActiveRecord::Base
         cc[ing.substance_id] = ing
       end
     end
-    cc
+    cc.values.sort{|a,b| a.amount  <=> b.amount }.reverse
   end
   
   
