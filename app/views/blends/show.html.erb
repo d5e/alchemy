@@ -61,13 +61,14 @@
             </div>
         </div>
         <hr/>
-        <div class="row">
+        <div class="row" id="composition">
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
                 <%= nav_tabs :composition_as do |tabs| %>
                     <% tabs.add "Composition", 'composition' %>
                     <% tabs.add "Ingredients", 'ingredients' %>
-                    <% tabs.add "Normalized", 'normalized' %>
+                    <% tabs.active "Normalized", 'normalized' %>
+                    <% tabs.add "Norm. by VP", 'normalized', sort_by: :vp %>
                 <% end %>
             </div>
         </div>

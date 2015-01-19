@@ -16,6 +16,7 @@
             <% if resource.blends.size > 7 %>
                 <%= nav_tabs :blend_tabs do |tabs| %>
                     <% tabs.add "Detail", 'blends/list', collection: resource.blends %>
+                    <% tabs.add "ABC", 'blends/list', collection: resource.blends.order_name %>
                     <% tabs.add "by creation at", 'blends/list_short_by_creation_at', collection: resource.blends %>
                     <% tabs.active "Compact", 'list_short', collection: resource.blends %>
                 <% end %>

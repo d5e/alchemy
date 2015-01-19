@@ -62,7 +62,7 @@ class Blend < ActiveRecord::Base
     cc
   end
   
-  def essence_composition
+  def essence_composition(sort_by=nil)
     cc = {}
     ingredients.each do |ingo|
       ing = Ingredient.new(ingo.clone_attributes)
@@ -75,7 +75,11 @@ class Blend < ActiveRecord::Base
         cc[ing.substance_id] = ing
       end
     end
-    cc.values.sort{|a,b| a.amount  <=> b.amount }.reverse
+    if sort_by == :vp
+      return cc.values.sort{|a,b| a.substance.vp_mmHg_25C.to_f <=> b.substance.vp_mmHg_25C.to_f }
+    else
+      return cc.values.sort{|a,b| a.amount <=> b.amount }.reverse
+    end
   end
   
   

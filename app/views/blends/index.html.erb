@@ -10,6 +10,7 @@
     <div class="panel-body">
         <%= nav_tabs :blend_tabs do |tabs| %>
             <% tabs.add "Detail", 'list' %>
+            <% tabs.add "ABC", 'list', collection: collection.order_name %>
             <% tabs.add "by creation at", 'list_short_by_creation_at' %>
             <% tabs.add "by updated_at",  'list_short_by_updated_at' %>
             <% tabs.add "by tags", 'list_short_by_tags' %>
