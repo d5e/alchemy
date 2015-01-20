@@ -106,6 +106,67 @@ window.runAfterInit = function(){
     // $('#mix-ingredients').on('change', 'input[type=text]', function(e) {
     //     alert('yo');
     // });
+
+
+
+
+
+    // FAMILY DRAG DETACHABLE
+    
+    $( ".families-drag-detachable a.family-link" ).draggable({
+        start: function() {
+            console.log('start dragg');
+            $('.family.detachable').show(300);
+         },
+         drag: function() {
+         },
+         stop: function() {
+             $(this).css('left', "");
+             $(this).css('top', "");
+         }
+    });
+    
+    $( ".family.detachable" ).droppable({
+        drop: function( event, ui ) {
+            console.log(" dropped ");
+            console.log(event);
+            console.log(ui);
+            $('.family.detachable').css('background', '#eee')
+            $('.family.detachable').append( ui.draggable  );
+            $('.family.detachable').append( " " );
+
+        }
+    });
+    
+    $('.family.detachable').on('click', 'a[data-submit-children-path]', function(e) {
+        var me = $(this);
+        var path = me.attr('data-submit-children-path');
+        var parent = me.closest('.family.detachable');
+        var children = parent.find('a.family-link');
+        var ids = $.map( children, function(e) {
+            return $(e).attr('data-dom-id');
+        });
+        
+        $.ajax({
+            type: "PUT",
+            url: path,
+            data: { 'dom_ids' : ids },
+            success: function(r) {
+                // alert('200');
+            }
+        
+        });
+    });
+
+
+
+
+
+
+
+
+
+
     
     
     
@@ -123,6 +184,8 @@ window.runAfterInit = function(){
                 ui.draggable.css('top','auto');
             }
     });
+    
+
     
     $('form.blends-separator').on("click", "span[type='ajax-submit']", function(e) {
         window.Separator = {};

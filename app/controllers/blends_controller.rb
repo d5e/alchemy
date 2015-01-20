@@ -1,5 +1,6 @@
 class BlendsController < InheritedResources::Base
   
+  include Memorizable
   include ActionView::Helpers::JavaScriptHelper
   
   helper_method :blends_for_parentship
@@ -49,6 +50,26 @@ class BlendsController < InheritedResources::Base
           resize! mg: to_f(params[:mg])
         elsif to_f(params[:factor]) > 0 && params[:strategy].to_s[/factor/]
           resize! factor: to_f(params[:factor])
+        else
+          render js: "alert('Please fill out all fields');"
+        end
+      end
+    end
+  end
+  
+  def detach_families
+    respond_to do |format|
+      format.js do
+        if (dom_ids = params[:dom_ids])
+          ids = []
+          dom_ids.each do |did|
+            Rails.logger.info did.inspect
+            if (did[/\Afamily_\d+\z/])
+              ids << did[/\d+\z/].to_i
+            end
+          end
+          resource.families.where(id: ids).delete_all
+          render js: ""
         else
           render js: "alert('Please fill out all fields');"
         end

@@ -5,10 +5,11 @@ class Builders::NavTabs
   
   
   
-  def initialize(container_name, context)
+  def initialize(container_name, context, options={})
     @current_container_name = container_name
     @container_elements = []
     @template_object = context
+    @options = options.symbolize_keys
     @active = 0
   end
   
@@ -22,12 +23,31 @@ class Builders::NavTabs
   end
   
   def render
+    prepare_render
     safe_join [render_tab_buttons, render_tab_contents], "\n"
   end
   
-  
-  
   protected
+  
+  def prepare_render
+    stick if sticky?
+  end
+  
+  def sticky?
+    @options[:sticky]
+  end
+  
+  def stick
+    dummy = @options[:session][:sticky_tabs][@current_container_name.to_s] rescue nil
+    return unless dummy
+    @active = dummy
+  end
+  
+  def with_stickyness(i, options={})
+    controller = @template_object.controller
+    uri = @template_object.send "memorize_#{controller.controller_path}_path"
+    options.merge onclick: "$.getScript('#{uri}?container_name=#{@current_container_name}&sticky_tab=#{i}');"
+  end
 
   def elements
     @container_elements
@@ -53,8 +73,10 @@ class Builders::NavTabs
   
   def render_tab_buttons
     tabs = []
-    elements.each do |tab|
-      tabs << content_tag( :li, content_tag(:a, tr(tab), href: "##{dom_tag current_container_name}-tab-#{dom_tag tab.first}", :'data-toggle' => 'tab', role: :tab), class: li_class(tabs))
+    elements.each_with_index do |tab,i|
+      options = { href: "##{dom_tag current_container_name}-tab-#{dom_tag tab.first}", :'data-toggle' => 'tab', role: :tab }
+      options = with_stickyness(i,options) if sticky?
+      tabs << content_tag( :li, content_tag(:a, tr(tab), options), class: li_class(tabs))
     end
     content_tag(:ul, safe_join(tabs, "\n"), class: "nav nav-tabs", role: "tablist")
   end

@@ -30,7 +30,7 @@
                 <%= if resource.parent ; content_tag :div, class: "col-sm-3 #{:brr if fnpp}" do %>
                     <%= link_to resource.parent, resource.parent, colored(resource.parent, class: "btn btn-default btn-sm") %>
                 <% end ; end %>
-                <div class="col-sm-6 buttons-container">
+                <div class="col-sm-6 buttons-container families-drag-detachable">
                     <% resource.families.each do |family| %>
                         <%= render 'families/family_link', family: family %>
                     <% end %>
@@ -64,7 +64,7 @@
         <div class="row" id="composition">
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <%= nav_tabs :composition_as do |tabs| %>
+                <%= nav_tabs :composition_as, sticky: true do |tabs| %>
                     <% tabs.add "Composition", 'composition' %>
                     <% tabs.add "Ingredients", 'ingredients' %>
                     <% tabs.active "Normalized", 'normalized' %>
@@ -128,5 +128,11 @@
 
 
 
-
+<div class="family detachable" style="position: fixed; left: 19%; right: 19%; bottom: 5%; min-height:10%; width:62%; background: #f7f7f7; border: 1px solid #ddd; border-radius: 5px; padding: 10px 70px 5px 20px; display:none; text-align:center; z-index:8;">
+    <div style="position: absolute; font-size: 48px; opacity: 0.1; width: 100%; text-align: center; bottom: 50%; margin-bottom: -32px;">
+        <span class="glyphicon glyphicon-trash"></span>
+    </div>
+    <a class="btn btn-danger" style="position: absolute; right: 5px; bottom: 5px; width; 50px;" data-submit-children-path="<%= detach_families_blend_path(resource) %>"><span class="glyphicon glyphicon-trash"></span></a>
+    <a class="btn" style="position: absolute; right: 3px; top:3px; width; 50px;" onclick="$('.family.detachable').hide();">x</a>
+</div>
 

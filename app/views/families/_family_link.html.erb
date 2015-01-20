@@ -1,5 +1,5 @@
 <% family ||= family_link %>
-<%= link_to family, colored(family, class: "btn btn-default btn-sm"), style: "width: 100%; display:block;" do -%>
+<%= link_to family, colored(family, class: "btn btn-default btn-sm family-link", :'data-dom-id' => dom_id(family) )  do -%>
     <%= family %>
     <% if family.parent_id -%>
         <span class="glyphicon glyphicon-link"></span>

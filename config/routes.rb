@@ -22,6 +22,10 @@ Rails.application.routes.draw do
       post :adjust
       post :resize
       get :dilute
+      put :detach_families
+    end
+    collection do
+      get :memorize
     end
   end
   
