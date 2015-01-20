@@ -62,19 +62,20 @@ class BlendsController < InheritedResources::Base
       format.js do
         if (dom_ids = params[:dom_ids])
           ids = []
+          deleted_dom_ids = []
           dom_ids.each do |did|
-            Rails.logger.info did.inspect
             if (did[/\Afamily_\d+\z/])
               ids << did[/\d+\z/].to_i
+              deleted_dom_ids << did
             end
           end
-          
-          # DANGER - this deletes families instead of associations !!!
-          
-#          resource.families.where(id: ids).delete_all
-          render js: ""
+          resource.families.delete Family.where(id: ids)
+          dom_selectors = deleted_dom_ids.map do |did|
+            "[data-dom-id=\"#{did}\"]"
+          end
+          render js: " $('.family.droparea.devnull').find('#{dom_selectors.join(',')}').hide('fade'); $('.family.droparea.devnull').delay(300).hide('puff');"
         else
-          render js: "alert('Please fill out all fields');"
+          render js: "alert('422 parameters missing');", status: 422
         end
       end
     end

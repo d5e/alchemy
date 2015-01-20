@@ -115,8 +115,8 @@ window.runAfterInit = function(){
     
     $( ".families-drag-detachable a.family-link" ).draggable({
         start: function() {
-            console.log('start dragg');
-            $('.family.detachable').show(300);
+            // console.log('start dragg');
+            $('.family.droparea.devnull').show(300);
          },
          drag: function() {
          },
@@ -126,23 +126,27 @@ window.runAfterInit = function(){
          }
     });
     
-    $( ".family.detachable" ).droppable({
+    $( ".family.droparea.devnull" ).droppable({
         drop: function( event, ui ) {
-            console.log(" dropped ");
-            console.log(event);
-            console.log(ui);
-            $('.family.detachable').css('background', '#eee')
-            $('.family.detachable').append( ui.draggable  );
-            $('.family.detachable').append( " " );
+            // console.log(" dropped ");
+            // console.log(event);
+            // console.log(ui);
+            $('.family.droparea.devnull').css('background', '#eee')
+            $('.family.droparea.devnull').append( ui.draggable  );
+            $('.family.droparea.devnull').append( " " );
 
-        }
+        },
     });
     
-    $('.family.detachable').on('click', 'a[data-submit-children-path]', function(e) {
+    $('.family.droparea.devnull').on('click', 'a[data-submit-children-path]', function(e) {
         var me = $(this);
         var path = me.attr('data-submit-children-path');
-        var parent = me.closest('.family.detachable');
+        var parent = me.closest('.family.droparea.devnull');
         var children = parent.find('a.family-link');
+        
+        if (children.length == 0)
+            return false;
+        
         var ids = $.map( children, function(e) {
             return $(e).attr('data-dom-id');
         });
@@ -150,11 +154,12 @@ window.runAfterInit = function(){
         $.ajax({
             type: "PUT",
             url: path,
-            data: { 'dom_ids' : ids },
-            success: function(r) {
-                // alert('200');
-            }
-        
+            dataType: "script",
+            data: { 'dom_ids' : ids }
+        }).done(function() {
+        }).always(function(){
+        }).fail (function(){
+            alert('client side failure in execution of server side generated JS');
         });
     });
 
