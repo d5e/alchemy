@@ -68,7 +68,10 @@ class BlendsController < InheritedResources::Base
               ids << did[/\d+\z/].to_i
             end
           end
-          resource.families.where(id: ids).delete_all
+          
+          # DANGER - this deletes families instead of associations !!!
+          
+#          resource.families.where(id: ids).delete_all
           render js: ""
         else
           render js: "alert('Please fill out all fields');"
