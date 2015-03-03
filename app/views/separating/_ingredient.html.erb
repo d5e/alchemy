@@ -1,0 +1,6 @@
+<% substance = ingredient.substance %>
+<%= content_tag :span, colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(ingredient) ) do %>
+    <%= substance.to_s %><% if substance.vp_mmHg_25C.present? %>,
+        <span style="font-size:7px;">VP</span> <%= substance.vp_mmHg_25C %> <span style="font-size:7px;">mmHG@25°C</span>
+    <% end %>
+<% end %>

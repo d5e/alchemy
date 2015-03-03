@@ -19,7 +19,7 @@
                         <% substance = ingredient.substance %>
                         <% next if substance.character.blank? || substance.character[/\A\w+/] != trunk_key %>
                         <% ingredients_copy << ingredient %>
-                        <%= content_tag :span, substance.to_s, colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(ingredient) ) %>
+                        <%= render 'ingredient', ingredient: ingredient %>
                     <% end %>
                 </div>
                 <div class="panel-footer">
@@ -35,8 +35,7 @@
                 </div>
                 <div class="panel-body buttons-container">
                     <% remained.each do |ingredient| %>
-                        <% substance = ingredient.substance %>
-                        <%= content_tag :span, substance.to_s, colored(substance, class: "btn btn-default btn-sm draggable", :'data-resource-id' => dom_id(ingredient) ) %>
+                        <%= render 'ingredient', ingredient: ingredient %>
                     <% end %>
                 </div>
                 <div class="panel-footer">
