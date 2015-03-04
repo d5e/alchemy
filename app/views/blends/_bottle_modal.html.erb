@@ -15,14 +15,14 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <div class="input-group">
-                                <%= text_field_tag :amount_in_gram, nil, class: 'form-control', placeholder: "weight" %>
-                                <div class="input-group-addon">gram</div>
+                                <%= text_field_tag :amount_in_mg, nil, class: 'form-control', placeholder: "#{number_with_precision resource.total_weight} mg" %>
+                                <div class="input-group-addon">mg</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><%= t :'view.bottling.title' %></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><%= t :'global.cancel' %></button>
                     <button type="submit" class="btn btn-primary"><%= t :'view.bottling.action' %> <span class="glyphicon glyphicon-new-window"></span></button>
                 </div>
             </div>

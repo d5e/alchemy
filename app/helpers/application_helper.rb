@@ -72,7 +72,7 @@ module ApplicationHelper
   def substance_character
     {
       'base' => ['animalic, wood','#271c0f', '#a96834', '#d2a978'],
-      'base-citral' => ['citral, green, floral', '#152107', '#488116', '#8eba47'],
+      'base-green' => ['herbal, green, citral', '#152107', '#488116', '#8eba47'],
       'base-heart' => ['sweet, herbal', '#231618', '#8c4d55', '#c1939a'],
       'heart' => ['other', '#251b26', '#9d65a1', '#cba7cd'],
       'heart-sweet' => ['sweet', '#2c1d23', '#d46c8c', '#e9acc1'],

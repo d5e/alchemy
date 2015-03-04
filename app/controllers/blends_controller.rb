@@ -14,7 +14,8 @@ class BlendsController < InheritedResources::Base
   def bottle
     respond_to do |format|
       format.js do
-        if to_f(params[:amount_in_gram]) > 0 && params[:new_blend_name].present?
+        target_mg = to_f(params[:amount_in_mg])
+        if ( target_mg > 0 || params[:amount_in_mg] == "" ) && params[:new_blend_name].present?
           new_bottle = resource_class.new(resource.attributes)
           new_bottle.unlock_silent
           new_bottle.name = params[:new_blend_name]
@@ -27,8 +28,8 @@ class BlendsController < InheritedResources::Base
             ing.blend = nil
             new_bottle.ingredients << Ingredient.new(ing.attributes)
           end
-          new_bottle.save
-          success = new_bottle.resize! mg: to_f(params[:amount_in_gram]) * 1000.0
+          success = new_bottle.save
+          success = new_bottle.resize!(mg: target_mg) if target_mg > 0
           if new_bottle.errors.empty? && success
             render js: "window.location ='#{url_for new_bottle}';"
           else
