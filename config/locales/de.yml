@@ -189,6 +189,9 @@ de:
       other: Ausgewählte
   activerecord: 
     models:
+      solvent:
+        one: Lösungsmittel
+        other: Lösungsmittel
       substance:
         one: Substanz
         other: Substanzen

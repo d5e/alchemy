@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   
   root 'welcome#index'
   
+  resources :solvents
+  
   resources :substances do
     member do
       get :new_dilution

@@ -1,0 +1,17 @@
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th><%= resource_class.human_attribute_name :name %></th>
+            <th><%= resource_class.human_attribute_name :symbol %></th>
+            <th><%= resource_class.human_attribute_name :cas %></th>
+            <th><%= resource_class.human_attribute_name :logP %></th>
+            <th><%= resource_class.human_attribute_name :importance %></th>
+            <th><%= resource_class.human_attribute_name :price %></th>
+            <th><%= resource_class.human_attribute_name :composition %></th>
+            <th><%= resource_class.human_attribute_name :notes %></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%= render collection %>
+    </tbody>
+</table>

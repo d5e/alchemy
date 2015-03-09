@@ -1,0 +1,16 @@
+<tr>
+    <td><%= link_to solvent.name, solvent %></td>
+    <td><%= solvent.symbol %></td>
+    <td><%= solvent.cas %></td>
+    <td><%= number_with_precision solvent.logP %></td>
+    <td><%= solvent.importance %></td>
+    <td><%= solvent.price %></td>
+    <td>
+        <% if solvent.pure? %>
+            pure
+        <% else %>
+            mix of <%= solvent.substance_count %> substances
+        <% end %>
+    </td>
+    <td style="width: 20%;"><p style="font-size: 11px;"><%= solvent.notes %></p></td>
+</tr>

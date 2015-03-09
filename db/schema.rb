@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141222123735) do
     t.string  "solvent",       limit: 15
     t.float   "concentration", limit: 24
     t.integer "intensity",     limit: 1
+    t.integer "solvent_id"
   end
 
   create_table "families", force: true do |t|
@@ -71,11 +72,14 @@ ActiveRecord::Schema.define(version: 20141222123735) do
   end
 
   create_table "solvents", force: true do |t|
-    t.string   "name",         limit: 32
-    t.string   "symbol",       limit: 3
-    t.string   "cas",          limit: 12
+    t.string   "name",        limit: 32
+    t.string   "symbol",      limit: 3
+    t.string   "cas",         limit: 12
+    t.float    "logP",        limit: 24
+    t.integer  "importance",  limit: 2,  default: 0
+    t.text     "composition"
     t.text     "notes"
-    t.float    "price_per_kg", limit: 24
+    t.float    "price",       limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
   end

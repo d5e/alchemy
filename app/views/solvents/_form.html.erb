@@ -1,0 +1,126 @@
+<%= render 'form_group_error_messages' %>
+
+<% unless resource.existing_dilution %>
+<div class="form-group form-group-lg">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-6">
+        <%= f.text_field :name, :class => "form-control", :style => "font-weight: bold;", autocomplete: "off" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :cas, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-3">
+        <%= f.text_field :cas, :class => "form-control", autocomplete: "off" %>
+    </div>
+</div>
+<hr/>
+<div class="form-group">
+    <%= f.label :symbol, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-2">
+        <%= f.text_field :symbol, :class => "form-control", autocomplete: "off" %>
+    </div>
+</div>
+<hr/>
+
+<div class="form-group">
+    <%= f.label :price, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-3">
+        <div class="input-group">
+            <%= f.text_field :price, placeholder: :default, class: "form-control", autocomplete: "off" %>
+            <div class="input-group-addon">EUR / kg</div>
+        </div>
+    </div>
+</div>
+<hr/>
+
+<% else %>
+
+<div class="form-group">
+    <%= f.label :name, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-3">
+        <%= f.text_field :name, placeholder: "name will be automatic", class: "form-control", autocomplete: "off" %>
+    </div>
+</div>
+<hr/>
+
+<% end %>
+
+<div class="form-group">
+    <%= f.label :importance, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-1">
+        <%= f.text_field :importance, placeholder: :default, class: "form-control", autocomplete: "off" %>
+    </div>
+</div>
+<hr/>
+
+
+<div class="form-group">
+    <%= f.label :composition, :class => "col-sm-3 control-label" %>
+    <div class="col-sm-9">
+        <% if resource.existing_dilution %>
+            <%= f.hidden_field :existing_dilution_id %>
+            <div class="input-group" style="margin-bottom: 4ex;">
+                <p>
+                    Substanzspezifische Lösung wird angelegt
+                </p>
+                <div class="input-group">
+                    <div class="input-group-addon"><%= resource.existing_dilution.substance %> <%= resource.existing_dilution %></div>
+                    <%= f.text_field :existing_dilution_amount, placeholder: :default, class: "form-control", autocomplete: "off" %>
+                    <div class="input-group-addon">mg</div>
+                </div>
+            </div>
+        <% end %>
+        <div>
+            <div class="solvents-form">
+                <%= f.fields_for :solvents do |fd| %>
+                    <div class="form-group">
+                        <%= f.label :solvent, Solvent.model_name.human, class: "col-sm-2 control-label" %>
+                        <div class="col-sm-2 <%= :'has-error' if :virtual_amount.in?(fd.object.errors) %>">
+                            <%= fd.text_field :virtual_amount, placeholder: :mg, class: 'form-control', precision: prec(fd.object.virtual_amount,4), strip_insignificant_zeros: true %>
+                        </div>
+                        <div class="col-sm-4 <%= :'has-error' if :solvent.in?(fd.object.errors) %>">
+                            <%= fd.select :solvent_id, Solvent.by_importance.collect { |s| [ s.name, s.id ] }, {prompt: 'Solvent'}, class: "form-control solvent"  %>
+                        </div>
+                        <div class="col-sm-1 <%= :nodisplay if fd.object.locked? %>">
+                            <%= fd.link_to_remove class: "btn" do %>
+                                <span class="glyphicon glyphicon-trash"></span>
+                            <% end %>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+ 
+            
+            <%= f.link_to_add :solvents, class: "btn btn-default", :data => { :target => ".solvents-form" } do %>
+                <span class="glyphicon glyphicon-plus-sign"></span> <%= t :'global.add_solvent' %>
+            <% end %>
+            
+        </div>
+    </div>
+</div>
+<hr/>
+
+<%= render 'text_area_form_group', f: f, c: :notes, opt: { rows: 5 } %>
+
+<% content_for :panel_header_right do %>
+<% end %>
+
+<% content_for :panel_footer do %>
+    <div class"form-group">
+    </div>
+<% end %>
+
+<% content_for :form_submit_controls do %>
+    <div class="form-inline">
+        <div class"form-group">
+            <div class="col-sm-3 col-sm-offset-6 control-label checkbox">
+                <%= label_tag :create_new_after, t(:'global.create_new_after') %>
+                <%= check_box_tag :create_new_after, 1, params[:create_new_after] %>
+            </div>
+            <%= f.button class: "btn btn-#{submit_class ||= :success} col-sm-3" do -%>
+                <i class="fa fa-floppy-o"></i> <%= submit_label %>
+            <% end -%>
+        </div>
+    </div>
+<% end %>

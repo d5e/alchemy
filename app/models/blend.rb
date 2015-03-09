@@ -46,6 +46,9 @@ class Blend < ActiveRecord::Base
         cc[ing.substance_id] = ing
       end
     end
+    
+    # TODO SOLVENTS => new calculations needed after new solvent model
+    
     ingredients.clone.each do |ing|
       # solvent
       ing = Ingredient.new(ing.clone_attributes)

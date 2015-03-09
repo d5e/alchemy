@@ -3,7 +3,8 @@ class Dilution < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   
   SOLVENTS = {
-    ETH:    "Ethanol (>95%)",
+    ETH:    "Ethanol (>95%, MEK verg.)",
+    ETH100: "Ethanol 100%",
     MPG:    "Monopropylene Glycol",
     DPG:    "Dipropylene Glycol",
     IPM:    "Isopropyl Myristate",
@@ -24,6 +25,8 @@ class Dilution < ActiveRecord::Base
 
     EI10:   "10 % Ethanol, 90 % IPM",
     EI02:   "2 % Ethanol, 98 % IPM",
+    EI90:   "90 % Ethanol, 10 % IPM",
+    EI70:   "70 % Ethanol, 30 % IPM",
     M1E9:   "10 % MPG, 90 % Ethanol",
     M1E99:  "1 % MPG, 99 % Ethanol",
     E80M15I5: "80 % Ethanol, 15 % MPG, 5 % IPM",
@@ -38,6 +41,8 @@ class Dilution < ActiveRecord::Base
   INTENSITIES = (1..10).to_a
 
   belongs_to :substance
+  belongs_to :solvent
+  
   has_many :ingredients
   
   validates :concentration, numericality: { greater_than_or_equal_to: 0.0, less_than_or_equal_to: 1.0 }
@@ -46,7 +51,7 @@ class Dilution < ActiveRecord::Base
   # intensity between 1 and 10
 
   def solvent_human_name
-    SOLVENTS[solvent.to_sym]
+    SOLVENTS[self[:solvent].to_sym]
   end
   
   def to_s
