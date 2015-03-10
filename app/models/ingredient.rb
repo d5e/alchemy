@@ -24,7 +24,6 @@ class Ingredient < ActiveRecord::Base
     changes.each do |k,v|
       errors.add k, "cannot change locked record" 
     end
-    
   end
 
 end

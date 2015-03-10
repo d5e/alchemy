@@ -1,6 +1,6 @@
 class Solvent < ActiveRecord::Base
 
-  attr_accessor :virtual_proportion, :existing_dilution, :existing_dilution_amount, :virtual_amount, :solvent_id
+  attr_accessor :virtual_proportion, :existing_dilution, :existing_dilution_amount, :virtual_amount
   
   attr_writer :existing_dilution_id
 
@@ -8,58 +8,56 @@ class Solvent < ActiveRecord::Base
   
   has_many :dilutions
   has_many :solvents
-  
   has_many :substances, through: :dilutions
+  has_many :solvent_ingredients, inverse_of: :solvent
+  has_many :contained_in_solvents, class_name: "SolventIngredient", foreign_key: :ingredient_id
 
   scope :by_name, lambda { order("name ASC") }
   scope :by_importance, lambda { order("importance DESC") }
+  scope :pure, lambda { where pure: true }
+  
+  before_save :check_pureness
   
   validates :name, presence: true, uniqueness: true
   validates :symbol, uniqueness: true, allow_blank: true
   
-  accepts_nested_attributes_for :solvents, allow_destroy: true # reject_if: proc { |attributes| attributes['title'].blank? }
-  
-  def composition_attributes=(s)
-    new_solvent_found = false
-    other_solvent_found = false
-    s.each do |tid, attribs|
-      # test if new solvent is necessary
-      new_solvent_found = true if attribs['_destroy'] == "false"
-      other_solvent_found = true if attribs['solvent_id'] != self.id 
-    end
-    
-    if persisted? && !other_solvent_found
-      errors.add :solvents, "solvent mix empty"
-    elsif new_solvent_found
-      s.each do |tid, attribs|
-        # make compostion
-      end
-    else
-      # do nothing
-    end
-    
-    if existing_dilution_id.present?
-      # create new dilution for substance with newly created solvent
-    end
-    
-    Rails.logger.info '#### CAs #############'
-    Rails.logger.info s.inspect
-  end
-
-  def composition_attributes
-    {}
-  end
+  accepts_nested_attributes_for :solvent_ingredients, allow_destroy: true
+  validates_associated :solvent_ingredients
 
   def existing_dilution_id
     return @existing_dilution_id if @existing_dilution_id
     existing_dilution.id if existing_dilution
   end
-
-
-
   
-  def pure?
-    composition.blank?
+  def total_composition_mass
+    return 1.0 if pure?
+    solvent_ingredients.pluck("sum(amount) as sum").first
+  end
+
+  def members
+    return [self] if pure?
+    ms = []
+    solvent_ingredients.each do |sing|
+      ms += sing.ingredient.members
+    end
+    ms
+  end
+
+  def locked?
+    return false unless persisted?
+    solvent_ids = Blend.locked.map(&:dilutions).flatten.map(&:solvent_id).uniq
+    svs = Solvent.where(id: solvent_ids)
+    svs2 = []
+    svs.each do |sv|
+      svs2 += sv.members
+    end
+    locked_solvent_ids = (svs.map(&:id) + svs2.map(&:id)).uniq
+    self.id.in? locked_solvent_ids
+  end
+
+  def check_pureness
+    self.pure = solvent_ingredients.blank?
+    true
   end
   
   def substance_count
@@ -71,29 +69,37 @@ class Solvent < ActiveRecord::Base
     c
   end
   
-  def proportional_composition(proportion=1.0)
-    if pure?
-      self.virtual_proportion = proportion
-      return { id => self }
-    end
-    cs = {}
-    composition.each do |sub_prop, primary_id|
-      Solvent.find(primary_id).proportional_composition(proportion * sub_prop).each do |pid, solvent|
-        if cs[pid]
-          cs[pid].virtual_proportion += proportion * sub_prop
-        else
-           cs[pid] = solvent
-        end
-      end
-    end
-    cs
+  def ingredients_molecular?
+    return nil if pure?
+    solvent_ingredients.all?{ |sing| sing.ingredient.pure? }
   end
   
+  def molecular_composition(fraction=1.0)
+    if pure?
+      @virtual_proportion = fraction
+      return [self]
+    else
+      merge_virtual_amounts solvent_ingredients.map{ |sing| sing.virtual_solvent(fraction) }.flatten
+    end
+  end
+
   def to_s
     name
   end
   
   protected
+  
+  def merge_virtual_amounts(svs=[])
+    by_primary = {}
+    svs.each do |sv|
+      if by_primary[sv.id]
+        by_primary[sv.id].virtual_proportion += sv.virtual_proportion
+      else
+        by_primary[sv.id] = sv
+      end
+    end
+    by_primary.values
+  end
   
   def validate_cas_checksum
     cas.gsub(/[;,\s]+/,' ').split(' ').each do |cnr|
@@ -117,16 +123,3 @@ class Solvent < ActiveRecord::Base
   end
   
 end
-
-
-# 
-# t.string :name, limit: 32
-# t.string :symbol, limit: 3
-# t.string :cas, limit: 12
-# t.float :logP
-# 
-# t.integer :composite_id
-# t.float :purity, default: 1
-# 
-# t.text :notes
-# t.float :price_per_kg

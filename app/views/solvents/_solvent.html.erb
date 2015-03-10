@@ -9,7 +9,7 @@
         <% if solvent.pure? %>
             pure
         <% else %>
-            mix of <%= solvent.substance_count %> substances
+            mix of <%= solvent.solvent_ingredients.count %> substances
         <% end %>
     </td>
     <td style="width: 20%;"><p style="font-size: 11px;"><%= solvent.notes %></p></td>

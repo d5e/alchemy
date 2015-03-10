@@ -45,11 +45,12 @@
                     pure
                 <% else %>
                     <table class="table">
-                        <% resource.proportional_composition.each do |pid, solvent| %>
+                        <% resource.solvent_ingredients.each do |sing| %>
                             <tr>
-                                <td><%= number_with_precision solvent.virtual_proportion * 100, precision: 7, strip_insignificant_zeros: true %> %</td>
-                                <td><%= solvent.name %></td>
-                                <td><%= solvent.cas %></td>
+                                <td><%= number_with_precision sing.amount, precision: 5, strip_insignificant_zeros: true %></td>
+                                <td><%= number_with_precision sing.percent, precision: 4, strip_insignificant_zeros: true %> %</td>
+                                <td><%= link_to sing.ingredient, sing.ingredient %></td>
+                                <td><%= sing.ingredient.cas %></td>
                             </tr>
                         <% end %>
                     </table>
@@ -57,6 +58,25 @@
             </div>
         </div>
         <hr/>
+
+        <% unless resource.pure? || resource.ingredients_molecular? %>
+            <div class="row">
+                <%= content_tag :span, resource_class.human_attribute_name(:molecular_composition), class: 'col-sm-2 small-label' %>
+                <div class="col-sm-6">
+                    <table class="table">
+                        <% resource.molecular_composition.each do |solvent| %>
+                            <tr>
+                                <td><%= number_with_precision solvent.virtual_proportion * 100, precision: 7, strip_insignificant_zeros: true %> %</td>
+                                <td><%= link_to solvent, solvent %></td>
+                                <td><%= solvent.cas %></td>
+                            </tr>
+                        <% end %>
+                    </table>
+                </div>
+            </div>
+            <hr/>
+        <% end %>
+        
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:notes), class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
@@ -65,9 +85,18 @@
         </div>
         <hr/>
         <div class="row">
+            <%= content_tag :span, resource_class.human_attribute_name(:contained_in), class: 'col-sm-2 small-label' %>
+            <div class="col-sm-6">
+                <% resource.contained_in_solvents.map(&:solvent).uniq.each do |solvent| %>
+                    <%= link_to solvent, solvent %>
+                <% end %>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:substances), class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
-                <% latest = resource.dilutions.last.substance %>
+                <% latest = resource.dilutions.last.substance rescue nil %>
                 <% resource.substances.each do |substance| %>
                     <%= link_to substance, substance, style: (" font-weight: bold " if latest == substance) %>
                 <% end %>

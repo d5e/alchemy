@@ -9,10 +9,12 @@ class Blend < ActiveRecord::Base
   scope :order_creation_at, -> { order("#{self.table_name}.creation_at DESC") }#
   scope :visible, lambda { where :hidden => false }
   scope :hidden, lambda { where :hidden => true }
+  scope :locked, lambda { where :locked => true }
   
   belongs_to :parent, class_name: "Blend", foreign_key: :parent_id
 
   has_many :ingredients, dependent: :destroy
+  has_many :dilutions, through: :ingredients
   has_many :substances, through: :ingredients
   has_many :children, class_name: "Blend", foreign_key: :parent_id
   

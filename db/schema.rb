@@ -71,15 +71,21 @@ ActiveRecord::Schema.define(version: 20141222123735) do
     t.datetime "updated_at"
   end
 
+  create_table "solvent_ingredients", force: true do |t|
+    t.integer "solvent_id"
+    t.integer "ingredient_id"
+    t.float   "amount",        limit: 24
+  end
+
   create_table "solvents", force: true do |t|
-    t.string   "name",        limit: 32
-    t.string   "symbol",      limit: 3
-    t.string   "cas",         limit: 12
-    t.float    "logP",        limit: 24
-    t.integer  "importance",  limit: 2,  default: 0
-    t.text     "composition"
+    t.string   "name",       limit: 32
+    t.string   "symbol",     limit: 3
+    t.string   "cas",        limit: 12
+    t.boolean  "pure"
+    t.float    "logP",       limit: 24
+    t.integer  "importance", limit: 2,  default: 0
     t.text     "notes"
-    t.float    "price",       limit: 24
+    t.float    "price",      limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
   end

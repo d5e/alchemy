@@ -3,13 +3,28 @@
 #
 
 h2o  = Solvent.create name: "Aqua",    symbol: "H2O", cas: "7732-18-5", price: 1, importance: -4, notes: "VP 17.4733 mmHg @ 20 °C"
-eth  = Solvent.create name: "Ethanol (pure)", symbol: "ETH", cas: "64-17-5", logP: -0.190, price: 27, importance: -1, notes: "Ethanol, rein >99,5 %, 1511 U, Trinkalkohol, unvergällt; VP 44.600000 mm/Hg @ 20.00 °C"
+eth  = Solvent.create name: "Ethanol (pure)", symbol: "ETH", cas: "64-17-5", logP: -0.190, price: 27, notes: "Ethanol, rein >99,5 %, 1511 U, Trinkalkohol, unvergällt; VP 44.600000 mm/Hg @ 20.00 °C"
 mek  = Solvent.create name: "2-Butanone", symbol: "MEK", cas: "78-93-3", price: 10, importance: -5, notes: "Methyl Ethyl Ketone"
 ipn  = Solvent.create name: "2-Propanol", symbol: "IPN", cas: "67-63-0", price: 3, importance: -5, notes: "Isopropanol"
 btx  = Solvent.create name: "Bitrex",     symbol: "DNB", cas: "3734-33-6", price: 50, importance: -5, notes: "Denatonium Benzoate, the most bitter chemical compound known, with bitterness thresholds of 0.05 ppm"
 
-ethd = Solvent.create name: "Ethanol (EU denat., 94%)", symbol: "EDN", cas: "64-17-5", price: 3, importance: 5, composition: { 0.943188 => eth.id, 0.0288 => mek.id, 0.028 => ipn.id, 0.000012 => btx.id }, notes: "Ethanol, vollständig vergällt nach EU 162/2013"
-ethn = Solvent.create name: "Ethanol 96.6 %", symbol: "E96", cas: "64-17-5", price: 26, importance: 4, composition: { 0.966 => eth.id, 0.033 => h2o.id }, notes: "Ethanol, Trinkalkohol unvergällt;  96,6 % Reinheit, 1411 U"
+#ethd = Solvent.create name: "Ethanol (EU denat., 94%)", symbol: "EDN", cas: "64-17-5", price: 3, importance: 5, composition: { 0.943188 => eth.id, 0.0288 => mek.id, 0.028 => ipn.id, 0.000012 => btx.id }, notes: "Ethanol, vollständig vergällt nach EU 162/2013"
+ethd = Solvent.create name: "Ethanol (EU denat., 94%)", symbol: "EDN", cas: "64-17-5", price: 3, importance: 5, notes: "Ethanol, vollständig vergällt nach EU 162/2013",
+        solvent_ingredients_attributes: [ 
+          { amount: 100.0, ingredient_id: eth.id, _destroy: false },
+          { amount: 3.0,   ingredient_id: mek.id, _destroy: false },
+          { amount: 3.0,   ingredient_id: ipn.id, _destroy: false },
+          { amount: 0.00125, ingredient_id: btx.id, _destroy: false }
+        ]
+
+
+# ethn = Solvent.create name: "Ethanol 96.6 %", symbol: "E96", cas: "64-17-5", price: 26, importance: 4, composition: { 0.966 => eth.id, 0.033 => h2o.id }, notes: "Ethanol, Trinkalkohol unvergällt;  96,6 % Reinheit, 1411 U"
+ethn = Solvent.create name: "Ethanol 96.6 %", symbol: "E96", cas: "64-17-5", price: 26, importance: 4, notes: "Ethanol, Trinkalkohol unvergällt;  96,6 % Reinheit, 1411 U", 
+        solvent_ingredients_attributes: [ 
+          { amount: 966, ingredient_id: eth.id, _destroy: false },
+          { amount: 34,   ingredient_id: h2o.id, _destroy: false }
+        ]
+
 
 mpg = Solvent.create name: "Monopropylene Glycol",  symbol: "MPG", cas: "57-55-6", price: 18, logP: -0.92, notes: "Propane-1,2-diol"
 dpg = Solvent.create name: "Dipropylene Glycol",    symbol: "DPG", cas: "25265-71-8", price: 16, logP: -0.589 
@@ -21,4 +36,4 @@ dme = Solvent.create name: "Carbitol",  symbol: "DME", cas: "111-90-0", price: 1
 jjo = Solvent.create name: "Jojobaoil", symbol: "JJO", price: 44
 unk = Solvent.create name: "Unknown",   symbol: "UNK", notes: "Unknown Solvents"
 
-Solvent.create name: "Hydroxycitronellol", symbol: "XCO", cas: "107-75-5", notes: "not a classic solvent, but a good stabilizer for Hydroxycitronellal @ 75 %"
+Solvent.create name: "Hydroxycitronellol", symbol: "XCO", cas: "107-75-5", notes: "not a classic solvent, but a good stabilizer for Hydroxycitronellal @ 75 %", importance: -2

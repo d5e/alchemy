@@ -73,14 +73,14 @@
         <% end %>
         <div>
             <div class="solvents-form">
-                <%= f.fields_for :solvents do |fd| %>
+                <%= f.fields_for :solvent_ingredients do |fd| %>
                     <div class="form-group">
                         <%= f.label :solvent, Solvent.model_name.human, class: "col-sm-2 control-label" %>
-                        <div class="col-sm-2 <%= :'has-error' if :virtual_amount.in?(fd.object.errors) %>">
-                            <%= fd.text_field :virtual_amount, placeholder: :mg, class: 'form-control', precision: prec(fd.object.virtual_amount,4), strip_insignificant_zeros: true %>
+                        <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
+                            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control', precision: prec(fd.object.amount,4), strip_insignificant_zeros: true %>
                         </div>
-                        <div class="col-sm-4 <%= :'has-error' if :solvent.in?(fd.object.errors) %>">
-                            <%= fd.select :solvent_id, Solvent.by_importance.collect { |s| [ s.name, s.id ] }, {prompt: 'Solvent'}, class: "form-control solvent"  %>
+                        <div class="col-sm-4 <%= :'has-error' if :ingredient_id.in?(fd.object.errors) %>">
+                            <%= fd.select :ingredient_id, Solvent.by_importance.where("id != ?", resource.id || -1).collect { |s| [ s.name, s.id ] }, {prompt: 'Solvent'}, class: "form-control solvent"  %>
                         </div>
                         <div class="col-sm-1 <%= :nodisplay if fd.object.locked? %>">
                             <%= fd.link_to_remove class: "btn" do %>
@@ -92,7 +92,7 @@
             </div>
  
             
-            <%= f.link_to_add :solvents, class: "btn btn-default", :data => { :target => ".solvents-form" } do %>
+            <%= f.link_to_add :solvent_ingredients, class: "btn btn-default", :data => { :target => ".solvents-form" } do %>
                 <span class="glyphicon glyphicon-plus-sign"></span> <%= t :'global.add_solvent' %>
             <% end %>
             
