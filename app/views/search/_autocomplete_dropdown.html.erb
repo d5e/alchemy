@@ -1,16 +1,34 @@
 <div id="psf-autocomplete-dropdown">
-    <% if autocomplete_dropdown # && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
-        <% first = true %>
-        <% autocomplete_dropdown.each do |id, item| %>
-            <% if first
-                first = false
-            else %>
-                <hr />
+    <div class="column1" style="float:left;">
+        <% if @suggest # && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
+            <% first = true %>
+            <% @suggest.each do |id, item| %>
+                <% if first
+                    first = false
+                else %>
+                    <hr />
+                <% end %>
+                <%= link_to item[:name], resource_path(id), class: "btn color-#{item[:character]}" %>
             <% end %>
-            <%= link_to item[:name], resource_path(id), class: "btn color-#{item[:character]}" %>
+            <% if false # cropped %>
+                <span class="btn"> ... </span>
+            <% end %>
         <% end %>
-        <% if false # cropped %>
-            <span class="btn"> ... </span>
+    </div>
+    <div class="column2" style="float:left;">
+        <% if @blends_suggest # && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
+            <% first = true %>
+            <% @blends_suggest.each do |id, item| %>
+                <% if first
+                    first = false
+                else %>
+                    <hr />
+                <% end %>
+                <%= link_to item[:name], blend_path(id), class: "btn", style: "background-color: ##{item[:color]}" %>
+            <% end %>
+            <% if false # cropped %>
+                <span class="btn"> ... </span>
+            <% end %>
         <% end %>
-    <% end %>
+    </div>
 </div>

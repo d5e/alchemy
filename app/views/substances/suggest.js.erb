@@ -1,5 +1,9 @@
- console.log("<%= j @suggest.inspect %>");
+console.log("substances:");
+console.log("<%= j @suggest.inspect %>");
+ 
+console.log("blends:");
+console.log("<%= j @blends_suggest.inspect %>");
 
-var html = "<%= j render '/search/autocomplete_dropdown', :autocomplete_dropdown => @suggest %>";
+var html = "<%= j render '/search/autocomplete_dropdown' %>";
 
 $('#psf-autocomplete-dropdown').replaceWith(html);

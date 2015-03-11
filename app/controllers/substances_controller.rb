@@ -30,6 +30,7 @@ class SubstancesController < InheritedResources::Base
   
   def suggest
     @suggest = substance_auto_suggest params[:suggest].gsub(/\W+/,' ') rescue nil
+    @blends_suggest = blends_auto_suggest params[:suggest].gsub(/\W+/,' ') rescue nil
   end
   
   def refresh_elastic
@@ -63,12 +64,12 @@ class SubstancesController < InheritedResources::Base
       body: {
         substances_suggest: {
           text: string,
-          completion: { field: 'name_suggest', size: 5 },
+          completion: { field: 'name_suggest', size: 9 },
         },
         substances_suggest_tags: {
           text: string,
           completion: { field: 'tags_suggest', size: 13 }
-        },
+        }
       }
     result = {}
     return {} unless response["substances_suggest"]
@@ -82,6 +83,26 @@ class SubstancesController < InheritedResources::Base
       result[ item["payload"]["resource_id"] ] = {
         name: item["text"],
         character: item["payload"]["character"]
+      }
+    end
+    result
+  end
+  
+  def blends_auto_suggest(string)
+    response = Elasticsearch::Persistence.client.suggest \
+      index: Blend.index_name,
+      body: {
+        blends_suggest: {
+          text: string,
+          completion: { field: 'name_suggest', size: 21 }
+        }
+      }
+    result = {}
+    return {} unless response["blends_suggest"]
+    response["blends_suggest"].first["options"].each do |item|
+      result[ item["payload"]["resource_id"] ] = {
+        name: item["text"],
+        color: item["payload"]["color"]
       }
     end
     result

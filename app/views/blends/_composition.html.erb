@@ -21,8 +21,8 @@
                     <span style="font-size:10px;">%</span>
                 </td>
                 <td>
-                    <% if key.is_a?(Symbol) %>
-                        <%= ing.dilution.solvent_human_name %>
+                    <% if key.is_a?(String) %>
+                        <%= ing.dilution.solvent %>
                     <% else %>
                         <span class="color-<%= ing.substance.character %> ctag"></span>
                         <%= link_to ing.substance, ing.substance %>

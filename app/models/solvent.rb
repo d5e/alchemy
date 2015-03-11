@@ -15,6 +15,7 @@ class Solvent < ActiveRecord::Base
   scope :by_name, lambda { order("name ASC") }
   scope :by_importance, lambda { order("importance DESC") }
   scope :pure, lambda { where pure: true }
+  scope :basics, lambda { where "importance > -5 " }
   
   before_save :check_pureness
   

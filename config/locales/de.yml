@@ -230,6 +230,7 @@ de:
     dilutions: Lösungen
     intensity: Intensität
     solvent: Lösungsmittel
+    solvent_id: Lösungsmittel
     total_weight: Gesamtgewicht
     creation_at: Kreiert am
     children: Kinder

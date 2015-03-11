@@ -11,14 +11,21 @@
                 </datalist>
             </div>
             <div class="col-sm-4">
-                <%= fd.select :solvent, Dilution::SOLVENTS.collect { |k,v| [ v, k ] }, {prompt: :default}, class: "form-control", disabled: disable  %>
+                <%# fd.select :solvent, Dilution::SOLVENTS.collect { |k,v| [ v, k ] }, {prompt: :default}, class: "form-control", disabled: disable  %>
+                <%= fd.select :solvent_id, Solvent.basics.map { |sv| [ sv.name, sv.id ] }, {prompt: :default}, class: "form-control", disabled: disable  %>
+                <span class="badge" style="margin-bottom:-10px;">alt: <%= fd.object.solvent %></span>
             </div>
             <div class="col-sm-2">
                 <%= fd.select :intensity, Dilution::INTENSITIES, {prompt: :default}, class: "form-control", title: t(:'view.hints.intensity'), data: { toggle: "tooltip" } %>
             </div>
             <div class="col-sm-1">
-                <%= fd.link_to_remove class: "btn" do %>
-                    <span class="glyphicon glyphicon-trash"></span>
+                <%= link_to new_solvent_path, class: 'btn', title: 'verdünnen' do %>
+                    <span class="glyphicon glyphicon-share"></span>
+                <% end %>
+                <% unless disable %>
+                    <%= fd.link_to_remove class: "btn" do %>
+                        <span class="glyphicon glyphicon-trash"></span>
+                    <% end %>
                 <% end %>
             </div>
         </div>

@@ -1,6 +1,6 @@
 class Blend < ActiveRecord::Base
 
-  include Searchable
+  include Blend::Searchable
   
   LOCKED_CHANGEABLE = %w(locked sensory_tags notes color)
   
@@ -56,7 +56,7 @@ class Blend < ActiveRecord::Base
       ing = Ingredient.new(ing.clone_attributes)
       next if !ing.dilution || ing.dilution.concentration == 1.0
       s_amount = ing.amount * (1.0 - ing.dilution.concentration)
-      key = ing.dilution.solvent.to_sym
+      key = "solvent_#{ing.dilution.solvent.id rescue rand(1e9) }"
       if cc[key]
         cc[key].amount += s_amount
       else
