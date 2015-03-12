@@ -32,7 +32,11 @@ class Solvent < ActiveRecord::Base
   
   def total_composition_mass
     return 1.0 if pure?
-    solvent_ingredients.pluck("sum(amount) as sum").first
+    if solvent_ingredients.all?(&:persisted?)
+      solvent_ingredients.pluck("sum(amount) as sum").first
+    else
+      solvent_ingredients.to_a.sum(&:amount)
+    end
   end
 
   def members
@@ -41,7 +45,7 @@ class Solvent < ActiveRecord::Base
     solvent_ingredients.each do |sing|
       ms += sing.ingredient.members
     end
-    ms
+    ms.uniq
   end
 
   def locked?
@@ -55,9 +59,13 @@ class Solvent < ActiveRecord::Base
     locked_solvent_ids = (svs.map(&:id) + svs2.map(&:id)).uniq
     self.id.in? locked_solvent_ids
   end
+  
+  def pure_live?
+    solvent_ingredients.blank?
+  end
 
   def check_pureness
-    self.pure = solvent_ingredients.blank?
+    self.pure = pure_live?
     true
   end
   

@@ -19,9 +19,6 @@
                 <%= fd.select :intensity, Dilution::INTENSITIES, {prompt: :default}, class: "form-control", title: t(:'view.hints.intensity'), data: { toggle: "tooltip" } %>
             </div>
             <div class="col-sm-1">
-                <%= link_to new_solvent_path, class: 'btn', title: 'verdünnen' do %>
-                    <span class="glyphicon glyphicon-share"></span>
-                <% end %>
                 <% unless disable %>
                     <%= fd.link_to_remove class: "btn" do %>
                         <span class="glyphicon glyphicon-trash"></span>

@@ -2,12 +2,12 @@ class Substance < ActiveRecord::Base
  
   include Substance::Searchable
   
-  IFRA_LIMIT_CONCENTRATIONS = [ 0.1, 0.05, 0.02, 0.01, 0.005, 0.004, 0.002, 0.001, 0.0005, 0.0002, 0.00001 ]
+  IFRA_LIMIT_CONCENTRATIONS = [ 0.317, 0.214, 0.13, 0.08, 0.107, 0.053, 0.032, 0.0267, 0.025, 0.019, 0.016, 0.014, 0.0104, 0.01, 0.005, 0.004, 0.002, 0.001, 0.0002 ]
   
   CURRENCIES = {
-    :GBP => 0.79626,
+    :GBP => 0.71,
     :EUR => 1,
-    :USD => 1.27444
+    :USD => 1.06
   }
   
   scope :order_alphabetical, lambda { order("#{self.table_name}.name ASC") }

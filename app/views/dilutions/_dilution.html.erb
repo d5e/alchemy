@@ -2,9 +2,12 @@
     <div class="col-sm-3" style="text-align: right;">
         <%= number_with_precision dilution.concentration * 100, precision: 7, strip_insignificant_zeros: true %> %
         <% if resource.is_a?(Substance) %>&nbsp;
-            <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#add-to-blend-modal" onclick="$('#add-to-blend-modal form input.dilution_id').val(<%= dilution.id %>);">
+            <a class="btn" data-toggle="modal" title="add to blend" data-target="#add-to-blend-modal" onclick="$('#add-to-blend-modal form input.dilution_id').val(<%= dilution.id %>);">
                 <span class="glyphicon glyphicon-log-in"></span>
-            </button>
+            </a>
+            <%= link_to new_solvent_path(existing_dilution_id: dilution.id), class: 'btn', title: 'verdünnen' do %>
+                <span class="glyphicon glyphicon-share"></span>
+            <% end %>
         <% end %>
     </div>
     <div class="col-sm-5">

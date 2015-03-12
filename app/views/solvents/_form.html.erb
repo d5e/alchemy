@@ -65,7 +65,7 @@
                     Substanzspezifische Lösung wird angelegt
                 </p>
                 <div class="input-group">
-                    <div class="input-group-addon"><%= resource.existing_dilution.substance %> <%= resource.existing_dilution %></div>
+                    <div class="input-group-addon"><%= link_to resource.existing_dilution.substance, resource.existing_dilution.substance %> <%= resource.existing_dilution %></div>
                     <%= f.text_field :existing_dilution_amount, placeholder: :default, class: "form-control", autocomplete: "off" %>
                     <div class="input-group-addon">mg</div>
                 </div>

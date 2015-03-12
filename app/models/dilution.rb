@@ -46,22 +46,29 @@ class Dilution < ActiveRecord::Base
   has_many :ingredients
   
   validates :concentration, numericality: { greater_than_or_equal_to: 0.0, less_than_or_equal_to: 1.0 }
+  validate :check_for_duplicates
   
   # concentration example 0,1 % would be stored as 0.001
   # intensity between 1 and 10
 
   def solvent_human_name
-    SOLVENTS[self[:solvent].to_sym]
+    SOLVENTS[self[:solvent].to_sym] rescue self[:solvent].inspect
   end
   
   def to_s
     if concentration == 0.0
-      solvent_human_name
+      solvent
     elsif concentration == 1.0
       "Pure"
     else
-      "<strong>#{number_with_precision(concentration * 100, precision: 5, strip_insignificant_zeros: true)} %</strong> in #{solvent_human_name}".html_safe
+      "<strong>#{number_with_precision(concentration * 100, precision: 5, strip_insignificant_zeros: true)} %</strong> in #{solvent}".html_safe
     end
+  end
+  
+  protected
+  
+  def check_for_duplicates
+    errors.add :concentration, :exists if Dilution.where(solvent_id: solvent_id || solvent.id, substance_id: substance_id || substance.id).where("round(concentration,8) = ? ", concentration.round(8)).exists?
   end
   
 end
