@@ -1,6 +1,11 @@
 class SolventsController < InheritedResources::Base
       
   before_filter :prepare, only: [ :new ]
+  
+  def show
+    @dilution = Dilution.find(params[:dilution_id]) if params[:dilution_id]
+    super
+  end
 
   def create
     # go into this if when a solution of an existing solution shall be created
@@ -19,7 +24,7 @@ class SolventsController < InheritedResources::Base
         debugs.each do |ss|
           Rails.logger.info "### #{ss}: #{eval(ss).inspect}"
         end
-        concentration = @solvent.existing_dilution_amount.to_f * existing_dilution.concentration / (@solvent.total_composition_mass + @solvent.existing_dilution_amount.to_f)
+        concentration = @solvent.existing_dilution_amount * existing_dilution.concentration / (@solvent.total_composition_mass + @solvent.existing_dilution_amount)
         dil = Dilution.new substance: substance, solvent: existing_solvent, concentration: concentration
         if (dil.valid?)
           dil.save!
@@ -28,8 +33,26 @@ class SolventsController < InheritedResources::Base
           throw_error :concentration, :dilutions
         end
       else
-        raise "not implemented yet"
         # create solvent and then a specific dilution of 
+        si = SolventIngredient.new(ingredient: existing_solvent, amount: @solvent.existing_dilution_amount * (1.0 - existing_dilution.concentration))
+        
+        debugs = %w(@solvent.existing_dilution_amount existing_dilution.concentration)
+        debugs.each do |ss|
+          Rails.logger.info "### #{ss}: #{eval(ss).inspect}"
+        end
+        
+        @solvent.solvent_ingredients << si
+        Rails.logger.info si.inspect
+        @solvent.generate_name
+        if @solvent.save
+          concentration = @solvent.existing_dilution_amount.to_f * existing_dilution.concentration / (@solvent.total_composition_mass + existing_dilution.concentration * @solvent.existing_dilution_amount.to_f)
+          dil = Dilution.new substance: substance, solvent: @solvent, concentration: concentration
+          dil.save!
+          redirect_to substance_path(substance)
+        else
+          @solvent.solvent_ingredients.delete si
+          throw_error
+        end
       end
     else
       create!
@@ -38,8 +61,8 @@ class SolventsController < InheritedResources::Base
   
   protected
   
-  def throw_error(type, field=:solvent_ingredients)
-    @solvent.errors.add field, type
+  def throw_error(type=nil, field=:solvent_ingredients)
+    @solvent.errors.add field, type if type
     prepare @existing_dilution_id
     render :new
   end

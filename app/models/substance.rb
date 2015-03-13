@@ -25,8 +25,8 @@ class Substance < ActiveRecord::Base
   
   validates :name, :cas, uniqueness: true, allow_blank: true
   validates :name, :sensory_tags, :presence => true
-  
   validates :ifra_cat_4_limit, numericality: { greater_than_or_equal_to: 0, less_than: 1 }, allow_blank: true
+  validate  :validate_cas_checksum
   
   validates_associated :dilutions
   
@@ -52,5 +52,30 @@ class Substance < ActiveRecord::Base
       super
     end
   end
+  
+  protected
+  
+  def validate_cas_checksum
+    self.cas.strip!
+    cas.gsub(/[;,\s]+/,' ').split(' ').each do |cnr|
+      splitted = cnr.split("-")
+      if splitted.size != 3
+        errors.add :cas, :parts
+      else
+        if splitted[0].size < 2 || splitted[0].size > 7 ||
+           splitted[1].size != 2 || splitted[2].size != 1
+          errors.add :cas, :format
+        end
+      end
+      cnrs = cnr.gsub("-",'')
+      cd = cnrs.last
+      csum = 0
+      cnrs[size].times do |n|
+        csum += cnrs[n-1].to_i * n
+      end
+      errors.add :cas, :checksum if csum % 10 != cd
+    end
+  end
+  
 
 end

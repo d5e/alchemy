@@ -1,8 +1,8 @@
 class Solvent < ActiveRecord::Base
 
-  attr_accessor :virtual_proportion, :existing_dilution, :existing_dilution_amount, :virtual_amount
+  attr_accessor :virtual_proportion, :existing_dilution, :virtual_amount
   
-  attr_writer :existing_dilution_id
+  attr_writer :existing_dilution_id, :existing_dilution_amount
 
   serialize :composition, Hash
   
@@ -17,10 +17,11 @@ class Solvent < ActiveRecord::Base
   scope :pure, lambda { where pure: true }
   scope :basics, lambda { where "importance > -5 " }
   
-  before_save :check_pureness
+  before_save :check_pureness, :merge_duplicates
   
   validates :name, presence: true, uniqueness: true
   validates :symbol, uniqueness: true, allow_blank: true
+  validate :validate_symbol_presence_if_pure, :validate_cas_checksum
   
   accepts_nested_attributes_for :solvent_ingredients, allow_destroy: true
   validates_associated :solvent_ingredients
@@ -28,6 +29,10 @@ class Solvent < ActiveRecord::Base
   def existing_dilution_id
     return @existing_dilution_id if @existing_dilution_id
     existing_dilution.id if existing_dilution
+  end
+  
+  def existing_dilution_amount
+    @existing_dilution_amount.to_f
   end
   
   def total_composition_mass
@@ -92,11 +97,44 @@ class Solvent < ActiveRecord::Base
     end
   end
 
+  def symbolic_composition(fraction=1.0)
+    if self.symbol.present?
+      @virtual_proportion = fraction
+      return [self]
+    else
+      merge_virtual_amounts solvent_ingredients.map{ |sing| sing.virtual_solvent(fraction, true) }.flatten
+    end
+  end
+
   def to_s
     name
   end
   
+  def generate_name
+    if pure?
+      return false
+    else
+      nc = []
+      symbolic_composition.each do |sv|
+        nc << "#{sv.virtual_proportion.round(3 - Math.log10(sv.virtual_proportion).round)} #{sv.symbol}"
+      end
+      self.name = nc.join(" ")
+    end
+  end
+  
   protected
+  
+  def merge_duplicates
+    sing = {}
+    solvent_ingredients.each do |ing|
+      if sing[ing.ingredient.id]
+        sing[ing.ingredient.id].amount += ing.amount
+        solvent_ingredients.delete ing
+      else
+        sing[ing.ingredient.id] = ing
+      end
+    end
+  end
   
   def merge_virtual_amounts(svs=[])
     by_primary = {}
@@ -109,26 +147,30 @@ class Solvent < ActiveRecord::Base
     end
     by_primary.values
   end
+
+  def validate_symbol_presence_if_pure
+    errors.add :symbol, :blank if self.symbol.blank? && pure_live?
+  end
   
   def validate_cas_checksum
-    cas.gsub(/[;,\s]+/,' ').split(' ').each do |cnr|
-      splitted = cnr.split("-")
-      if splitted.size != 3
-        errors.add :cas, :parts
-      else
-        if splitted[0].size < 2 || splitted[0].size > 7 ||
-           splitted[1].size != 2 || splitted[2].size != 1
-          errors.add :cas, :format
-        end
+    return unless self.cas
+    self.cas.strip!
+    splitted = cas.split("-")
+    if splitted.size != 3
+      errors.add :cas, :parts
+    else
+      if splitted[0].size < 2 || splitted[0].size > 7 ||
+         splitted[1].size != 2 || splitted[2].size != 1
+        errors.add :cas, :format
       end
-      cnrs = cnr.gsub("-",'')
-      cd = cnrs.last
-      csum = 0
-      cnrs[size].times do |n|
-        csum += cnrs[n-1].to_i * n
-      end
-      errors.add :cas, :checksum if csum % 10 != cd
     end
+    cnrs = cas.gsub("-",'')
+    cd = cnrs.last
+    csum = 0
+    cnrs[size].times do |n|
+      csum += cnrs[n-1].to_i * n
+    end
+    errors.add :cas, :checksum if csum % 10 != cd
   end
   
 end

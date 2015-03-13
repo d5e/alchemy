@@ -4,6 +4,7 @@
             <%= link_to edit_resource_path(resource), style: 'float: right;', title: "Edit", :'data-toggle' => "tooltip" do %>
                 <span class="glyphicon glyphicon-edit"></span>
             <% end %>
+            <%= "Lösung von #{@dilution.substance} in" if @dilution %>
             <%= resource.name 
             %><% if resource.cas.present? %>,
                 <% first_cas = true %>
@@ -19,17 +20,26 @@
     <div class="panel-body">
         <div class="row">
             <span class="col-sm-2 small-label">
-                <%= resource_class.human_attribute_name(:logP) %>,<br/>
-                <%= resource_class.human_attribute_name(:symbol) %>,<br/>
+                <%= resource_class.human_attribute_name(:symbol) %><br/>
                 <%= resource_class.human_attribute_name(:importance) %>
             </span>
             <div class="col-sm-9">
-                <%= resource.logP || '-' %>,<br/>
-                <%= resource.symbol || '-' %>,<br/>
+                <%= resource.symbol || '-' %><br/>
                 <%= resource.importance || 0 %>
             </div>
         </div>
         <hr/>
+        <% if resource.logP.present? %>
+            <div class="row">
+                <span class="col-sm-2 small-label">
+                    <%= resource_class.human_attribute_name(:logP) %>
+                </span>
+                <div class="col-sm-9">
+                    <%= number_with_precision resource.logP  %>
+                </div>
+            </div>
+            <hr/>
+        <% end %>
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:price), class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
@@ -37,9 +47,46 @@
             </div>
         </div>
         <hr/>
+        
+        <% if @dilution %>
+            <div class="row">
+                <%= content_tag :span, "#{@dilution.substance}, #{resource_class.human_attribute_name(:dilution)}", class: 'col-sm-2 small-label' %>
+                <div class="col-sm-6">
+                    <table class="table">
+                        <% if resource.pure? %>
+                            <tr>
+                                <td><%= number_with_precision @dilution.concentration * 100.0 %> %</td>
+                                <td><%= @dilution.substance %></td>
+                            </tr>
+                            <tr>
+                                <td><%= number_with_precision 100 - @dilution.concentration * 100.0 %> %</td>
+                                <td><%= resource %></td>
+                            </tr>
+                        <% else %>
+                            <tr>
+                                <% total_dilution_mass = resource.total_composition_mass / ( 1.0 - @dilution.concentration) %>
+                                <td><%= number_with_precision substance_mass = @dilution.concentration * total_dilution_mass %></td>
+                                <% sv_ratio = resource.total_composition_mass / total_dilution_mass %>
+                                <td><%= @dilution.concentration * 100 %> %</td>
+                                <td><%= @dilution.substance %></td>
+                            </tr>
+                            <% resource.solvent_ingredients.each do |sing| %>
+                                <tr>
+                                    <td><%= number_with_precision number_with_precision sing.amount, precision: 5, strip_insignificant_zeros: true %></td>
+                                    <td><%= number_with_precision sing.percent * sv_ratio , precision: 4, strip_insignificant_zeros: true %> %</td>
+                                    <td><%= link_to sing.ingredient, sing.ingredient %></td>
+                                    <td><%= sing.ingredient.cas %></td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                    </table>
+                </div>
+            </div>
+            <hr/>
+        <% end %>
 
         <div class="row">
-            <%= content_tag :span, resource_class.human_attribute_name(:composition), class: 'col-sm-2 small-label' %>
+            <%= content_tag :span, "#{resource} #{resource_class.human_attribute_name(:composition)}", class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
                 <% if resource.pure? %>
                     pure

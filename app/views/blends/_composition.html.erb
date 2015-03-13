@@ -22,7 +22,7 @@
                 </td>
                 <td>
                     <% if key.is_a?(String) %>
-                        <%= ing.dilution.solvent %>
+                        <%= ing.dilution.solvent || "dilution_#{ing.dilution_id}" %>
                     <% else %>
                         <span class="color-<%= ing.substance.character %> ctag"></span>
                         <%= link_to ing.substance, ing.substance %>

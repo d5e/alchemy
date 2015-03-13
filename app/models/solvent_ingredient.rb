@@ -12,8 +12,12 @@ class SolventIngredient < ActiveRecord::Base
   validate :careful_save
   
 
-  def virtual_solvent(fraction=1.0)
-    ingredient.molecular_composition(fraction * proportion)
+  def virtual_solvent(fraction=1.0, stop_at_symbols=false)
+    if stop_at_symbols
+      ingredient.symbolic_composition(fraction * proportion)
+    else
+      ingredient.molecular_composition(fraction * proportion)
+    end
   end
 
   def proportion

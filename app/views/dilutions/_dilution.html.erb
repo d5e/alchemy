@@ -12,7 +12,7 @@
     </div>
     <div class="col-sm-5">
         ALT: <%= dilution.solvent_human_name %><br/>
-        NEU: <%= link_to dilution.solvent, dilution.solvent if dilution.solvent %>
+        NEU: <%= link_to dilution.solvent, solvent_path(dilution.solvent, dilution_id: dilution.id)  if dilution.solvent %>
         <button class="btn btn-sm virtual aligner ">&nbsp;</button>
     </div>
     <div class="col-sm-1">
