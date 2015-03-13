@@ -21,7 +21,11 @@
                     <%= link_to ing.substance, ing.substance %>
                 </td>
                 <td>
-                    <%= ing.dilution || "Pure" %>
+                    <% if ing.dilution %>
+                        <%= solvent_link ing.dilution %>
+                    <% else %> 
+                        Pure
+                    <% end %>
                 </td>
             </tr>
         <% end %>
