@@ -7,7 +7,7 @@ module SolventsHelper
       if dilution.concentration == 0.0
         text = dilution.solvent
       elsif dilution.concentration == 1.0
-        "Pure"
+        return "Pure"
       else
         text = "#{number_with_precision dilution.concentration * 100} % in #{dilution.solvent}"
       end
