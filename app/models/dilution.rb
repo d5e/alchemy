@@ -68,6 +68,7 @@ class Dilution < ActiveRecord::Base
   protected
   
   def check_for_duplicates
+    return if persisted?
     errors.add :concentration, :exists if Dilution.where(solvent_id: solvent_id || solvent.id, substance_id: substance_id || substance.id).where("round(concentration,8) = ? ", concentration.round(8)).exists?
   end
   

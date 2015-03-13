@@ -164,11 +164,12 @@ class Solvent < ActiveRecord::Base
         errors.add :cas, :format
       end
     end
-    cnrs = cas.gsub("-",'')
-    cd = cnrs.last
+    return if errors.include?(:cas)
+    cnrs = cas.gsub(/[^\d]/,'')
+    cd = cnrs[cnrs.size - 1,1].to_i
     csum = 0
-    cnrs[size].times do |n|
-      csum += cnrs[n-1].to_i * n
+    (cnrs.size - 1).times do |n|
+      csum += cnrs[cnrs.size - 2 - n,1].to_i * (n + 1)
     end
     errors.add :cas, :checksum if csum % 10 != cd
   end

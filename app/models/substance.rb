@@ -56,9 +56,10 @@ class Substance < ActiveRecord::Base
   protected
   
   def validate_cas_checksum
+    return unless self.cas
     self.cas.strip!
     cas.gsub(/[;,\s]+/,' ').split(' ').each do |cnr|
-      splitted = cnr.split("-")
+      splitted = cas.split("-")
       if splitted.size != 3
         errors.add :cas, :parts
       else
@@ -67,11 +68,12 @@ class Substance < ActiveRecord::Base
           errors.add :cas, :format
         end
       end
-      cnrs = cnr.gsub("-",'')
-      cd = cnrs.last
+      return if errors.include?(:cas)
+      cnrs = cas.gsub(/[^\d]/,'')
+      cd = cnrs[cnrs.size - 1,1].to_i
       csum = 0
-      cnrs[size].times do |n|
-        csum += cnrs[n-1].to_i * n
+      (cnrs.size - 1).times do |n|
+        csum += cnrs[cnrs.size - 2 - n,1].to_i * (n + 1)
       end
       errors.add :cas, :checksum if csum % 10 != cd
     end
