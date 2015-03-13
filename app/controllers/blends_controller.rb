@@ -81,6 +81,15 @@ class BlendsController < InheritedResources::Base
       end
     end
   end
+  
+  def refresh_elastic
+    respond_to do |format|
+      format.js do
+        Blend.import force: true
+        render js: "$('a.refresh-elastic').remove();"
+      end
+    end
+  end
 
   private
   

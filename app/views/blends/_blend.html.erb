@@ -2,11 +2,9 @@
     <%= content_tag :td, colored(blend) do %>
         <%= blend_link blend, style: "width: 100%; display:block;" %>
     <% end %>
-    </td>
-    <td>
-        <%= blend.creation_at %>
-    </td>
-    <td>
-        <%= blend.sensory_tags %>
-    </td>
+    <% unless :concentration.in? @supress.to_a %>
+        <td><%= number_with_precision blend.concentration * 100.0 %> %</td>
+    <% end %>
+    <td style="white-space: nowrap;"><%= blend.creation_at %></td>
+    <td><%= blend.sensory_tags %></td>
 </tr>

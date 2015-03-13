@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :memorize
+      put :refresh_elastic
     end
   end
   

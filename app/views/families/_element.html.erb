@@ -13,7 +13,7 @@
                 <% end %>
             </div>
         <% elsif element == :blends %>
-            <% if resource.blends.size > 7 %>
+            <% if true || resource.blends.size > 7 %>
                 <%= nav_tabs :blend_tabs do |tabs| %>
                     <% tabs.add "Detail", 'blends/list', collection: resource.blends %>
                     <% tabs.add "ABC", 'blends/list', collection: resource.blends.order_name %>

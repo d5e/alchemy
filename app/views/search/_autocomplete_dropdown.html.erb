@@ -1,6 +1,6 @@
 <div id="psf-autocomplete-dropdown">
-    <div class="column1" style="float:left;">
-        <% if @suggest # && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
+    <% if @suggest.present? %>
+        <div class="column1" style="float:left;">
             <% first = true %>
             <% @suggest.each do |id, item| %>
                 <% if first
@@ -13,10 +13,10 @@
             <% if false # cropped %>
                 <span class="btn"> ... </span>
             <% end %>
-        <% end %>
-    </div>
-    <div class="column2" style="float:left;">
-        <% if @blends_suggest # && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
+        </div>
+    <% end %>
+    <% if @blends_suggest.present? # && (last_id = autocomplete_dropdown.to_a.last.last rescue nil) %>
+        <div class="column2" style="float:left; <%= 'margin-left: 12px; padding-left: 12px; border-left: 1px solid #ddd;'.html_safe if @suggest.present? %>">
             <% first = true %>
             <% @blends_suggest.each do |id, item| %>
                 <% if first
@@ -24,11 +24,11 @@
                 else %>
                     <hr />
                 <% end %>
-                <%= link_to item[:name], blend_path(id), class: "btn", style: "background-color: ##{item[:color]}" %>
+                <%= link_to item[:name], blend_path(id), class: "btn", style: "background-color: ##{item[:color]}; color: rgba(0,0,0,0.7);" %>
             <% end %>
             <% if false # cropped %>
                 <span class="btn"> ... </span>
             <% end %>
-        <% end %>
-    </div>
+        </div>
+    <% end %>
 </div>
