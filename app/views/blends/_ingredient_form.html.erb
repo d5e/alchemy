@@ -3,7 +3,7 @@
         <%= fd.hidden_field :highlighted, class: 'highlight' %>
         <%= f.label :ingredient, Ingredient.model_name.human, class: "col-sm-3 control-label #{:highlighted if fd.object.highlighted}", data: { toggle: :highlight }  %>
         <div class="col-sm-2 <%= :'has-error' if :amount.in?(fd.object.errors) %>">
-            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control', precision: prec(fd.object.amount,4), strip_insignificant_zeros: true %>
+            <%= fd.text_field :amount, placeholder: :mg, class: 'form-control', precision: prec(fd.object.amount,4), strip_insignificant_zeros: true, autocomplete: "off" %>
         </div>
         <div class="col-sm-3 <%= :'has-error' if :substance.in?(fd.object.errors) %>">
             <%= fd.select :substance_id, Substance.all.collect { |s| [ s.name, s.id ] }, {prompt: 'Substance'}, class: "form-control substance having-dilution-select"  %>
