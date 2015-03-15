@@ -127,7 +127,7 @@ class SubstancesController < InheritedResources::Base
     # it will return an empty hash.
     params.require(:substance).permit(:name, :cas, :sensory_tags, :alt_names, :notes, :notes_alt_1, :notes_alt_2, :ifra_cat_4_limit, :character,
       :price_per_quantity, :price_currency, :quantity_in_gram_of_raw_material, :vp_mmHg_25C,
-      dilutions_attributes: [:solvent, :concentration, :intensity, :_destroy, :id]
+      dilutions_attributes: [:solvent_id, :concentration, :intensity, :_destroy, :id]
     )
    end
 end
