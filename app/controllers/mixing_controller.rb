@@ -65,9 +65,10 @@ class MixingController < ApplicationController
         else
           if concentration == 0.0
             new_amount = ing.amount * ratio
-            # TODO => different kinds of solvents are not kept this way => REFACTOR IN FAVOR OF RELATIONAL SOLVENTS
             merge_amount new_amount, ing, ingredients, ing.dilution
           else
+            # TODO => different kinds of solvents of mixed ingredients of the same substance are not kept this way
+            # they would have to be added seperately depending on the dilution
             dilutions[ing.substance_id] ||= []
             dilutions[ing.substance_id] << ing.dilution
             new_amount = ing.amount * ratio * concentration
@@ -102,9 +103,11 @@ class MixingController < ApplicationController
       total_weight = params[:total_weight].to_f
       adp = (total_weight * 1000.0) / percent
     end
-    
+
+    @composition_human = ""
     blend_params.each do |k,v|
       blend = Blend.find k.to_s[/\d+/]
+      @composition_human << "#{v}mg #{blend.name}\n"
       if essence_strategy?
         Rails.logger.info "adp: #{adp} ;   v.to_f: #{v.to_f} ;   bmax: #{blend.essence_weight}"
         ratio = (adp * v.to_f) / blend.ingredient_weight
@@ -119,8 +122,12 @@ class MixingController < ApplicationController
     Blend.new( 
       name: params[:new_blend_name],
       sensory_tags: blends.map(&:sensory_tags).join("; "),
-      notes: "#{params[:strategy]} MIX of #{blends.map(&:name).join(', ')}"
+      notes: notes
      )
+  end
+  
+  def notes
+    s = "#{params[:strategy]} MIX of \n#{@composition_human}"
   end
   
   # amount => the amount in mg of raw material to add from the substance inside ing
