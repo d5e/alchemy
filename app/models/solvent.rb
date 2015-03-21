@@ -153,7 +153,7 @@ class Solvent < ActiveRecord::Base
   end
   
   def validate_cas_checksum
-    return unless self.cas
+    return if self.cas.blank?
     self.cas.strip!
     splitted = cas.split("-")
     if splitted.size != 3
