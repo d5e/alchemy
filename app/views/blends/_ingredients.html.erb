@@ -13,6 +13,7 @@
                     <% precision = (5 - Math.log10(ing.amount)).round %>
                     <% precision = 1 if precision < 2 %>
                     <% precision += 1 if precision == 3 %>
+                    <% precision = 0 if params[:round] %>
                     <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: (precision > 1) %>
                     <span style="font-size:10px;">mg</span>
                 </td>
