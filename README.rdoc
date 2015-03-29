@@ -1,32 +1,5 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is based on Rails 4, Ruby 2, MySQL and elasticsearch.
 
-Things you may want to cover:
-
-* Ruby version
-
-2.1.2, Rails 4.1.6
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-elasticsearch
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+This project is solely for technical demonstration purposes. There is no commitment by the author for any guaranteed program features nor any right for product support. Use at your own risk.

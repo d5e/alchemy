@@ -11,7 +11,12 @@ class Ingredient < ActiveRecord::Base
   
   delegate :concentration, to: :dilution
   delegate :locked?, to: :blend, allow_nil: true
-  
+
+
+
+  def name
+    substance.to_s
+  end
   
   protected
   

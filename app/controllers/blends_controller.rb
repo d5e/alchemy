@@ -90,6 +90,10 @@ class BlendsController < InheritedResources::Base
       end
     end
   end
+  
+  def print
+    render layout: 'print'
+  end
 
   private
   

@@ -49,7 +49,9 @@
             <div class="row">
                 <%= content_tag :span, resource_class.human_attribute_name(:price), class: 'col-sm-2 small-label' %>
                 <div class="col-sm-9">
-                    <%= number_with_precision resource.price_per_quantity %> <%= resource.price_currency %> per <%= resource.quantity_in_gram_of_raw_material %> gram <br/>
+                    <% if resource.price_per_quantity.to_s != "EUR" || resource.quantity_in_gram_of_raw_material != 100 %>
+                      <%= number_with_precision resource.price_per_quantity %> <%= resource.price_currency %> per <%= resource.quantity_in_gram_of_raw_material %> gram <br/>
+                    <% end %>
                     <%= number_with_precision resource.price_in_eur_per_100g %> EUR per 100 gram <br/>
                 </div>
             </div>

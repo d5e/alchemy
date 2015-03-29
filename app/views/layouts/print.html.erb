@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+<% current_resources_name = resource_class.model_name.human(count: 2) rescue nil -%>
+<% current_resources_name ||=  controller.controller_name.capitalize -%>
+    <title>
+        Print: <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' - ') %>
+    </title>
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <meta name="viewport" content="minimal-ui, width=768" />
+    <style type="text/css" rel="stylesheet">
+        body {
+            font-size: 9px !important;
+        }
+        table.table.table-striped th,
+        table.table.table-striped td {
+            padding: 3px 12px 2px 12px !important;
+        }
+        table.table.table-striped tr > th:first-child,
+        table.table.table-striped tr > td:first-child {
+            padding-left: 24px !important;
+        }
+        table.table.table-striped tr > th:last-child,
+        table.table.table-striped tr > td:last-child {
+            padding-right: 24px !important;
+        }
+        a[href]:after {
+            content: "" !important;
+        }
+    </style>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+</head>
+<body>
+    
+    <div id="header" style="text-align:center;">
+        <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' - ') %>
+    </div>
+    
+    <div id="content">
+        <div class="container-fluid">
+            <%= render "layouts/flash_container" %>
+            <%= yield %>
+        </div>
+    </div>
+    
+    <div id="footer" style="text-align:center;">
+        <%= l Date.new %>
+    </div>
+
+</body>
+</html>

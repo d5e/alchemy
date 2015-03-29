@@ -22,4 +22,15 @@ module BlendsHelper
     ordered
   end
   
+  def get_precision(float, ref=5)
+    if params[:precision].nil? || params[:precision].to_s.downcase.to_sym == :auto
+      precision = (ref - Math.log10(float)).round
+      precision = 1 if precision < 2
+      precision = 4 if precision == 3
+      return precision
+    elsif params[:precision]
+      return params[:precision].to_i
+    end
+  end
+
 end
