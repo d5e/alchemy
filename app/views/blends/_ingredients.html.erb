@@ -33,7 +33,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td class="r"><%= number_with_precision resource.total_weight, precision: (resource.total_weight > 1e6 ? 0 : 1), strip_insignificant_zeros: (resource.total_weight > 1e6) %> <span class="small-unit">mg</span></td>
+            <td class="r"><%= number_with_precision resource.total_mass, precision: (resource.total_mass > 1e6 ? 0 : 1), strip_insignificant_zeros: (resource.total_mass > 1e6) %> <span class="small-unit">mg</span></td>
             <td>Total</td>
             <td><%= number_with_precision resource.raw_price %> EUR</td>
         </tr>

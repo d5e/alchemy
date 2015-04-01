@@ -103,7 +103,7 @@
         <% end %>
         <p style="float:right; line-height: 34px;">
             <span style="margin-right: 1em; opacity: 0.6; font-family: monospace;">
-                <strong><%= number_with_precision resource.total_weight.round %> mg</strong>
+                <strong><%= number_with_precision resource.total_mass.round %> mg</strong>
                 (<%= number_with_precision resource.essence_weight.round %> mg)
             </span>
             <% unless resource.locked? %>

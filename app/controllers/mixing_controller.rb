@@ -92,7 +92,7 @@ class MixingController < ApplicationController
     new_blend.family_ids = family_ids
     
     new_blend.save
-    new_blend.resize! params[:total_weight].to_f if essence_strategy?
+    new_blend.resize! params[:total_mass].to_f if essence_strategy?
     new_blend
   end
   
@@ -100,8 +100,8 @@ class MixingController < ApplicationController
     # essence mixing actually does blend diluted ingredients (in concentrations as they appear in the source blends), but discards additional solvents
     if essence_strategy?
       percent = blend_params.values.map(&:to_f).sum
-      total_weight = params[:total_weight].to_f
-      adp = (total_weight * 1000.0) / percent
+      total_mass = params[:total_mass].to_f
+      adp = (total_mass * 1000.0) / percent
     end
 
     @composition_human = ""
@@ -112,7 +112,7 @@ class MixingController < ApplicationController
         Rails.logger.info "adp: #{adp} ;   v.to_f: #{v.to_f} ;   bmax: #{blend.essence_weight}"
         ratio = (adp * v.to_f) / blend.ingredient_weight
       else
-        ratio = v.to_f == 0.0 ? 1.0 : (v.to_f / blend.total_weight)
+        ratio = v.to_f == 0.0 ? 1.0 : (v.to_f / blend.total_mass)
       end
       yield(blend, ratio)
     end
@@ -175,7 +175,7 @@ class MixingController < ApplicationController
   def essence_validation
     valid = true
     params.each do |key, val|
-      if key.to_s[/_percent\z/] || key.to_s == 'total_weight'
+      if key.to_s[/_percent\z/] || key.to_s == 'total_mass'
         val = Numeric.parse_localized(val) if I18n.delocalization_enabled?
         unless val.to_f > 0.0
           valid = false 

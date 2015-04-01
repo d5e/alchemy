@@ -117,10 +117,10 @@ class Blend < ActiveRecord::Base
   end
   
   def price_per_gram(m=100000)
-    raw_price * ( m.to_f / total_weight.to_f)
+    raw_price * ( m.to_f / total_mass.to_f)
   end
   
-  def total_weight
+  def total_mass
     ingredients.sum(:amount).to_f
   end
 
@@ -134,20 +134,20 @@ class Blend < ActiveRecord::Base
   
   # without additional solvents
   def ingredient_weight
-    total_weight - additional_solvents_amount
+    total_mass - additional_solvents_amount
   end
     
   def concentration
-    essence_weight / total_weight
+    essence_weight / total_mass
   end
   
   def resize!(opts={})
     success = true
-    return nil unless total_weight.to_f > 0
+    return nil unless total_mass.to_f > 0
     if opts[:factor].to_f > 0
       scale = opts[:factor].to_f
     elsif opts[:mg].to_f > 0
-      scale = opts[:mg].to_f / total_weight.to_f
+      scale = opts[:mg].to_f / total_mass.to_f
     else
       return nil
     end
@@ -167,16 +167,16 @@ class Blend < ActiveRecord::Base
   end
   
   def max_concentration
-    essence_weight / (total_weight - additional_solvents_amount)
+    essence_weight / (total_mass - additional_solvents_amount)
   end
   
   def adjust!(new_concentration)
     if new_concentration < max_concentration
       new_mass = (essence_weight / new_concentration)
-      ing_m = total_weight - additional_solvents_amount
+      ing_m = total_mass - additional_solvents_amount
       nasm = new_mass - ing_m
       ratio = (nasm) / additional_solvents_amount
-      return total_weight if adjust_solvents_by!(ratio)
+      return total_mass if adjust_solvents_by!(ratio)
     else
       return false
     end

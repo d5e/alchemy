@@ -144,7 +144,7 @@ en:
     dilutions: Dilutions
     intensity: Intensity
     solvent: Solvent
-    total_weight: Total weight
+    total_mass: Total weight
         
   view:
     tabs:

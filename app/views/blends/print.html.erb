@@ -33,7 +33,7 @@
     </tbody>
     <tfoot style="border-top: 2px solid #ccc;">
         <tr>
-            <th class="r"><%= number_with_precision resource.total_weight, precision: get_precision(resource.total_weight), strip_insignificant_zeros: true %> <span class="small-unit">mg</span></th>
+            <th class="r"><%= number_with_precision resource.total_mass, precision: get_precision(resource.total_mass), strip_insignificant_zeros: true %> <span class="small-unit">mg</span></th>
             <th>Total</th>
             <th><%= number_with_precision resource.raw_price %> EUR</th>
         </tr>

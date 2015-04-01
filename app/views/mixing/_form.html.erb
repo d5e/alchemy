@@ -48,7 +48,7 @@
             <div class="form-group">
                 <div class="col-sm-6">
                     <div class="input-group">
-                        <%= text_field_tag "total_weight", nil, class: 'form-control tar', placeholder: Blend.human_attribute_name(:total_weight), autocomplete: "off" %>
+                        <%= text_field_tag "total_mass", nil, class: 'form-control tar', placeholder: Blend.human_attribute_name(:total_mass), autocomplete: "off" %>
                         <div class="input-group-addon">gram</div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <%= text_field_tag "#{dom_id(blend)}_mg", nil, class: 'form-control tar',
-                                placeholder: "#{number_with_precision blend.total_weight, precision: 8, strip_insignificant_zeros: true}", autocomplete: "off" %>
+                                placeholder: "#{number_with_precision blend.total_mass, precision: 8, strip_insignificant_zeros: true}", autocomplete: "off" %>
                             <div class="input-group-addon">mg</div>
                             <div class="input-group-addon" style="hidden" data-ing-final-concentration></div>
                         </div>

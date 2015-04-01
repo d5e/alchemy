@@ -56,6 +56,10 @@ Rails.application.routes.draw do
     end
   end
   
+  resource :analyzer, controller: "analyzer" do
+    get :comparison
+  end
+  
   resources :notes
   
   resource :search, :controller => "search"

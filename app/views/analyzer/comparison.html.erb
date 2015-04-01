@@ -1,0 +1,29 @@
+<pre><%= comparator.blends.inspect %></pre>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <% comparator.blends.each do |blend| %>
+                <th><%= blend_link blend %></th>
+            <% end %>
+        </tr>    
+    </thead>
+    <tbody class="globals">
+        <% comparator.globals.each do |key, values| %>
+            <tr class="global <%= key %>">
+                <td><%= key %></td>
+                <% values.each do |value| %><td><%= nf value %></td><% end %>
+            </tr>
+        <% end %>
+    </tbody>
+    <tbody class="ingredients">
+        <tr>
+            
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            
+        </tr>
+    </tfoot>
+</table>

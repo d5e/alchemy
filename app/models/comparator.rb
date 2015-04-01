@@ -3,10 +3,14 @@ class Comparator
   # compares different blends with a reference blend
   
   def initialize(*args)
-    @blends = args
+    @blends = args.to_a.flatten
     @options = args.pop if args.last.is_a?(Hash)
     @options ||= {}
-    raise "supplied arguments have to be blends, but was #{@blends.inspect}" if @blends.map(&:class).uniq != [Blend]
+    raise "supplied arguments have to be blends, but found #{@blends.map(&:class).map(&:name).uniq.join(',')}" if @blends.map(&:class).uniq != [Blend]
+  end
+  
+  def blends
+    @blends
   end
   
   def ref
@@ -18,7 +22,7 @@ class Comparator
   end
   
   def comparables
-    cs = @blends[1,@blends.size-2]
+    cs = blends[1,blends.size-1]
     if block_given?
       cs.map{ |blend| yield(blend) rescue nil }
     else
@@ -33,7 +37,7 @@ class Comparator
   def globals
     {
       total_mass: [ ref.total_mass.mg! ] + comparables{ |b| (b.total_mass / ref.total_mass.to_f).percent! },
-      concentration: [ ref.concentration.percent! ] + comparables{ |b| (b.concentration / ref.concentration.to_f).percent! },
+      concentration: [ ref.concentration.percent! ] + comparables{ |b| b.concentration.percent! },
     }
   end
   

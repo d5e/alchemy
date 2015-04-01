@@ -31,7 +31,7 @@ class BlendTest < ActiveSupport::TestCase
 
   end
 
-  test "total_weight" do
+  test "total_mass" do
 
   end
 

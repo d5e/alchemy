@@ -231,7 +231,7 @@ de:
     intensity: Intensität
     solvent: Lösungsmittel
     solvent_id: Lösungsmittel
-    total_weight: Gesamtgewicht
+    total_mass: Gesamtgewicht
     creation_at: Kreiert am
     children: Kinder
     child: Kind
@@ -241,7 +241,7 @@ de:
     
   view:
     tabs:
-      to_total_weight: auf Gesamtgewicht
+      to_total_mass: auf Gesamtgewicht
       by_factor: nach Faktor
       compact: Kompakt
       hidden: Versteckt
