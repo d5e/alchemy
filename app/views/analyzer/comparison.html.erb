@@ -1,5 +1,5 @@
 <pre><%= comparator.blends.inspect %></pre>
-<table class="table table-striped">
+<table class="table table-striped comparison">
     <thead>
         <tr>
             <th></th>
@@ -12,7 +12,7 @@
         <% comparator.globals.each do |key, values| %>
             <tr class="global <%= key %>">
                 <td><%= key %></td>
-                <% values.each do |value| %><td><%= nf value %></td><% end %>
+                <% values.each do |value| %><td><%= cnf value %></td><% end %>
             </tr>
         <% end %>
     </tbody>

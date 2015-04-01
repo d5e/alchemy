@@ -1,6 +1,15 @@
 module AnalyzerHelper
   
   
+  def cnf(value)
+    s = nf(value)
+    if value.color
+      content_tag :span, s, class: "color-#{value.color}"
+    else
+      s
+    end
+  end
+  
   def nf(value)
     if value.is_a?(Fixnum)
       number_with_precision value, precision: 0
@@ -16,5 +25,9 @@ module AnalyzerHelper
       value.to_s
     end
   end
+  
+  
+  
+  
   
 end

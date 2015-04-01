@@ -21,6 +21,30 @@ module Quantity
     super
   end
   
+  def color
+    @color
+  end
+  
+  def red!
+    @color = :red
+    self
+  end
+
+  def green!
+    @color = :green
+    self
+  end
+
+  def yellow!
+    @color = :yellow
+    self
+  end
+
+  def blue!
+    @color = :blue
+    self
+  end
+  
   protected
   
   def method_missing(*args)

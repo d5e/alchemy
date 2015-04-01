@@ -36,7 +36,7 @@ class Comparator
   
   def globals
     {
-      total_mass: [ ref.total_mass.mg! ] + comparables{ |b| (b.total_mass / ref.total_mass.to_f).percent! },
+      total_mass: [ ref.total_mass.mg! ] + comparables{ |b| (b.total_mass / ref.total_mass.to_f).percent!.red! },
       concentration: [ ref.concentration.percent! ] + comparables{ |b| b.concentration.percent! },
     }
   end
