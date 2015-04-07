@@ -307,7 +307,7 @@ window.runAfterInit = function(){
     
     // BLENDS MIXER
     
-    $('form.blends-mixer, form.family-batch-add').on("click", ".available-blends [data-blend-dom-id], .selected-blends [data-blend-dom-id]", function(e) {
+    $('form.blends-mixer, form.family-batch-add, form.analyzer').on("click", ".available-blends [data-blend-dom-id], .selected-blends [data-blend-dom-id]", function(e) {
         var me = $(this);
         var form = me.closest('form');
         var dom_id = me.attr('data-blend-dom-id');
@@ -325,13 +325,15 @@ window.runAfterInit = function(){
         else
             form.find('button[type="submit"]').addClass('disabled')
             
-        e.preventDefault();
+//        if (me.closest('form.analyzer').length == 0)
+            e.preventDefault();
     });
 
-    $('form.blends-mixer, form.family-batch-add').on("submit", function(e) {
+    $('form.blends-mixer, form.family-batch-add, form.analyzer').on("submit", function(e) {
         var me = $(this);
         var hidden = me.find('input#selected_blend_ids[type="hidden"]');
         hidden.val(hidden.attr('class'));
+        console.log(hidden.attr('class'));
     });
 
     $('body').on('keyup', 'form .has-error input', function(e) {

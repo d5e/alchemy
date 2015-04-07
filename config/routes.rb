@@ -58,6 +58,9 @@ Rails.application.routes.draw do
   
   resource :analyzer, controller: "analyzer" do
     get :comparison
+    get :new
+    # put :add
+    # put :remove
   end
   
   resources :notes
