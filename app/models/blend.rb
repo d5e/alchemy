@@ -56,7 +56,7 @@ class Blend < ActiveRecord::Base
       ing = Ingredient.new(ing.clone_attributes)
       next if !ing.dilution || ing.dilution.concentration == 1.0
       s_amount = ing.amount * (1.0 - ing.dilution.concentration)
-      key = "solvent_#{ing.dilution.solvent.id rescue rand(1e9) }"
+      key = "solvent_#{ing.dilution.solvent.id rescue rand(1e16) }"
       if cc[key]
         cc[key].amount += s_amount
       else
@@ -82,14 +82,36 @@ class Blend < ActiveRecord::Base
     end
     if sort_by == :vp
       return cc.values.sort{|a,b| a.substance.vp_mmHg_25C.to_f <=> b.substance.vp_mmHg_25C.to_f }
+    elsif sort_by == :hashed
+      cc
     else
       return cc.values.sort{|a,b| a.amount <=> b.amount }.reverse
     end
   end
   
+  def essence_proportions(sort_by=nil)
+    cc = {}
+    ingredients.each do |ingo|
+      next if ingo.solvent_only?
+      com = Component.new(ingo)
+      if cc[com.cid]
+        cc[com.cid].mass += com.mass
+      else
+        cc[com.cid] = com
+      end
+    end
+    if sort_by == :vp
+      return cc.values.sort{|a,b| a.molecule.vp_mmHg_25C.to_f <=> b.molecule.vp_mmHg_25C.to_f }
+    elsif sort_by == :hashed
+      cc
+    else
+      return cc.values.sort{|a,b| a.mass <=> b.mass }.reverse
+    end
+  end
+  
   
   def character_proportions
-    return {} unless (weight = essence_weight)
+    return {} unless (weight = essence_mass)
     cp = {}
     ingredients.each do |ing|
       # substance
@@ -124,7 +146,7 @@ class Blend < ActiveRecord::Base
     ingredients.sum(:amount).to_f
   end
 
-  def essence_weight
+  def essence_mass
     c_v = 0
     ingredients.each do |ing|
       c_v += ing.amount * (ing.dilution.concentration rescue 1.0)
@@ -138,7 +160,7 @@ class Blend < ActiveRecord::Base
   end
     
   def concentration
-    essence_weight / total_mass
+    essence_mass / total_mass
   end
   
   def resize!(opts={})
@@ -167,12 +189,12 @@ class Blend < ActiveRecord::Base
   end
   
   def max_concentration
-    essence_weight / (total_mass - additional_solvents_amount)
+    essence_mass / (total_mass - additional_solvents_amount)
   end
   
   def adjust!(new_concentration)
     if new_concentration < max_concentration
-      new_mass = (essence_weight / new_concentration)
+      new_mass = (essence_mass / new_concentration)
       ing_m = total_mass - additional_solvents_amount
       nasm = new_mass - ing_m
       ratio = (nasm) / additional_solvents_amount

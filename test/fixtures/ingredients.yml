@@ -1,7 +1,38 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  amount: 1.5
+sk_1:
+  id: 1001
+  blend_id: 100
+  substance_id: 1
+  dilution_id: 100
+  amount: 600.0
 
-two:
-  amount: 1.5
+sk_2:
+  id: 1002
+  blend_id: 100
+  substance_id: 2
+  dilution_id: 200
+  amount: 150.0
+
+
+
+sw_1:
+  id: 2001
+  blend_id: 200
+  substance_id: 1
+  dilution_id: 100
+  amount: 800.0
+
+sw_2:
+  id: 2002
+  blend_id: 200
+  substance_id: 3
+  dilution_id: 300
+  amount: 110.0
+  
+sw_3:
+  id: 2003
+  blend_id: 200
+  substance_id: 4
+  dilution_id: 400
+  amount: 3000.0

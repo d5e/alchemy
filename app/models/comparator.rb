@@ -1,6 +1,15 @@
 class Comparator
   
   # compares different blends with a reference blend
+
+  DEVIATION = {
+    pale: 5e-3,
+    green: 2e-2,
+    yellow: 8e-2,
+    red: 0.9,
+    blue: true
+  }
+  
   
   def initialize(*args)
     @blends = args.to_a.flatten
@@ -18,7 +27,7 @@ class Comparator
   end
   
   def ref_essence_composition
-    @essence_composition ||= ref.essence_composition
+    @essence_composition ||= ref.essence_composition(:hashed)
   end
   
   def comparables
@@ -30,30 +39,25 @@ class Comparator
     end
   end
   
-  def comparables_essences
-    @comparables_essences ||= comparables.map(&:essence_composition)
-  end
-  
   def globals
     {
-      total_mass: [ ref.total_mass.mg! ] + comparables{ |b| (b.total_mass / ref.total_mass.to_f).percent!.red! },
+      total_mass: [ ref.total_mass.mg! ] + comparables{ |b| b.total_mass.mg! },
+      total_mass_ratio: [ 1.0.factor! ] + comparables{ |b| (b.total_mass / ref.total_mass.to_f * 1.0).factor! },
       concentration: [ ref.concentration.percent! ] + comparables{ |b| b.concentration.percent! },
+      concentration_ratio: [ 1.0.factor! ] + comparables{ |b| (b.concentration / ref.concentration.to_f * 1.0).factor! },
     }
   end
   
+  def blends_components_by_substance_id
+    @blends_components ||= blends.map{ |b| Component.substances_from_blend_by_substance_id b }
+  end
+  
   def ingredients(sort_by = :name)
+    results = {}
     sort(all_substances, sort_by).each do |sub|
-      ref_amount = ref_essence_composition[sub.id].to_f rescue 0.0
-      if ref_amount > 0.0
-        [ref_amount.mg!] + comparables_essences{ |ec| (ec[sub.id] / ref_amount.to_f).percent! }
-      else
-        fps = first_present_substance(sub.id)
-        result = [ 0.0.percent! ]
-        comparables_essences.each_with_index do |ec,i|
-          result << fps.first == i ? ec.amount.to_f.mg! : (ec[sub.id] / fps.last.to_f).percent!
-        end
-      end
+      results[sub] = components_for_substance(sub)
     end
+    results
   end
   
   def solvents
@@ -62,15 +66,59 @@ class Comparator
   
   protected
   
-  def first_present_substance(substance_id)
-    comparables_essences.each_with_index do |ce, i|
-      amount = ce[substance_id]
-      return [i, amount] if amount > 0.0
+  def deviation_class(a,b)
+    return "" if a == b
+    v = a / b.to_f
+    v = 1.0 / v if v > 1
+    DEVIATION.each do |ccl, d|
+      return ccl if d == true || v > 1 - d
     end
   end
   
-  def all_substances
-    cs.map(&:substances).flatten
+  def components_for_substance(substance)
+    fpm = nil
+    cs = blends_components_by_substance_id.map do |bch|
+      fpm ||= bch[substance.id] if bch[substance.id].try(:mass)
+      if bch[substance.id]
+        com = bch[substance.id]
+        if fpm != bch[substance.id]
+          com.color = deviation_class(fpm.proportion, com.proportion) 
+        else
+          com.color = :bold
+        end
+        com
+      else
+        com = Component.new(substance)
+        com.color = :blue
+        com
+      end
+    end
+    cs
+  end
+  
+  # def first_massive_component(substance)
+  #   blends_components_by_substance_id.each_with_index do |bch, i|
+  #     return { blend_ix: i, component: bch[substance.id] } if bch[substance.id]
+  #   end
+  # end
+  
+  # DEPRECATED
+  def first_present_ingredient(substance_id)
+    raise "substance_id cannot be #{substance_id.inspect}" unless substance_id
+    blends.map(&:ingredients).flatten.each do |ing|
+      next if ing.dilution && ing.dilution.concentration == 0.0
+      return { substance: ing.substance, substance_id: ing.substance_id, blend_id: ing.blend_id, ing: ing, substance_mass: ing.substance_mass } if ing.substance_id == substance_id && ing.amount > 0
+    end
+    {}
+  end
+  
+  def all_substances(bs=nil)
+    if bs.is_a?(Blend)
+        bs = [bs]
+    elsif !bs.is_a?(Array)
+      bs = blends
+    end
+    bs.map(&:ingredients).flatten.select{|ing| ing.having_substance_mass? }.map(&:substance).flatten.uniq
   end
   
   def sort(ings, sort_by, up=true)

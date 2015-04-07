@@ -57,7 +57,7 @@ class Dilution < ActiveRecord::Base
   
   def to_s
     if concentration == 0.0
-      solvent
+      solvent.to_s
     elsif concentration == 1.0
       "Pure"
     else

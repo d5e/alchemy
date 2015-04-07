@@ -1,23 +1,27 @@
 ex10:
+  id: 100
   substance_id: 1
-  solvent: ETH
   concentration: 0.1
   intensity: 5
-  
+  solvent_id: 2
+    
 in1:
+  id: 200
   substance_id: 2
-  solvent: ETH
   concentration: 0.01
   intensity: 8
+  solvent_id: 2
   
 oud20:
+  id: 300
   substance_id: 3
-  solvent: ETH
   concentration: 0.2
   intensity: 8
+  solvent_id: 2
   
 sb1:
+  id: 400
   substance_id: 4
-  solvent: MPG
   concentration: 0.01
   intensity: 9
+  solvent_id: 3

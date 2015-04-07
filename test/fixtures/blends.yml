@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 skunk:
+  id: 100
   name: Skunk 100
   sensory_tags: "animalic, musk"
   notes: "masculin and animalic base note accord with subtle faecal odor"
@@ -11,6 +12,7 @@ skunk:
   parent_id:
 
 sweet:
+  id: 200
   name: Sweet 200
   sensory_tags: "sweet herbal"
   notes: "sweet herbal base accord"

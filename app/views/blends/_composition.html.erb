@@ -43,7 +43,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2" class="r"><%= Blend.human_attribute_name :price %> <%= number_with_precision resource.price_per_gram %> EUR per 100g</td>
+            <td colspan="2" class="r"><%= Blend.human_attribute_name :price %> <%= number_with_precision resource.price_per_gram, precision: 2, strip_insignificant_zeros: false %> EUR per 100g</td>
             <td class="r">Total:</td>
             <td class="r"><%= number_with_precision resource.total_mass, precision: 1 %> <span class="small-unit">mg</span></td>
         </tr>

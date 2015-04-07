@@ -121,7 +121,9 @@ module ApplicationHelper
     if s > max
       s = max
     elsif s < 0
-      s = 2
+      s = 1
+    elsif f >= 1e6
+      s = 0
     else
       s = s.to_i
     end

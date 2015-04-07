@@ -92,7 +92,12 @@ class MixingController < ApplicationController
     new_blend.family_ids = family_ids
     
     new_blend.save
+    
+    # only auto resize if essence strategy
     new_blend.resize! params[:total_mass].to_f if essence_strategy?
+    
+    # TODO if ingredients strategy FILL UP missing amount with solvents
+    
     new_blend
   end
   
@@ -109,7 +114,7 @@ class MixingController < ApplicationController
       blend = Blend.find k.to_s[/\d+/]
       @composition_human << "#{v}mg #{blend.name}\n"
       if essence_strategy?
-        Rails.logger.info "adp: #{adp} ;   v.to_f: #{v.to_f} ;   bmax: #{blend.essence_weight}"
+        Rails.logger.info "adp: #{adp} ;   v.to_f: #{v.to_f} ;   bmax: #{blend.essence_mass}"
         ratio = (adp * v.to_f) / blend.ingredient_weight
       else
         ratio = v.to_f == 0.0 ? 1.0 : (v.to_f / blend.total_mass)

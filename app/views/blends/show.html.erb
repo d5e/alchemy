@@ -104,7 +104,7 @@
         <p style="float:right; line-height: 34px;">
             <span style="margin-right: 1em; opacity: 0.6; font-family: monospace;">
                 <strong><%= number_with_precision resource.total_mass.round %> mg</strong>
-                (<%= number_with_precision resource.essence_weight.round %> mg)
+                (<%= number_with_precision resource.essence_mass.round %> mg)
             </span>
             <% unless resource.locked? %>
                 <button class="btn btn-default" data-toggle="modal" data-target="#adjust-wizard">

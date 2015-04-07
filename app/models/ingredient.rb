@@ -9,13 +9,33 @@ class Ingredient < ActiveRecord::Base
   
   validate :substance_match_dilution, :careful_save
   
-  delegate :concentration, to: :dilution
   delegate :locked?, to: :blend, allow_nil: true
+  delegate :solvent, to: :dilution, allow_nil: true
 
 
 
   def name
     substance.to_s
+  end
+  
+  def concentration
+    (dilution && dilution.concentration) || 1.0
+  end
+  
+  def substance_mass
+    concentration * amount
+  end
+  
+  def solvent_mass
+    ( 1.0 - concentration ) * amount
+  end
+  
+  def solvent_only?
+    substance_mass == 0.0
+  end
+  
+  def having_substance_mass?
+    substance_mass > 0.0
   end
   
   protected

@@ -37,10 +37,6 @@ class SubstanceTest < ActiveSupport::TestCase
     ex.cas{ |c| a << c }
     assert_equal ["54464-57-2", "166090-45-5", "68155-66-8"], a
   end
-  
-  test "validations" do
-    assert false, "substance validations not tested yet"
-  end
 
 
 end

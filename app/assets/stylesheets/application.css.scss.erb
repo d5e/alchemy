@@ -149,15 +149,35 @@ body #content {
 
 
 
-
+  div.comparison,
   table.comparison {
       td, th {
           text-align: right
       }
+      span[class*="color-"] {
+          padding: 3px 8px;
+          border-radius: 2px;
+      }
       span.color-red {
           background: #fbb;
-          padding: 7px;
       }
+      span.color-yellow {
+          background: #ffeb85;
+      }
+      span.color-green {
+          background: #b0ec55;
+      }
+      span.color-blue {
+          background: #6dd4ff;
+      }
+      span.color-pale {
+          background: #d7eee4;
+      }
+      span.color-bold {
+          font-weight: bold;
+      }
+      
+
   }
 
 

@@ -8,7 +8,7 @@ class CreateSolvents < ActiveRecord::Migration
       t.float :logP
       t.integer :importance, limit: 2, default: 0
       t.text :notes
-      t.float :price
+      t.float :price_per_kg
 
       t.timestamps
     end

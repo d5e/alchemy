@@ -1,4 +1,12 @@
-<pre><%= comparator.blends.inspect %></pre>
+<div class="comparison" style="font-size: 11px;">
+    <% Comparator::DEVIATION.each do |c| %>
+        <% if c.last != true %>
+            <%= content_tag :span, "Abweichung bis #{ nf c.last.percent!}", class: "color-#{c.first}" %>
+        <% else %>
+            <%= content_tag :span, "Alles andere", class: "color-#{c.first}" %>
+        <% end %>
+    <% end %>
+</div>
 <table class="table table-striped comparison">
     <thead>
         <tr>
@@ -17,6 +25,18 @@
         <% end %>
     </tbody>
     <tbody class="ingredients">
+        <% comparator.ingredients.each do |substance, components| %>
+            <tr class="global substance">
+                <td><%= link_to substance, substance, colored(substance, class: "btn btn-default btn-sm") %></td>
+                <% components.each do |component| %>
+                    <td>
+                        <span style="opacity:0.5; font-size:11px;"><%= cnf component.mass %></span>
+                        <br/><%= cnf component.proportion %>
+                    </td>
+                <% end %>
+            </tr>
+        <% end %>
+
         <tr>
             
         </tr>

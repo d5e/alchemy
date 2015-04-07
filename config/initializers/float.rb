@@ -1,5 +1,7 @@
 module Quantity
   
+  attr_accessor :color
+  
   def mg?
     self.is_a? MG
   end
@@ -7,9 +9,17 @@ module Quantity
   def percent?
     self.is_a? Percent
   end
+  
+  def factor?
+    self.is_a? Factor
+  end
 
   def initialize(float)
     @float = float.to_f
+  end
+  
+  def precision
+    @precision
   end
   
   def to_s
@@ -19,10 +29,6 @@ module Quantity
   def is_a?(c)
     return true if c == Float
     super
-  end
-  
-  def color
-    @color
   end
   
   def red!
@@ -54,12 +60,24 @@ module Quantity
 end
 
 
+
 class Percent
   include Quantity
 end
 
 class MG
   include Quantity
+end
+
+class Factor
+  include Quantity
+end
+
+
+class Object
+  def color
+    nil
+  end
 end
 
 
@@ -78,6 +96,18 @@ class Float
   end
   
   def mg?
+    nil
+  end
+  
+  def factor?
+    nil
+  end
+  
+  def factor!
+    Factor.new(self)
+  end
+  
+  def precision
     nil
   end
   
