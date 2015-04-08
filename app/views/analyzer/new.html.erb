@@ -1,3 +1,11 @@
+<p style="color: #666; font-size:12px;">
+    <% example_ids =  @available_blends.reverse[0,3].map(&:id).join(',') %>
+    <% example_uri = URI "#{request.protocol}#{request.host}:#{request.port}/analyzer/comparison?blend_ids=#{example_ids}" %>
+    Es können beliebige Blends anhand ihrer Blend-ID verglichen werden. Die erste Blend in der Liste stellt immer die Referenz dar.
+    Beispiel: Um die Blends mit den Blend IDs <%= example_ids %> zu vergleichen, kann folgende URL dienlich sein:<br/>
+    <%= link_to example_uri.to_s, example_uri.to_s %>
+</p>
+
 <%= form_tag comparison_analyzer_path, class: 'analyzer', method: :get do %>
     <div class="panel panel-primary mixing">
 

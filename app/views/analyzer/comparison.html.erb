@@ -30,7 +30,7 @@
                 <td><%= link_to substance, substance, colored(substance, class: "btn btn-default btn-sm") %></td>
                 <% components.each do |component| %>
                     <td>
-                        <span style="opacity:0.5; font-size:11px;"><%= cnf component.mass %></span>
+                        <span style="opacity:0.5; font-size:11px;"><%= cnf component.mass.mg! %></span>
                         <br/><%= cnf component.proportion %>
                     </td>
                 <% end %>

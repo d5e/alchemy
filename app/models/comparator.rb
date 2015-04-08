@@ -3,9 +3,9 @@ class Comparator
   # compares different blends with a reference blend
 
   DEVIATION = {
-    pale: 5e-3,
-    green: 2e-2,
-    yellow: 8e-2,
+    pale: 7e-3,
+    green: 3e-2,
+    yellow: 15e-2,
     red: 0.9,
     blue: true
   }
