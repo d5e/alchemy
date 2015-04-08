@@ -30,16 +30,15 @@ class AnalyzerController < ApplicationController
   end
   
   def blends_from_params
-    Blend.where( id: param_ids ) if param_ids
+    Blend.where( id: param_ids ).order("FIELD(id, #{param_ids.join(',')})") if param_ids
   end
   
   def param_ids
     if p = params[:blend_ids]
-      p.gsub(/[\s;,\-]+/,',').split(',')
+      p.gsub(/[\s;,\-]+/,',').split(',').map(&:to_i)
     elsif p = params[:selected_blend_ids]
-      p.gsub(/([\s;,\-\+\ ]+)|(blend_)/,',').split(',')
+      p.gsub(/([\s;,\-\+\ ]+)|(blend_)/,',').split(',').map(&:to_i)
     end
   end
-  
   
 end
