@@ -2,6 +2,20 @@ module Quantity
   
   attr_accessor :color
   
+  def ==(b)
+    a = self
+    if a.is_a?(Quantity) && b.is_a?(Quantity)
+      a.instance_variable_get('@float') == b.instance_variable_get('@float')
+    end
+  end
+  
+  def ===(b)
+    a = self
+    a.is_a?(Quantity) && b.is_a?(Quantity) && a.class == b.class && 
+    a.instance_variable_get('@float') == b.instance_variable_get('@float') &&
+    a.instance_variable_get('@color') == b.instance_variable_get('@color')
+  end
+  
   def mg?
     self.is_a? MG
   end
