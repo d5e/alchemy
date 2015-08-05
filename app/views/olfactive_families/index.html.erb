@@ -8,15 +8,26 @@
         </h3>
     </div>
     <div class="panel-body">
+        <div data-resource="of-legend" style="font-size: 16px; clear: both;">
+            <div style="background: #666; min-width: 5em; float: left; padding: 0.6ex 1em; border-bottom: 1px solid white;">
+                BASE
+            </div>
+            <div style="background: #aaa; min-width: 9em; float: left; padding: 0.6ex 1em; margin-left: 1px; margin-right:1px; border-bottom: 1px solid white;">
+                HEART
+            </div>
+            <div style="background: #ddd; min-width: 5em; padding: 0.6ex 1em; float:left; border-bottom: 1px solid white;">
+                TOP
+            </div>
+        </div>
         <% collection.each do |of| %>
-            <div data-resource="of-<%= of.to_param %>-<%= of.name.underscore %>" style="font-size: 16px;">
-                <div style="background: #<%= of.color_light %>; min-width: 3em; float: left; padding: 0.6ex 1em;">
+            <div data-resource="of-<%= of.to_param %>-<%= of.name.underscore %>" style="font-size: 16px; clear: both;">
+                <div style="background: #<%= of.color_light %>; min-width: 5em; float: left; padding: 0.6ex 1em; border-bottom: 1px solid white;">
                     &nbsp;
                 </div>
-                <div style="background: #<%= of.color %>; min-width: 9em; float: left; padding: 0.6ex 1em;">
+                <div style="background: #<%= of.color %>; min-width: 9em; float: left; padding: 0.6ex 1em; margin-left: 1px; margin-right:1px; border-bottom: 1px solid white;">
                     <%= of.name %>
                 </div>
-                <div style="background: #<%= of.color_dark %>; min-width: 3em; padding: 0.6ex 1em;">
+                <div style="background: #<%= of.color_dark %>; min-width: 5em; padding: 0.6ex 1em; float:left; border-bottom: 1px solid white;">
                     &nbsp;
                 </div>
             </div>
