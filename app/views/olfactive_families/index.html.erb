@@ -1,0 +1,30 @@
+<div class="panel panel-primary <%= resource_class_name %>">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <%= resource_class.count %> <%= resource_class.model_name.human(count: resource_class.count) %>
+            <%= link_to new_resource_path, style: "float:right;" do %>
+                <span class="glyphicon glyphicon-plus"></span>
+            <% end %>
+        </h3>
+    </div>
+    <div class="panel-body">
+        <% collection.each do |of| %>
+            <div data-resource="of-<%= of.to_param %>-<%= of.name.underscore %>" style="font-size: 16px;">
+                <div style="background: #<%= of.color_light %>; min-width: 3em; float: left; padding: 0.6ex 1em;">
+                    &nbsp;
+                </div>
+                <div style="background: #<%= of.color %>; min-width: 9em; float: left; padding: 0.6ex 1em;">
+                    <%= of.name %>
+                </div>
+                <div style="background: #<%= of.color_dark %>; min-width: 3em; padding: 0.6ex 1em;">
+                    &nbsp;
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div class="panel-footer">
+        <% if false # link_to new_resource_path, :class => "btn btn-success" do %>
+            <span class="glyphicon glyphicon-plus"></span> <%= t :'global.add' %>
+        <% end %>
+    </div>
+</div>

@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :olfactive_families, controller: "olfactive_families"
+  
   resource :mixing, :controller => "mixing" do
     member do
       get :new

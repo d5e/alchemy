@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222123735) do
+ActiveRecord::Schema.define(version: 20150714072952) do
 
   create_table "blends", force: true do |t|
     t.string   "name"
@@ -67,6 +67,26 @@ ActiveRecord::Schema.define(version: 20141222123735) do
     t.text     "tags"
     t.text     "body"
     t.text     "links"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "olfactive_families", force: true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.string   "color",       limit: 8
+    t.string   "color_light", limit: 8
+    t.string   "color_dark",  limit: 8
+    t.float    "share",       limit: 24
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "olfactive_families_substances", force: true do |t|
+    t.integer  "substance_id"
+    t.integer  "olfactive_family_id"
+    t.integer  "affinity",            limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

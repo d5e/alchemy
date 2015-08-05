@@ -20,7 +20,9 @@
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:alt_names), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
-                <%= resource.alt_names %>
+                <% resource.alt_names do |n| %>
+                    <span class="label label-default label-large"><%= n %></span>
+                <% end %>
             </div>
         </div>
         <hr/>
