@@ -105,6 +105,11 @@ en:
     selected:
       one: Selected
       other: Selected
+
+  errors:
+    attributes:
+      cas:
+        checksum: "checksum invalid"
     
   activerecord: 
     models:
@@ -168,7 +173,7 @@ en:
       action: Adjust
       title: Adjust Wizard
       
-        
+
     hints:
       bottling_wizad: "You are about to bottle this blend into a new container and give it a new name. You can
       choose the desired total amount (weight) of the final product and alchemy will create a new blend 

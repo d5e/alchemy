@@ -55,7 +55,17 @@ class SubstancesController < InheritedResources::Base
       end
     end
   end
-  
+
+  def molecule
+    cas = nil
+    resource.cas do |c|
+      cas = c
+      break
+    end
+    cas = params[:cas] if params[:cas].present?
+    send_data Molpic.fetch(cas), type: "image/jpeg", disposition: "inline"
+  end
+
   protected
   
   def substance_auto_suggest(string)

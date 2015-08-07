@@ -187,6 +187,13 @@ de:
     selected:
       one: Ausgewählt
       other: Ausgewählte
+      
+  errors:
+    attributes:
+      cas:
+        checksum: "Prüfsumme ungültig"
+      
+      
   activerecord: 
     models:
       solvent:

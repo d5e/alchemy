@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   resources :substances do
     member do
+      get :molecule
       get :new_dilution
       post :add_dilution_to_blend
     end

@@ -19,17 +19,10 @@
     <div class="panel-body">
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:alt_names), class: 'col-sm-2 small-label' %>
-            <div class="col-sm-9">
+            <div class="col-sm-6">
                 <% resource.alt_names do |n| %>
                     <span class="label label-default label-large"><%= n %></span>
                 <% end %>
-            </div>
-        </div>
-        <hr/>
-        <div class="row">
-            <%= content_tag :span, resource_class.human_attribute_name(:ifra_cat_4_limit), class: 'col-sm-2 small-label' %>
-            <div class="col-sm-6">
-                <%= "#{resource.ifra_cat_4_limit * 100} %" rescue "unregulated"  %><br/>
             </div>
             <% if resource.character.present? %>
                 <div class="col-sm-4">
@@ -38,11 +31,19 @@
             <% end %>
         </div>
         <hr/>
-
         <div class="row">
-            <%= content_tag :span, resource_class.human_attribute_name(:vp_mmHg_25C), class: 'col-sm-2 small-label' %>
-            <div class="col-sm-6">
+            <span class='col-sm-2 small-label' style="line-height: 20px;">
+                <%= resource_class.human_attribute_name(:ifra_cat_4_limit) %><hr/>
+                <%= resource_class.human_attribute_name(:vp_mmHg_25C) %>
+            </span>
+            <div class="col-sm-2">
+                <%= "#{resource.ifra_cat_4_limit * 100} %" rescue "unregulated"  %><hr/>
                 <%= resource.vp_mmHg_25C ? number_with_precision( resource.vp_mmHg_25C, precision: 9, strip_insignificant_zeros: true) : "&nbsp;".html_safe %>
+            </div>
+            <div class="col-sm-4">
+                <% resource.cas do |c| %>
+                    <%= image_tag molecule_substance_path(resource, cas: c) %>
+                <% end %>
             </div>
         </div>
         <hr/>
