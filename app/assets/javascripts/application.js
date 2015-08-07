@@ -59,12 +59,16 @@ function initCharacterLegendHighlighting() {
 window.runAfterInit = function(){
 
     console.log("JS ready : initializing");
-
+    
     $('[data-toggle="tooltip"]:visible').tooltip(
         { delay: 180}
     );
+    
+    $('img[data-toggle="tooltip"]').tooltip(
+        { delay: 180}
+    );
 
-    $('[data-tooltip=click').tooltip(
+    $('[data-tooltip="click"]').tooltip(
         { trigger: 'click' }
     );
     

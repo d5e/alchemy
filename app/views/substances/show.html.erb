@@ -42,7 +42,7 @@
             </div>
             <div class="col-sm-4">
                 <% resource.cas do |c| %>
-                    <%= image_tag molecule_substance_path(resource, cas: c) %>
+                    <%= image_tag molecule_substance_path(resource, cas: c), data: { toggle: 'tooltip', placement: 'bottom' }, title: c %>
                 <% end %>
             </div>
         </div>
