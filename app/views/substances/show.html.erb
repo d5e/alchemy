@@ -37,7 +37,7 @@
                 <%= resource_class.human_attribute_name(:vp_mmHg_25C) %>
             </span>
             <div class="col-sm-2">
-                <%= "#{resource.ifra_cat_4_limit * 100} %" rescue "unregulated"  %><hr/>
+                <%= "#{ number_with_precision(resource.ifra_cat_4_limit * 100, precision: 3)} %" rescue "unregulated"  %><hr/>
                 <%= resource.vp_mmHg_25C ? number_with_precision( resource.vp_mmHg_25C, precision: 9, strip_insignificant_zeros: true) : "&nbsp;".html_safe %>
             </div>
             <div class="col-sm-4">
