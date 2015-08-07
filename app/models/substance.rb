@@ -67,8 +67,7 @@ class Substance < ActiveRecord::Base
   
   def validate_cas_checksum
     return unless self.cas
-    self.cas.strip!
-    cas.gsub(/[;,\s]+/,' ').split(' ').each do |cnr|
+    cas.strip.gsub(/[;,\s]+/,';').split(';').each do |cnr|
       splitted = cas.split("-")
       if splitted.size != 3
         errors.add :cas, :parts
