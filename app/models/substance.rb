@@ -47,7 +47,7 @@ class Substance < ActiveRecord::Base
   
   def cas
     if block_given? && super.is_a?(String)
-      super.gsub(/[,\s]+/,' ').split(' ').each do |c|
+      super.gsub(/[;,\s]+/,';').split(';').each do |c|
         yield c
       end
     else
@@ -68,7 +68,7 @@ class Substance < ActiveRecord::Base
   def validate_cas_checksum
     return unless self.cas
     cas.strip.gsub(/[;,\s]+/,';').split(';').each do |cnr|
-      splitted = cas.split("-")
+      splitted = cnr.split("-")
       if splitted.size != 3
         errors.add :cas, :parts
       else
@@ -78,7 +78,7 @@ class Substance < ActiveRecord::Base
         end
       end
       return if errors.include?(:cas)
-      cnrs = cas.gsub(/[^\d]/,'')
+      cnrs = cnr.gsub(/[^\d]/,'')
       cd = cnrs[cnrs.size - 1,1].to_i
       csum = 0
       (cnrs.size - 1).times do |n|

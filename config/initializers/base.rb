@@ -13,7 +13,7 @@ module ActionView
             @html_options ||= {}
             @html_options[:disabled] = :disabled
           end
-          puts options.inspect
+#          puts options.inspect
           if h.is_a?(Hash) && h.symbolize_keys[:placeholder] == :default
             h[:placeholder] = object_class(object_name).human_attribute_name method_name
           end

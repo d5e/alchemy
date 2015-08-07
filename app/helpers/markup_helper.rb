@@ -44,18 +44,18 @@ module MarkupHelper
     bnames = Blend.pluck(:name).map &:downcase
     bids = Blend.pluck :id
     snames = Substance.pluck(:name).map &:downcase
-    puts snames.inspect
+#    puts snames.inspect
     sids = Substance.pluck :id
     s.gsub(/\"[\w\ \-\,\.]{3,90}\"/) do |chunk|
       resource = nil
       name = chunk.gsub('"','').downcase
-      puts name.inspect
+#      puts name.inspect
       if name[/\Ablend_\d+/]
         resource = Blend.where(id: chunk[/\d+/].to_i).first
       elsif name[/\Asubstance_\d+/]
         resource = Substance.where(id: chunk[/\d+/].to_i).first
       elsif ( i = bnames.index(name) )
-        puts "######"
+#        puts "######"
         resource = Blend.where(id: bids[i.to_i]).first
       elsif ( i = snames.index(name) )
         resource = Substance.where(id: sids[i.to_i]).first

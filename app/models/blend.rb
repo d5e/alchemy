@@ -205,7 +205,7 @@ class Blend < ActiveRecord::Base
   end
   
   def adjust_solvents_by!(ratio)
-    puts ratio.to_s
+#    puts ratio.to_s
     success = true
     ingredients.each do |ing|
       next unless ing.dilution && ing.dilution.concentration == 0.0
