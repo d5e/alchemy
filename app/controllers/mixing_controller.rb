@@ -97,6 +97,12 @@ class MixingController < ApplicationController
     new_blend.resize! params[:total_mass].to_f if essence_strategy?
     
     # TODO if ingredients strategy FILL UP missing amount with solvents
+    #     => Component intermediate might be a simpler approach (making all ingredients and solvents to components first)
+    # in the meantime a note will be attached specifiyng the missing mass
+    
+    mm = @total_source_ingredients_mass - new_blend.total_mass
+    new_blend.update_column :notes, "#{new_blend.notes}\n#{mm.round} mg of solvents have been discarded as of higher concentrations chosen in the mixing process.\nTODO: in order to reflect a real mixed result in bottles, the missing solvents have to be added here manually and this message has to be deleted once done."
+    
     
     new_blend
   end
@@ -109,15 +115,19 @@ class MixingController < ApplicationController
       adp = (total_mass * 1000.0) / percent
     end
 
+    @total_source_ingredients_mass = 0
     @composition_human = ""
     blend_params.each do |k,v|
       blend = Blend.find k.to_s[/\d+/]
-      @composition_human << "#{v}mg #{blend.name}\n"
       if essence_strategy?
         Rails.logger.info "adp: #{adp} ;   v.to_f: #{v.to_f} ;   bmax: #{blend.essence_mass}"
         ratio = (adp * v.to_f) / blend.ingredient_weight
       else
-        ratio = v.to_f == 0.0 ? 1.0 : (v.to_f / blend.total_mass)
+        vv = v.to_f
+        vmg = vv == 0 ? blend.total_mass.to_f : vv
+        @total_source_ingredients_mass += vmg
+        @composition_human << "#{vmg.round}mg #{blend.name}\n"
+        ratio = vv == 0.0 ? 1.0 : (vv / blend.total_mass)
       end
       yield(blend, ratio)
     end
