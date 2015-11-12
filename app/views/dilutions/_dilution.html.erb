@@ -11,7 +11,7 @@
         <% end %>
     </div>
     <div class="col-sm-5">
-        ALT: <%= dilution.solvent_human_name %><br/>
+        <span style="opacity:0.3;">ALT: <%= dilution.solvent_human_name %></span><br/>
         NEU: <%= link_to dilution.solvent, solvent_path(dilution.solvent, dilution_id: dilution.id)  if dilution.solvent %>
         <button class="btn btn-sm virtual aligner ">&nbsp;</button>
     </div>
