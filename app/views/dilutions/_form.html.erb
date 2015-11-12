@@ -12,7 +12,7 @@
             </div>
             <div class="col-sm-4">
                 <%# fd.select :solvent, Dilution::SOLVENTS.collect { |k,v| [ v, k ] }, {prompt: :default}, class: "form-control", disabled: disable  %>
-                <%= fd.select :solvent_id, Solvent.basics.map { |sv| [ sv.name, sv.id ] }, {prompt: :default}, class: "form-control", disabled: disable  %>
+                <%= fd.select :solvent_id, basic_solvents_and_current_for_dropdown(fd.object), {prompt: :default}, class: "form-control", disabled: disable  %>
                 <span class="badge" style="margin-bottom:-10px;">alt: <%= fd.object.solvent %></span>
             </div>
             <div class="col-sm-2">

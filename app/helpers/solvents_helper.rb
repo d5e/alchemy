@@ -17,4 +17,10 @@ module SolventsHelper
     end
   end
   
+  def basic_solvents_and_current_for_dropdown(dilution=nil)
+    solvents = Solvent.basics.to_a
+    solvents.unshift(dilution.solvent) if dilution && dilution.solvent && !dilution.solvent.in?(solvents)
+    solvents.map{ |sv| [ sv.name, sv.id ] }
+  end
+  
 end
