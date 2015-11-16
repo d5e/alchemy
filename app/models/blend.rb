@@ -42,13 +42,39 @@ class Blend < ActiveRecord::Base
     @exceeders ||= get_exceeders
   end
   
+  def maximum_allowed_concentration
+    exceeders
+    @exceedance && 1.0 / @exceedance * concentration
+  end
+  
+  def components
+    @components ||= get_components
+  end
+  
+  def get_components
+    @components = {}
+    ingredients.includes(:substance, :dilution).each do |ing|
+      tmp_component = Component.new(ing, self)
+      add_to_components(tmp_component)
+      if tmp_component.substance? && ing.concentration < 1.0
+        add_to_components Component.new_for_solvent(ing, self)
+      end
+    end
+    @components.values
+  end
+  
   def get_exceeders
-    m = total_mass
+    m = total_mass.to_f
+    @exceedance = 1.0
     exceeders = []
-    ingredients.includes(:substance).each do |ing|
-      next unless ing.substance && ing.substance.ifra_cat_4_limit
-      ing_m = ing.amount * ing.concentration
-      exceeders << ing.substance if ing_m / m > ing.substance.ifra_cat_4_limit
+    components.each do |com|
+      next if com.molecule.is_a?(Solvent)
+      next unless com.molecule.ifra_cat_4_limit
+      c = com.mass / m
+      if com.molecule.ifra_cat_4_limit < c
+        exceeders << com.molecule 
+        @exceedance = c / com.molecule.ifra_cat_4_limit
+      end
     end
     exceeders
   end
@@ -240,6 +266,24 @@ class Blend < ActiveRecord::Base
   end
   
   protected
+  
+  def add_to_components(tmp_component)
+    key = tmp_component.molecule
+    if tmp_component.substance? || tmp_component.molecule.pure?
+      if @components[key]
+        @components[key].add(tmp_component)
+      else
+        @components[key] = tmp_component
+      end
+    else
+      # solvents molecular components
+      tmp_component.molecule.molecular_composition.each do |mol|
+        com = Component.new(mol, self)
+        com.mass = tmp_component.mass * mol.virtual_proportion
+        add_to_components com
+      end
+    end
+  end
   
   def before_destroy
     return true unless locked?

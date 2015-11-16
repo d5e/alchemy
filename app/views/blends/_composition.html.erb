@@ -7,7 +7,43 @@
             <td class="r"><%= t :'global.raw_weight' %></td>
         </tr>
     </thead>
+
+
     <tbody>
+        <% resource.components.each do |component| %>
+            <tr>
+                <td class="r"><%= component.molecule.vp_mmHg_25C if component.substance? %></td>
+                <td class="r <%= :red if component.substance? && component.molecule.in?(resource.exceeders) %> ">
+                    <% fraction = component.proportion %>
+                    <% precision = (3 - Math.log10(fraction * 100.0)).round %>
+                    <% precision = 2 if precision < 5 %>
+                    <%= number_with_precision fraction * 100.0, precision: precision, strip_insignificant_zeros: true %>
+                    <span style="font-size:10px;">%</span>
+                </td>
+                <td>
+                    <% if component.substance? %>
+                        <span class="color-<%= component.molecule.character %> ctag"></span>
+                    <% end %>
+                    <%= link_to component.molecule, component.molecule %>
+                </td>
+                <td class="r">
+                    <% precision = (5 - Math.log10(component.mass)).round %>
+                    <% precision = 1 if precision < 2 %>
+                    <% precision += 1 if precision == 3 %>
+                    <%= number_with_precision component.mass, precision: precision, strip_insignificant_zeros: (precision > 1) %> <span class="small-unit">mg</span>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+
+
+
+
+
+    <tbody id="old-molecule-inspector" style="display:none;">
+        <tr>
+            <th colspan="">old molecule inspector</th>
+        </tr>
         <% total_mass = resource.total_mass %>
         <% (  resource.composition).each do |key, ing| %>
             <tr>
@@ -40,14 +76,26 @@
             </tr>
         <% end %>
     </tbody>
+    
+    
+    
+    
+    
     <tfoot>
         <tr>
-            <td colspan="2" class="r"><%= Blend.human_attribute_name :price %> <%= number_with_precision resource.price_per_gram, precision: 2, strip_insignificant_zeros: false %> EUR per 100g</td>
+            <td><a onclick="$('#old-molecule-inspector').toggle();"><span class="glyphicon glyphicon-question-sign"></span></a></td>
+            <td class="r">
+                <%= Blend.human_attribute_name :price %> <%= number_with_precision resource.price_per_gram, precision: 2, strip_insignificant_zeros: false %> EUR per 100g
+            </td>
             <td class="r">Total:</td>
             <td class="r"><%= number_with_precision resource.total_mass, precision: 1 %> <span class="small-unit">mg</span></td>
         </tr>
     </tfoot>
 </table>
+
 <% if resource.exceeding_cat_4? %>
-    <p class="warning" style="font-size:11px;"><%= t :'view.hints.exceeding_cat_4' %></p>
+    <p class="warning" style="font-size:11px;">
+        <%= t :'view.hints.exceeding_cat_4' %>
+        &nbsp; max C: <%= number_with_precision( resource.maximum_allowed_concentration * 100 , precision: 1 ) %> %
+    </p>
 <% end %>

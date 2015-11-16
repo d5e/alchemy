@@ -4,14 +4,23 @@ class Component
   
   attr_accessor :mass, :molecule, :color
   
-  def initialize(arg)
-    if arg.is_a?(Substance)
+  def self.new_for_solvent(ingredient, blend=nil)
+    if ingredient.is_a?(Ingredient)
+      self.new ingredient, blend, true
+    end
+  end
+  
+  def initialize(arg, blend=nil, extract_solvent=false)
+    if arg.is_a?(Solvent)
+      @mass = 0.0
+      @molecule = arg
+    elsif arg.is_a?(Substance)
       @mass = 0.0
       @molecule = arg
     elsif arg.is_a?(Component)
       super arg.attributes
     elsif arg.is_a?(Ingredient)
-      if arg.solvent_only?
+      if arg.solvent_only? || extract_solvent
         @mass = arg.solvent_mass
         @molecule = arg.solvent
       else
@@ -21,6 +30,7 @@ class Component
     else
       super(arg)
     end
+    normalize!(blend.total_mass) if blend
     raise "#{self.inspect} : #{arg.inspect}" unless mass
   end
   
@@ -36,7 +46,8 @@ class Component
   end
   
   def add(ing)
-    raise "nope" unless ing.is_a?(Ingredient)
+    return add_component(ing) if ing.is_a?(Component)
+    raise "tried to add #{ing.class.name} to component" unless ing.is_a?(Ingredient)
     if substance?
       raise "tried to change components immutable substance" if molecule != ing.substance
       @mass += ing.substance_mass
@@ -44,6 +55,11 @@ class Component
       raise "tried to change components immutable solvent"   if molecule != ing.solvent
       @mass += ing.solvent_mass
     end
+  end
+  
+  def add_component(c2)
+    raise "tried to change components immutable molecule" if molecule != c2.molecule
+    @mass += c2.mass
   end
   
   def cid

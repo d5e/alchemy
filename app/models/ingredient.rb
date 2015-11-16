@@ -31,7 +31,7 @@ class Ingredient < ActiveRecord::Base
   end
   
   def solvent_only?
-    substance_mass == 0.0
+    concentration == 0.0
   end
   
   def having_substance_mass?

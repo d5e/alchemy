@@ -89,7 +89,9 @@
             <%= content_tag :span, "#{resource} #{resource_class.human_attribute_name(:composition)}", class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
                 <% if resource.pure? %>
-                    pure
+                    <span style="font-size:24px; color:#428bca;">
+                        <span class="glyphicon glyphicon-certificate"></span> pure
+                    </span>
                 <% else %>
                     <table class="table">
                         <% resource.solvent_ingredients.each do |sing| %>
