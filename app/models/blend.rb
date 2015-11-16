@@ -60,7 +60,7 @@ class Blend < ActiveRecord::Base
         add_to_components Component.new_for_solvent(ing, self)
       end
     end
-    @components.values
+    @components.values.sort{|b,a| a.mass <=> b.mass }
   end
   
   def get_exceeders
