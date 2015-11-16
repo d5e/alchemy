@@ -4,7 +4,7 @@
 <% current_resources_name = resource_class.model_name.human(count: 2) rescue nil -%>
 <% current_resources_name ||=  controller.controller_name.capitalize -%>
     <title>
-        Print: <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' - ') %>
+        [print] <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' - ') %>
     </title>
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
@@ -17,11 +17,36 @@
         }
         table.table.table-striped th,
         table.table.table-striped td {
-            padding: 3px 12px 2px 12px !important;
+            padding: 5px 12px 4px 12px !important;
         }
+
+        body.size-m table.table.table-striped th,
+        body.size-m table.table.table-striped td {
+            padding: 6px 12px 5px 12px !important;
+        }
+
+        body.size-l table.table.table-striped th,
+        body.size-l table.table.table-striped td {
+            padding: 7px 12px 6px 12px !important;
+            font-size: 11px;
+        }
+
+        body.size-xl table.table.table-striped th,
+        body.size-xl table.table.table-striped td {
+            padding: 8px 12px 7px 12px !important;
+            font-size: 12px;
+        }
+
+        body.size-xxl table.table.table-striped th,
+        body.size-xxl table.table.table-striped td {
+            padding: 9px 12px 8px 12px !important;
+            font-size: 13px;
+        }
+
+
         table.table.table-striped tr > th:first-child,
         table.table.table-striped tr > td:first-child {
-            padding-left: 24px !important;
+            padding-left: 36px !important;
         }
         table.table.table-striped tr > th:last-child,
         table.table.table-striped tr > td:last-child {
@@ -31,6 +56,14 @@
             content: "" !important;
         }
     </style>
+    <style type="text/css" rel="stylesheet" media="screen">
+    </style>
+    <style type="text/css" rel="stylesheet" media="print">
+      .screen-only {
+        display: none;
+      }
+    </style>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -38,10 +71,10 @@
 <body>
     
     <div id="header" style="text-align:center;">
-        <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' - ') %>
+        <%= [Alchemy, params[:id].present? ? resource : current_resources_name ].compact.map(&:to_s).join(' • • • ') %> • • • Blend_<%= resource.to_param %>
     </div>
     
-    <div id="content">
+    <div id="content" style="padding-bottom: 24px;">
         <div class="container-fluid">
             <%= render "layouts/flash_container" %>
             <%= yield %>
@@ -49,7 +82,8 @@
     </div>
     
     <div id="footer" style="text-align:center;">
-        <%= l Date.new %>
+        Blend_<%= resource.to_param %> &nbsp; • &nbsp; creation <%= l resource.creation_at, format: :date_only %>
+        &nbsp; • &nbsp; updated <%= l resource.updated_at, format: :date_only %> &nbsp; • &nbsp; today <%= l Date.today, format: :date_only %>
     </div>
 
 </body>

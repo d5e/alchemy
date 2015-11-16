@@ -33,6 +33,25 @@ class Blend < ActiveRecord::Base
   def to_s
     name
   end
+  
+  def exceeding_cat_4?
+    exceeders.present?
+  end
+  
+  def exceeders
+    @exceeders ||= get_exceeders
+  end
+  
+  def get_exceeders
+    m = total_mass
+    exceeders = []
+    ingredients.includes(:substance).each do |ing|
+      next unless ing.substance && ing.substance.ifra_cat_4_limit
+      ing_m = ing.amount * ing.concentration
+      exceeders << ing.substance if ing_m / m > ing.substance.ifra_cat_4_limit
+    end
+    exceeders
+  end
 
   def composition
     cc = {}

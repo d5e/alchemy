@@ -32,5 +32,9 @@ module BlendsHelper
       return params[:precision].to_i
     end
   end
+  
+  def precision_manually_zeroed?
+    params[:precision] && params[:precision].to_i == 0
+  end
 
 end

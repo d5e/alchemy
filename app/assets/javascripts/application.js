@@ -20,6 +20,7 @@
 
 //= require jquery_nested_form
 
+window.bodySizes = [ "size-m", "size-l", "size-xl", "size-xxl", "", "size-m" ]
 
 function localeToFloat(string) {
     if (typeof string == 'number')
@@ -59,6 +60,23 @@ function initCharacterLegendHighlighting() {
 window.runAfterInit = function(){
 
     console.log("JS ready : initializing");
+    
+    $('body').on('click', 'a.toggle-bodysize', function(node) {
+        var body = $('body');
+        var element = null;
+        var found = false;
+        for (var i = 0; i < window.bodySizes.length; i++) {
+            element = window.bodySizes[i];
+            if (found !== false) {
+              body.removeClass(found);
+              body.addClass(element);
+              return false;
+            } 
+            if (body.hasClass(element)) {
+                found = element;
+            } 
+        };
+    });
     
     $('[data-toggle="tooltip"]:visible').tooltip(
         { delay: 180}

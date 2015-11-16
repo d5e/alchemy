@@ -1,4 +1,8 @@
-<table class="table table-striped">
+<div class="screen-only" style="position: absolute; left: 0; top: 0; padding: 12px; font-size: 18px;">
+    <%= link_to '<span class="glyphicon glyphicon-circle-arrow-left"></span>'.html_safe, { action: :show }, data: { :'no-turbolink' => '' } %>
+    <%= link_to '<span class="glyphicon glyphicon-zoom-in"></span>'.html_safe, '#', class: 'toggle-bodysize' %>
+</div>
+<table class="table table-striped" style="margin-bottom: 0;">
     <thead>
         <tr>
             <th class="r"><%= Blend.human_attribute_name :amount %></th>
@@ -12,7 +16,7 @@
             <tr>
                 <td class="r">
                     <%= number_with_precision ing.amount, precision: get_precision(ing.amount), strip_insignificant_zeros: false %>
-                    <span style="font-size:10px;">mg</span>
+                    mg
                 </td>
                 <td>
                     <span class="ctag color-<%= ing.substance.character %>"></span>
@@ -33,9 +37,20 @@
     </tbody>
     <tfoot style="border-top: 2px solid #ccc;">
         <tr>
-            <th class="r"><%= number_with_precision resource.total_mass, precision: get_precision(resource.total_mass), strip_insignificant_zeros: true %> <span class="small-unit">mg</span></th>
-            <th>Total</th>
-            <th><%= number_with_precision resource.raw_price %> EUR</th>
+            <td colspan="4" style="font-size: 9px;">
+                <% if precision_manually_zeroed? %>
+                    <%= t :'view.hints.precision_zeroed' %>
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <th class="r">
+                <%= number_with_precision resource.total_mass, precision: get_precision(resource.total_mass), strip_insignificant_zeros: true %> mg
+            </th>
+            <th colspan="3">Total &nbsp; @ <%= (resource.concentration * 100).round(1) %> %
+                &nbsp; &nbsp; &nbsp;
+                <%= number_with_precision resource.raw_price %> EUR
+            </th>
         </tr>
     </tfoot>
 </table>

@@ -43,7 +43,7 @@
         <div class="row">
             <%= content_tag :span, resource_class.human_attribute_name(:price), class: 'col-sm-2 small-label' %>
             <div class="col-sm-6">
-                <%= number_with_precision resource.price, precision: 2, strip_insignificant_zeros: false %> EUR / kg
+                <%= number_with_precision resource.price_per_kg, precision: 2, strip_insignificant_zeros: false %> EUR / kg
             </div>
         </div>
         <hr/>

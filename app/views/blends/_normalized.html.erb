@@ -16,8 +16,8 @@
                 <td class="r"><%= ing.substance.vp_mmHg_25C %></td>
                 <% fraction =  (ing.amount / essence_mass) %>
                 <td class="r">
-                    <% precision = (6 - Math.log10(fraction * 100.0)).round %>
-                    <% precision = 5 if precision < 5 %>
+                    <% precision = (3 - Math.log10(fraction * 100.0)).round %>
+                    <% precision = 2 if precision < 5 %>
                     <%= number_with_precision fraction * 100.0, precision: precision, strip_insignificant_zeros: true %>
                     <span style="font-size:10px;">%</span>
                 </td>
@@ -26,10 +26,10 @@
                     <%= link_to ing.substance, ing.substance %>
                 </td>
                 <td class="r">
-                    <% precision = (5 - Math.log10(ing.amount)).round %>
-                    <% precision = 1 if precision < 2 %>
+                    <% precision = (3 - Math.log10(ing.amount)).round %>
+                    <% precision = 2 if precision < 2 %>
                     <% precision += 1 if precision == 3 %>
-                    <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: (precision > 1) %> <span class="small-unit">mg</span>
+                    <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: true %> <span class="small-unit">mg</span>
                 </td>
             </tr>
         <% end %>
@@ -37,7 +37,7 @@
     <tfoot>
         <tr>
             <td colspan="2" class="r">price <%= number_with_precision resource.price_per_gram / resource.concentration, precision: 2, strip_insignificant_zeros: false %> EUR per 100g</td>
-            <td class="r">Total Essences:</td>
+            <td class="r"><%= t :'global.essence_mass' %>:</td>
             <td class="r"><%= number_with_precision resource.essence_mass, precision: 1 %> <span class="small-unit">mg</span></td>
         </tr>
     </tfoot>

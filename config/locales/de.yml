@@ -187,6 +187,7 @@ de:
     selected:
       one: Ausgewählt
       other: Ausgewählte
+    essence_mass: Essenzmasse
       
   errors:
     attributes:
@@ -263,6 +264,10 @@ de:
       by_updated_at: Nach letztem Update
       normalized_composition: Normalisierte Komposition
       ingredients: Inhaltsstoffe
+      composition: Komposition
+      normalized: Normalisiert
+      by_vp: nach Dampfdruck
+      p2: 2 nks
     bottling:
       action: Abfüllen
       title: Abfüllassistent
@@ -275,6 +280,7 @@ de:
       title: Justierungsassistent
       
     hints:
+      precision_zeroed: "Alle Mengenangaben wurden auf ganze Zahlen gerundet, um Nachkommastellen zu vermeiden."
       bottling_wizad: "Dieser Assitent füllt ihr Rezept in eine neue Flasche mit neuem Namen und beliebiger Menge ab."
       mass_resize_mg: "Geben Sie die Gesamtmasse in Milligramm an, auf welche das Rezept angepasst werden soll."
       mass_resize: "Geben Sie die Gesamtmasse in Gramm an, auf welche das Rezept angepasst werden soll."

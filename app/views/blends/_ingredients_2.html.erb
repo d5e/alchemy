@@ -10,8 +10,7 @@
         <% resource.ingredients.each do |ing| %>
             <tr>
                 <td class="r">
-                    <% precision = ing.amount > 1 ? 0 : (3 - Math.log10(ing.amount)).round %>
-                    <%= number_with_precision ing.amount, precision: precision, strip_insignificant_zeros: true %>
+                    <%= number_with_precision ing.amount, precision: 2, strip_insignificant_zeros: false %>
                     <span style="font-size:10px;">mg</span>
                 </td>
                 <td>
@@ -30,7 +29,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td class="r"><%= number_with_precision resource.total_mass, precision: (resource.total_mass > 1 ? 0 : (3 - Math.log10(ing.amount)).round), strip_insignificant_zeros: false %> <span class="small-unit">mg</span></td>
+            <td class="r"><%= number_with_precision resource.total_mass, precision: 2, strip_insignificant_zeros: false %> <span class="small-unit">mg</span></td>
             <td>Total</td>
             <td><%= number_with_precision resource.raw_price, precision: 2, strip_insignificant_zeros: false %> EUR</td>
         </tr>

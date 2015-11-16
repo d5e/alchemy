@@ -21,6 +21,7 @@ en:
       short: "%b %e"
       long: "%B %e, %Y"
       only_day: "%e"
+      date_only: "%Y-%d-%m"
     day_names:
       - Sunday
       - Monday
@@ -81,6 +82,7 @@ en:
       short: "%B %e %I:%M %p"
       long: "%A, %B %e, %Y %I:%M%p"
       time: "%l:%M%p"
+      date_only: "%Y-%d-%m"
     am: "am"
     pm: "pm"
 
@@ -175,6 +177,7 @@ en:
       
 
     hints:
+      precision_zeroed: "All mass measurements have been rounded to avoid decimals."
       bottling_wizad: "You are about to bottle this blend into a new container and give it a new name. You can
       choose the desired total amount (weight) of the final product and alchemy will create a new blend 
       with this recipe and calculate the ingredients and amounts needed.

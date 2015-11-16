@@ -8,15 +8,14 @@
         </tr>
     </thead>
     <tbody>
-        <% exceeding_cat_4 = false %>
         <% total_mass = resource.total_mass %>
         <% (  resource.composition).each do |key, ing| %>
             <tr>
                 <td class="r"><%= ing.substance.vp_mmHg_25C unless key.is_a?(Symbol) %></td>
                 <% fraction =  (ing.amount / total_mass) %>
-                <td class="r <%= ( exceeding_cat_4 = :red) if !key.is_a?(String) && ing.substance.ifra_cat_4_limit.to_f > 0 && fraction > ing.substance.ifra_cat_4_limit %>">
-                    <% precision = (6 - Math.log10(fraction * 100.0)).round %>
-                    <% precision = 5 if precision < 5 %>
+                <td class="r <%= :red if !key.is_a?(String) && ing.substance && ing.substance.in?(resource.exceeders) %> ">
+                    <% precision = (3 - Math.log10(fraction * 100.0)).round %>
+                    <% precision = 2 if precision < 5 %>
                     <%= number_with_precision fraction * 100.0, precision: precision, strip_insignificant_zeros: true %>
                     <span style="font-size:10px;">%</span>
                 </td>
@@ -49,6 +48,6 @@
         </tr>
     </tfoot>
 </table>
-<% if exceeding_cat_4 %>
-    <p class="warning"><%= t :'view.hints.exceeding_cat_4' %></p>
+<% if resource.exceeding_cat_4? %>
+    <p class="warning" style="font-size:11px;"><%= t :'view.hints.exceeding_cat_4' %></p>
 <% end %>

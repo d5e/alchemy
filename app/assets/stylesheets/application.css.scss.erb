@@ -335,6 +335,10 @@ body {
       font-weight: bold;
       color: #999;
     }
+    td.c,th.c {
+      text-align: center;
+    }
+
     td.r,th.r {
       text-align: right;
     }
@@ -398,6 +402,10 @@ body {
     .panel-footer {
       background-color: inherit;
     }
+  }
+  
+  .panel-footer.red {
+    background-color: #ffdcdc;
   }
   <% Object.new.extend(ApplicationHelper).substance_character.each do |key, prop| %>
     .color-<%= key %> { // <%= prop.first %>

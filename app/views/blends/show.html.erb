@@ -2,6 +2,7 @@
     <div class="panel-heading" style="background-color:#<%= resource.color %>; border-color:#<%= resource.color %>;">
         <h3 class="panel-title">
             <div class="topright-controls">
+                <%= link_to '<span class="glyphicon glyphicon-print"></span>'.html_safe, { action: :print, precision: 0 }, data: { :'no-turbolink' => '' } %>
                 <% unless resource.locked? %>
                     <%= link_to dilute_blend_path(resource) do %>
                         <span class="glyphicon glyphicon-wrench"></span>
@@ -65,11 +66,13 @@
             <%= content_tag :span, Ingredient.model_name.human(count: 2), class: 'col-sm-2 small-label' %>
             <div class="col-sm-9">
                 <%= nav_tabs :composition_as, sticky: true do |tabs| %>
-                    <% tabs.add "Composition", 'composition' %>
-                    <% tabs.add "Ingredients", 'ingredients' %>
-                    <% tabs.active "Normalized", 'normalized' %>
-                    <% tabs.add "Norm. by VP", 'normalized', sort_by: :vp %>
-                <% end %>
+                <%
+                    tabs.add "Composition", 'composition'
+                    tabs.add "Ingredients", 'ingredients'
+                    tabs.add "p2", 'ingredients_2'
+                    tabs.active "Normalized", 'normalized'
+                    tabs.add "by VP", 'normalized', sort_by: :vp
+                end %>
             </div>
         </div>
 
@@ -89,7 +92,7 @@
 
         
      </div>
-    <div class="panel-footer">
+    <div class="panel-footer <%= :red if resource.exceeding_cat_4? %>">
         <% unless resource.locked? %>
             <button class="btn btn-default" data-toggle="modal" data-target="#resize-wizard">
                 <span class="glyphicon glyphicon-sort"></span> <%= t :'view.resize.action' %>
