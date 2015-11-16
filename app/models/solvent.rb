@@ -1,5 +1,7 @@
 class Solvent < ActiveRecord::Base
 
+  include CasAble
+
   attr_accessor :virtual_proportion, :existing_dilution, :virtual_amount
   
   attr_writer :existing_dilution_id, :existing_dilution_amount
@@ -21,7 +23,7 @@ class Solvent < ActiveRecord::Base
   
   validates :name, presence: true, uniqueness: true
   validates :symbol, uniqueness: true, allow_blank: true
-  validate :validate_symbol_presence_if_pure, :validate_cas_checksum
+  validate :validate_symbol_presence_if_pure
   
   accepts_nested_attributes_for :solvent_ingredients, allow_destroy: true
   validates_associated :solvent_ingredients
@@ -151,27 +153,5 @@ class Solvent < ActiveRecord::Base
   def validate_symbol_presence_if_pure
     errors.add :symbol, :blank if self.symbol.blank? && pure_live?
   end
-  
-  def validate_cas_checksum
-    return if self.cas.blank?
-    self.cas.strip!
-    splitted = cas.split("-")
-    if splitted.size != 3
-      errors.add :cas, :parts
-    else
-      if splitted[0].size < 2 || splitted[0].size > 7 ||
-         splitted[1].size != 2 || splitted[2].size != 1
-        errors.add :cas, :format
-      end
-    end
-    return if errors.include?(:cas)
-    cnrs = cas.gsub(/[^\d]/,'')
-    cd = cnrs[cnrs.size - 1,1].to_i
-    csum = 0
-    (cnrs.size - 1).times do |n|
-      csum += cnrs[cnrs.size - 2 - n,1].to_i * (n + 1)
-    end
-    errors.add :cas, :checksum if csum % 10 != cd
-  end
-  
+
 end

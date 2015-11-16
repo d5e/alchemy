@@ -1,6 +1,7 @@
 class Substance < ActiveRecord::Base
  
   include Substance::Searchable
+  include CasAble
   
   IFRA_LIMIT_CONCENTRATIONS = [ 0.317, 0.214, 0.13, 0.08, 0.107, 0.053, 0.032, 0.0267, 0.025, 0.019, 0.016, 0.014, 0.0104, 0.01, 0.005, 0.004, 0.002, 0.001, 0.0002 ]
   TENACITY_CATs = %w(base base-heart heart heart-top top)
@@ -28,7 +29,6 @@ class Substance < ActiveRecord::Base
   validates :name, :cas, uniqueness: true, allow_blank: true
   validates :name, :sensory_tags, :presence => true
   validates :ifra_cat_4_limit, numericality: { greater_than_or_equal_to: 0, less_than: 1 }, allow_blank: true
-  validate  :validate_cas_checksum
   
   validates_associated :dilutions
   
@@ -45,16 +45,6 @@ class Substance < ActiveRecord::Base
     name
   end
   
-  def cas
-    if block_given? && super.is_a?(String)
-      super.gsub(/[;,\s]+/,';').split(';').each do |c|
-        yield c
-      end
-    else
-      super
-    end
-  end
-  
   def alt_names
     if block_given?
       self[:alt_names].split(';').each{ |n| yield n.strip }
@@ -64,29 +54,5 @@ class Substance < ActiveRecord::Base
   end
   
   protected
-  
-  def validate_cas_checksum
-    return unless self.cas
-    cas.strip.gsub(/[;,\s]+/,';').split(';').each do |cnr|
-      splitted = cnr.split("-")
-      if splitted.size != 3
-        errors.add :cas, :parts
-      else
-        if splitted[0].size < 2 || splitted[0].size > 7 ||
-           splitted[1].size != 2 || splitted[2].size != 1
-          errors.add :cas, :format
-        end
-      end
-      return if errors.include?(:cas)
-      cnrs = cnr.gsub(/[^\d]/,'')
-      cd = cnrs[cnrs.size - 1,1].to_i
-      csum = 0
-      (cnrs.size - 1).times do |n|
-        csum += cnrs[cnrs.size - 2 - n,1].to_i * (n + 1)
-      end
-      errors.add :cas, :checksum if csum % 10 != cd
-    end
-  end
-  
 
 end

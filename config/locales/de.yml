@@ -193,6 +193,7 @@ de:
     attributes:
       cas:
         checksum: "Prüfsumme ungültig"
+        format: "Format ungültig"
       
       
   activerecord: 

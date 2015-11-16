@@ -1,6 +1,7 @@
 class Blend < ActiveRecord::Base
 
   include Blend::Searchable
+  include CasAble
   
   LOCKED_CHANGEABLE = %w(locked sensory_tags notes color)
   
